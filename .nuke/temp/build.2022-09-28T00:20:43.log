@@ -1,0 +1,64 @@
+V |                  | HandleShellCompletion.OnBuildCreated (200)
+V |                  | ArgumentsFromParametersFile.OnBuildCreated (150)
+V |                  | Passing Solution for member null ...
+V |                  | InjectParameterValues.OnBuildCreated (100)
+V |                  | GenerateBuildServerConfigurations.OnBuildCreated (50)
+V |                  | InvokeBuildServerConfigurationGeneration.OnBuildCreated (45)
+V |                  | UpdateNotification.OnBuildCreated (10)
+V |                  | UnsetVisualStudioEnvironmentVariables.OnBuildCreated (0)
+V |                  | HandleVisualStudioDebugging.OnBuildCreated (0)
+V |                  | EventInvoker.OnBuildCreated (-3.4028235E+38)
+V |                  | HandleHelpRequests.OnBuildInitialized (5)
+V |                  | CheckBuildProjectConfigurations.OnBuildInitialized (0)
+W |                  | Solution /Users/mmisztal/Checkout/cloudtek/automation/CloudTek.Automation.sln has an active build configuration for /Users/mmisztal/Checkout/cloudtek/automation/build/_build.csproj
+V |                  | Telemetry.OnBuildInitialized (0)
+V |                  | Sending BuildStarted telemetry event ...
+V |                  |   build_components         = 
+V |                  |   build_type               = Project
+V |                  |   compile_time             = 9
+V |                  |   config_generators        = 
+V |                  |   host                     = VSCode
+V |                  |   num_custom_components    = 0
+V |                  |   num_custom_extensions    = 0
+V |                  |   num_partitioned_targets  = 0
+V |                  |   num_secrets              = 0
+V |                  |   num_targets              = 8
+V |                  |   os_architecture          = X64
+V |                  |   os_platform              = OSX
+V |                  |   repo_branch              = main
+V |                  |   repo_commit              = 83fa59
+V |                  |   repo_provider            = GitHub
+V |                  |   repo_url                 = 91f146
+V |                  |   target_framework         = .NETCoreApp,Version=v6.0
+V |                  |   version_dotnet_sdk       = 6.0.301
+V |                  |   version_nuke_common      = 6.0.1
+V |                  |   version_nuke_global_tool = 6.0.1
+V |                  | InjectNonParameterValues.OnBuildInitialized (-100)
+I |                  | > /usr/local/share/dotnet/dotnet /Users/mmisztal/.nuget/packages/gitversion.tool/5.8.2/tools/net5.0/any/gitversion.dll /nocache /nofetch
+V |                  | EventInvoker.OnBuildInitialized (-3.4028235E+38)
+V |            Clean | EventInvoker.OnTargetRunning (-3.4028235E+38)
+I |            Clean | Creating directory /Users/mmisztal/Checkout/cloudtek/automation/artifacts...
+I |            Clean | Creating directory /Users/mmisztal/Checkout/cloudtek/automation/tests/results...
+I |            Clean | Creating directory /Users/mmisztal/Checkout/cloudtek/automation/tests/coverage...
+V |            Clean | Telemetry.OnTargetSucceeded (0)
+V |            Clean | EventInvoker.OnTargetSucceeded (-3.4028235E+38)
+V |          Restore | EventInvoker.OnTargetRunning (-3.4028235E+38)
+E |          Restore | Target Restore failed
+System.IO.DirectoryNotFoundException: Could not find a part of the path '/Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.Shell/CloudTek.Automation.Shell.csproj'.
+   at Interop.ThrowExceptionForIoErrno(ErrorInfo errorInfo, String path, Boolean isDirectory, Func`2 errorRewriter)
+   at Interop.CheckIo(Error error, String path, Boolean isDirectory, Func`2 errorRewriter)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String path, OpenFlags flags, Int32 mode)
+   at Microsoft.Win32.SafeHandles.SafeFileHandle.Open(String fullPath, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.OSFileStreamStrategy..ctor(String path, FileMode mode, FileAccess access, FileShare share, FileOptions options, Int64 preallocationSize)
+   at System.IO.Strategies.FileStreamHelpers.ChooseStrategy(FileStream fileStream, String path, FileMode mode, FileAccess access, FileShare share, Int32 bufferSize, FileOptions options, Int64 preallocationSize)
+   at System.IO.StreamReader.ValidateArgsAndOpenPath(String path, Encoding encoding, Int32 bufferSize)
+   at System.IO.StreamReader..ctor(String path)
+   at CloudTek.Build.Primitives.Artifact.SetAssemblyName()
+   at CloudTek.Build.Primitives.Artifact.Initialize(Repository repository)
+   at CloudTek.Build.SmartBuild.<get_Restore>b__26_2(Artifact artifact)
+   at Nuke.Common.Utilities.Collections.EnumerableExtensions.ForEach[T](IEnumerable`1 enumerable, Action`1 action)
+   at CloudTek.Build.SmartBuild.<get_Restore>b__26_1()
+   at Nuke.Common.Execution.BuildExecutor.<>c.<Execute>b__4_2(Action x)
+   at Nuke.Common.Utilities.Collections.EnumerableExtensions.ForEach[T](IEnumerable`1 enumerable, Action`1 action)
+   at Nuke.Common.Execution.BuildExecutor.Execute(NukeBuild build, ExecutableTarget target, IReadOnlyCollection`1 previouslyExecutedTargets, Boolean failureMode)
+V |          Restore | EventInvoker.OnTargetFailed (-3.4028235E+38)
