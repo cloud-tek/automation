@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="content/scripts/k8s/*.*.ps*.1">
+    <Content Include="content/scripts/*.ps*1">
       <Pack>true</Pack>
       <PackagePath>.</PackagePath>
     </Content>

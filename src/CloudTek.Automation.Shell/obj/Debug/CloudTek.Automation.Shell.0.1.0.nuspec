@@ -10,4 +10,8 @@
       <group targetFramework="net6.0" />
     </dependencies>
   </metadata>
+  <files>
+    <file src="/Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.Shell/content/scripts/CloudTek.Automation.Shell.psd1" target="./CloudTek.Automation.Shell.psd1" />
+    <file src="/Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.Shell/content/scripts/ShellExecutor.psm1" target="./ShellExecutor.psm1" />
+  </files>
 </package>

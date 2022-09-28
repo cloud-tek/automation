@@ -1,0 +1,48 @@
+name: ci
+
+env:
+  NETCORE_VERSION: 6.0.100
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+  DOTNET_ROLL_FORWARD: Major
+
+on:
+  push:
+    branches:
+    - main
+    - feature/*
+    - release/*
+    paths:
+      - ".github/workflows/**"
+      - "build/**"
+      - "CloudTek.Automation.*/**"
+      - "GitVersion.yml"
+  pull_request:
+    types:
+    - closed
+    branches:
+    - main
+    paths:
+      - ".github/workflows/**"
+      - "build/**"
+      - "CloudTek.Automation.*/**"
+      - "GitVersion.yml"
+  workflow_dispatch:
+    inputs: {}
+
+jobs:
+  build:
+    uses: cloud-tek/automation/.github/workflows/nuke.yml@main
+    name: build
+    with:
+      Directory: ${{ github.workspace }}
+      NetCoreVersion: 6.0.301
+      Compile:      true
+      UnitTests:    true
+      Pack:         true
+      Push:         true
+      NuGetApiUrl:  'https://api.nuget.org/v3/index.json'
+    secrets:
+      NuGetFeedCloudTek:  ${{ secrets.NUGET_FEED }}
+      NuGetApiKey:        ${{ secrets.NUGET_API_KEY_HIVE }}
+      NuGetUsername:      ${{ secrets.NUGET_USERNAME }}
+      NuGetPassword:      ${{ secrets.NUGET_PASSWORD }}
