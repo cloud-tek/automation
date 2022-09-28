@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.Build.NoTargets">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <VersionPrefix>1.0.0</VersionPrefix>
     <Authors>@mmisztal1980</Authors>
     <PackageTags>k8s kubernetes powershell automation</PackageTags>
     <Description>
