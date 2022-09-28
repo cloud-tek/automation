@@ -36,8 +36,6 @@ jobs:
     with:
       Directory: ${{ github.workspace }}
       NetCoreVersion: 6.0.301
-      Compile:      true
-      UnitTests:    true
       Pack:         true
       Push:         true
       NuGetApiUrl:  'https://api.nuget.org/v3/index.json'
