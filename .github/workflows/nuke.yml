@@ -137,24 +137,10 @@ jobs:
         name: nuke
         with:
           directory: ${{ github.workspace }}
-          Compile:          true
-          UnitTests:        true
-          IntegrationTests: true
-          Pack:             true
-          Push:             true
+          Compile:          ${{ inputs.Compile }}
+          UnitTests:        ${{ inputs.UnitTests }}
+          IntegrationTests: ${{ inputs.IntegrationTests }}
+          Pack:             ${{ inputs.Pack }}
+          Push:             ${{ inputs.Push }}
           NuGetApiUrl:      '${{ inputs.NuGetApiUrl }}'
           NuGetApiKey:      '${{ secrets.NuGetApiKey }}'
-      # https://github.com/marketplace/actions/test-reporter
-      - name: Test Report
-        uses: dorny/test-reporter@v1
-        if: success() || failure()
-        with:
-          name: XUnit Tests # Name of the check run which will be created
-          path: tests/results/*.trx
-          reporter: dotnet-trx # Format of test results
-    # https://github.com/marketplace/actions/cobertura-report
-    # - uses: 5monkeys/cobertura-action@master
-    #   with:
-    #     path: test/results/*.trx
-    #     repo_token: ${{ secrets.GITHUB_TOKEN }}
-    #     minimum_coverage: 1
