@@ -38,9 +38,8 @@ jobs:
       NetCoreVersion: 6.0.301
       Pack:         true
       Push:         true
-      NuGetApiUrl:  'https://api.nuget.org/v3/index.json'
+      NuGetApiUrl:  'https://nuget.pkg.github.com/cloud-tek/index.json'
     secrets:
-      NuGetFeedCloudTek:  ${{ secrets.NUGET_FEED }}
-      NuGetApiKey:        ${{ secrets.NUGET_API_KEY_HIVE }}
+      NuGetFeedCloudTek:  ${{ secrets.NUGET_FEED_CLOUDTEK }}
       NuGetUsername:      ${{ secrets.NUGET_USERNAME }}
       NuGetPassword:      ${{ secrets.NUGET_PASSWORD }}
