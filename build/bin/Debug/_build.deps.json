@@ -8,21 +8,21 @@
     ".NETCoreApp,Version=v6.0": {
       "_build/1.0.0": {
         "dependencies": {
-          "CloudTek.Build": "0.11.2",
+          "CloudTek.Build": "0.11.3",
           "Nuke.Common": "6.0.1"
         },
         "runtime": {
           "_build.dll": {}
         }
       },
-      "CloudTek.Build/0.11.2": {
+      "CloudTek.Build/0.11.3": {
         "dependencies": {
           "Nuke.Common": "6.0.1"
         },
         "runtime": {
           "lib/net6.0/CloudTek.Build.dll": {
-            "assemblyVersion": "0.11.2.0",
-            "fileVersion": "0.11.2.0"
+            "assemblyVersion": "0.11.3.0",
+            "fileVersion": "0.11.3.0"
           }
         }
       },
@@ -1287,12 +1287,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "CloudTek.Build/0.11.2": {
+    "CloudTek.Build/0.11.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-zaS+IZKBR+ELlZnt9xE1oyN8x9e5KfAtRb8AuCc6wQOjuLl/YAFmNxkP2AZkflnJ0gOMcncW4QD5SXMLUrRU7g==",
-      "path": "cloudtek.build/0.11.2",
-      "hashPath": "cloudtek.build.0.11.2.nupkg.sha512"
+      "sha512": "sha512-YvfLaa0qbSuqvsnXQ8/H7XzQspMPVc3deEo6MSFVS/GlNggPHyFVw1wNCOw0ZqcCDAxXIU25Jr5KISMZmRrY7g==",
+      "path": "cloudtek.build/0.11.3",
+      "hashPath": "cloudtek.build.0.11.3.nupkg.sha512"
     },
     "Glob/1.1.8": {
       "type": "package",

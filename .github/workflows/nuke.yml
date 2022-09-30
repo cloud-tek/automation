@@ -131,7 +131,7 @@ jobs:
         if: ${{ !(github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged && github.ref == inputs.branch) }}
         shell: bash
         run: |
-          echo "{ \"tools\": { \"dotnet\": \"${{ inputs.NetCoreVersion }}\" } }" > global.json
+          echo "{ \"tools\": { \"dotnet\": \"${{ inputs.NetCoreVersion }}\" }, \"msbuild-sdks\": { \"Microsoft.Build.NoTargets\": \"3.5.6\" } }" > global.json
       - id: nuke
         uses: cloud-tek/actions/nuke@0.18
         name: nuke

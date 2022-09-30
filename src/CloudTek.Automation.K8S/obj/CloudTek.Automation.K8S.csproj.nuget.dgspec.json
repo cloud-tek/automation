@@ -5,7 +5,7 @@
   },
   "projects": {
     "/Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.K8S/CloudTek.Automation.K8S.csproj": {
-      "version": "0.1.0",
+      "version": "0.1.6",
       "restore": {
         "projectUniqueName": "/Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.K8S/CloudTek.Automation.K8S.csproj",
         "projectName": "CloudTek.Automation.K8S",

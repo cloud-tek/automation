@@ -1,61 +1,61 @@
-19:01:29.351 | V |                  | HandleShellCompletion.OnBuildCreated (200)
-19:01:29.561 | V |                  | ArgumentsFromParametersFile.OnBuildCreated (150)
-19:01:29.573 | V |                  | Passing Solution for member null ...
-19:01:29.586 | V |                  | InjectParameterValues.OnBuildCreated (100)
-19:01:29.596 | V |                  | GenerateBuildServerConfigurations.OnBuildCreated (50)
-19:01:29.596 | V |                  | InvokeBuildServerConfigurationGeneration.OnBuildCreated (45)
-19:01:29.617 | V |                  | UpdateNotification.OnBuildCreated (10)
-19:01:29.618 | V |                  | UnsetVisualStudioEnvironmentVariables.OnBuildCreated (0)
-19:01:29.618 | V |                  | HandleVisualStudioDebugging.OnBuildCreated (0)
-19:01:29.619 | V |                  | EventInvoker.OnBuildCreated (-3.4028235E+38)
-19:01:29.644 | V |                  | HandleHelpRequests.OnBuildInitialized (5)
-19:01:29.644 | V |                  | CheckBuildProjectConfigurations.OnBuildInitialized (0)
-19:01:29.897 | W |                  | Solution /Users/mmisztal/Checkout/cloudtek/automation/CloudTek.Automation.sln has an active build configuration for /Users/mmisztal/Checkout/cloudtek/automation/build/_build.csproj
-19:01:29.955 | V |                  | Telemetry.OnBuildInitialized (0)
-19:01:30.498 | V |                  | Sending BuildStarted telemetry event ...
-19:01:30.503 | V |                  |   build_components         = 
-19:01:30.503 | V |                  |   build_type               = Project
-19:01:30.503 | V |                  |   compile_time             = 5
-19:01:30.503 | V |                  |   config_generators        = 
-19:01:30.503 | V |                  |   host                     = VSCode
-19:01:30.503 | V |                  |   num_custom_components    = 0
-19:01:30.503 | V |                  |   num_custom_extensions    = 0
-19:01:30.503 | V |                  |   num_partitioned_targets  = 0
-19:01:30.503 | V |                  |   num_secrets              = 0
-19:01:30.503 | V |                  |   num_targets              = 8
-19:01:30.503 | V |                  |   os_architecture          = X64
-19:01:30.503 | V |                  |   os_platform              = OSX
-19:01:30.503 | V |                  |   repo_branch              = main
-19:01:30.503 | V |                  |   repo_commit              = 8a905b
-19:01:30.503 | V |                  |   repo_provider            = GitHub
-19:01:30.503 | V |                  |   repo_url                 = 91f146
-19:01:30.503 | V |                  |   target_framework         = .NETCoreApp,Version=v6.0
-19:01:30.503 | V |                  |   version_dotnet_sdk       = 6.0.301
-19:01:30.503 | V |                  |   version_nuke_common      = 6.0.1
-19:01:30.503 | V |                  |   version_nuke_global_tool = 6.0.1
-19:01:30.792 | V |                  | InjectNonParameterValues.OnBuildInitialized (-100)
-19:01:31.055 | I |                  | > /usr/local/share/dotnet/dotnet /Users/mmisztal/.nuget/packages/gitversion.tool/5.8.2/tools/net5.0/any/gitversion.dll /nocache /nofetch
-19:01:31.750 | V |                  | EventInvoker.OnBuildInitialized (-3.4028235E+38)
-19:01:31.762 | V |             Pack | EventInvoker.OnTargetRunning (-3.4028235E+38)
-19:01:31.765 | D |             Pack | CloudTek.Automation.Shell has output assembly: CloudTek.Automation.Shell
-19:01:31.782 | I |             Pack | > /usr/local/share/dotnet/dotnet pack /Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.Shell/CloudTek.Automation.Shell.csproj --configuration Debug --output /Users/mmisztal/Checkout/cloudtek/automation/artifacts/packages/CloudTek.Automation.Shell /property:Version=0.1.0 /property:FileVersion=0.1.0.0 /property:AssemblyVersion=0.1.0.0
-19:01:31.929 | D |             Pack | Microsoft (R) Build Engine version 17.2.0+41abc5629 for .NET
-19:01:31.929 | D |             Pack | Copyright (C) Microsoft Corporation. All rights reserved.
-19:01:31.929 | D |             Pack | 
-19:01:32.445 | D |             Pack |   Determining projects to restore...
-19:01:32.784 | D |             Pack |   All projects are up-to-date for restore.
-19:01:33.220 | W |             Pack | /usr/local/share/dotnet/sdk/6.0.301/Sdks/NuGet.Build.Tasks.Pack/build/NuGet.Build.Tasks.Pack.targets(221,5): warning NU5128: Some target frameworks declared in the dependencies group of the nuspec and the lib/ref folder do not have exact matches in the other location. Consult the list of actions below: [/Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.Shell/CloudTek.Automation.Shell.csproj]
-19:01:33.220 | W |             Pack | /usr/local/share/dotnet/sdk/6.0.301/Sdks/NuGet.Build.Tasks.Pack/build/NuGet.Build.Tasks.Pack.targets(221,5): warning NU5128: - Add lib or ref assemblies for the net6.0 target framework [/Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.Shell/CloudTek.Automation.Shell.csproj]
-19:01:33.221 | D |             Pack |   Successfully created package '/Users/mmisztal/Checkout/cloudtek/automation/artifacts/packages/CloudTek.Automation.Shell/CloudTek.Automation.Shell.0.1.0.nupkg'.
-19:01:33.238 | D |             Pack | CloudTek.Automation.K8S has output assembly: CloudTek.Automation.K8S
-19:01:33.247 | I |             Pack | > /usr/local/share/dotnet/dotnet pack /Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.K8S/CloudTek.Automation.K8S.csproj --configuration Debug --output /Users/mmisztal/Checkout/cloudtek/automation/artifacts/packages/CloudTek.Automation.K8S /property:Version=0.1.0 /property:FileVersion=0.1.0.0 /property:AssemblyVersion=0.1.0.0
-19:01:33.409 | D |             Pack | Microsoft (R) Build Engine version 17.2.0+41abc5629 for .NET
-19:01:33.409 | D |             Pack | Copyright (C) Microsoft Corporation. All rights reserved.
-19:01:33.410 | D |             Pack | 
-19:01:33.926 | D |             Pack |   Determining projects to restore...
-19:01:34.265 | D |             Pack |   All projects are up-to-date for restore.
-19:01:34.675 | W |             Pack | /usr/local/share/dotnet/sdk/6.0.301/Sdks/NuGet.Build.Tasks.Pack/build/NuGet.Build.Tasks.Pack.targets(221,5): warning NU5128: Some target frameworks declared in the dependencies group of the nuspec and the lib/ref folder do not have exact matches in the other location. Consult the list of actions below: [/Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.K8S/CloudTek.Automation.K8S.csproj]
-19:01:34.675 | W |             Pack | /usr/local/share/dotnet/sdk/6.0.301/Sdks/NuGet.Build.Tasks.Pack/build/NuGet.Build.Tasks.Pack.targets(221,5): warning NU5128: - Add lib or ref assemblies for the net6.0 target framework [/Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.K8S/CloudTek.Automation.K8S.csproj]
-19:01:34.675 | D |             Pack |   Successfully created package '/Users/mmisztal/Checkout/cloudtek/automation/artifacts/packages/CloudTek.Automation.K8S/CloudTek.Automation.K8S.0.1.0.nupkg'.
-19:01:34.694 | V |             Pack | Telemetry.OnTargetSucceeded (0)
-19:01:34.695 | V |             Pack | EventInvoker.OnTargetSucceeded (-3.4028235E+38)
+00:52:56.850 | V |                  | HandleShellCompletion.OnBuildCreated (200)
+00:52:57.075 | V |                  | ArgumentsFromParametersFile.OnBuildCreated (150)
+00:52:57.087 | V |                  | Passing Solution for member null ...
+00:52:57.101 | V |                  | InjectParameterValues.OnBuildCreated (100)
+00:52:57.113 | V |                  | GenerateBuildServerConfigurations.OnBuildCreated (50)
+00:52:57.114 | V |                  | InvokeBuildServerConfigurationGeneration.OnBuildCreated (45)
+00:52:57.135 | V |                  | UpdateNotification.OnBuildCreated (10)
+00:52:57.135 | V |                  | UnsetVisualStudioEnvironmentVariables.OnBuildCreated (0)
+00:52:57.135 | V |                  | HandleVisualStudioDebugging.OnBuildCreated (0)
+00:52:57.136 | V |                  | EventInvoker.OnBuildCreated (-3.4028235E+38)
+00:52:57.162 | V |                  | HandleHelpRequests.OnBuildInitialized (5)
+00:52:57.163 | V |                  | CheckBuildProjectConfigurations.OnBuildInitialized (0)
+00:52:57.425 | W |                  | Solution /Users/mmisztal/Checkout/cloudtek/automation/CloudTek.Automation.sln has an active build configuration for /Users/mmisztal/Checkout/cloudtek/automation/build/_build.csproj
+00:52:57.487 | V |                  | Telemetry.OnBuildInitialized (0)
+00:52:58.052 | V |                  | Sending BuildStarted telemetry event ...
+00:52:58.057 | V |                  |   build_components         = 
+00:52:58.058 | V |                  |   build_type               = Project
+00:52:58.058 | V |                  |   compile_time             = 12
+00:52:58.058 | V |                  |   config_generators        = 
+00:52:58.058 | V |                  |   host                     = VSCode
+00:52:58.058 | V |                  |   num_custom_components    = 0
+00:52:58.058 | V |                  |   num_custom_extensions    = 0
+00:52:58.058 | V |                  |   num_partitioned_targets  = 0
+00:52:58.058 | V |                  |   num_secrets              = 0
+00:52:58.058 | V |                  |   num_targets              = 8
+00:52:58.058 | V |                  |   os_architecture          = X64
+00:52:58.058 | V |                  |   os_platform              = OSX
+00:52:58.058 | V |                  |   repo_branch              = main
+00:52:58.058 | V |                  |   repo_commit              = 94a2f3
+00:52:58.058 | V |                  |   repo_provider            = GitHub
+00:52:58.058 | V |                  |   repo_url                 = 91f146
+00:52:58.058 | V |                  |   target_framework         = .NETCoreApp,Version=v6.0
+00:52:58.058 | V |                  |   version_dotnet_sdk       = 6.0.301
+00:52:58.058 | V |                  |   version_nuke_common      = 6.0.1
+00:52:58.058 | V |                  |   version_nuke_global_tool = 6.0.1
+00:52:58.390 | V |                  | InjectNonParameterValues.OnBuildInitialized (-100)
+00:52:58.637 | I |                  | > /usr/local/share/dotnet/dotnet /Users/mmisztal/.nuget/packages/gitversion.tool/5.8.2/tools/net5.0/any/gitversion.dll /nocache /nofetch
+00:52:59.459 | V |                  | EventInvoker.OnBuildInitialized (-3.4028235E+38)
+00:52:59.479 | V |             Pack | EventInvoker.OnTargetRunning (-3.4028235E+38)
+00:52:59.558 | D |             Pack | CloudTek.Automation.Shell has output assembly: CloudTek.Automation.Shell
+00:52:59.584 | I |             Pack | > /usr/local/share/dotnet/dotnet pack /Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.Shell/CloudTek.Automation.Shell.csproj --configuration Debug --output /Users/mmisztal/Checkout/cloudtek/automation/artifacts/packages/CloudTek.Automation.Shell /property:Version=0.1.6 /property:FileVersion=0.1.6.0 /property:AssemblyVersion=0.1.6.0
+00:52:59.802 | D |             Pack | Microsoft (R) Build Engine version 17.2.0+41abc5629 for .NET
+00:52:59.802 | D |             Pack | Copyright (C) Microsoft Corporation. All rights reserved.
+00:52:59.802 | D |             Pack | 
+00:53:00.917 | D |             Pack |   Determining projects to restore...
+00:53:01.854 | D |             Pack |   Restored /Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.Shell/CloudTek.Automation.Shell.csproj (in 474 ms).
+00:53:03.001 | W |             Pack | /usr/local/share/dotnet/sdk/6.0.301/Sdks/NuGet.Build.Tasks.Pack/build/NuGet.Build.Tasks.Pack.targets(221,5): warning NU5128: Some target frameworks declared in the dependencies group of the nuspec and the lib/ref folder do not have exact matches in the other location. Consult the list of actions below: [/Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.Shell/CloudTek.Automation.Shell.csproj]
+00:53:03.002 | W |             Pack | /usr/local/share/dotnet/sdk/6.0.301/Sdks/NuGet.Build.Tasks.Pack/build/NuGet.Build.Tasks.Pack.targets(221,5): warning NU5128: - Add lib or ref assemblies for the net6.0 target framework [/Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.Shell/CloudTek.Automation.Shell.csproj]
+00:53:03.004 | D |             Pack |   Successfully created package '/Users/mmisztal/Checkout/cloudtek/automation/artifacts/packages/CloudTek.Automation.Shell/CloudTek.Automation.Shell.0.1.6.nupkg'.
+00:53:03.043 | D |             Pack | CloudTek.Automation.K8S has output assembly: CloudTek.Automation.K8S
+00:53:03.054 | I |             Pack | > /usr/local/share/dotnet/dotnet pack /Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.K8S/CloudTek.Automation.K8S.csproj --configuration Debug --output /Users/mmisztal/Checkout/cloudtek/automation/artifacts/packages/CloudTek.Automation.K8S /property:Version=0.1.6 /property:FileVersion=0.1.6.0 /property:AssemblyVersion=0.1.6.0
+00:53:03.356 | D |             Pack | Microsoft (R) Build Engine version 17.2.0+41abc5629 for .NET
+00:53:03.357 | D |             Pack | Copyright (C) Microsoft Corporation. All rights reserved.
+00:53:03.357 | D |             Pack | 
+00:53:04.282 | D |             Pack |   Determining projects to restore...
+00:53:05.244 | D |             Pack |   Restored /Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.K8S/CloudTek.Automation.K8S.csproj (in 510 ms).
+00:53:06.168 | W |             Pack | /usr/local/share/dotnet/sdk/6.0.301/Sdks/NuGet.Build.Tasks.Pack/build/NuGet.Build.Tasks.Pack.targets(221,5): warning NU5128: Some target frameworks declared in the dependencies group of the nuspec and the lib/ref folder do not have exact matches in the other location. Consult the list of actions below: [/Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.K8S/CloudTek.Automation.K8S.csproj]
+00:53:06.169 | W |             Pack | /usr/local/share/dotnet/sdk/6.0.301/Sdks/NuGet.Build.Tasks.Pack/build/NuGet.Build.Tasks.Pack.targets(221,5): warning NU5128: - Add lib or ref assemblies for the net6.0 target framework [/Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.K8S/CloudTek.Automation.K8S.csproj]
+00:53:06.179 | D |             Pack |   Successfully created package '/Users/mmisztal/Checkout/cloudtek/automation/artifacts/packages/CloudTek.Automation.K8S/CloudTek.Automation.K8S.0.1.6.nupkg'.
+00:53:06.249 | V |             Pack | Telemetry.OnTargetSucceeded (0)
+00:53:06.251 | V |             Pack | EventInvoker.OnTargetSucceeded (-3.4028235E+38)

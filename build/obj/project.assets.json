@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net6.0": {
-      "CloudTek.Build/0.11.2": {
+      "CloudTek.Build/0.11.3": {
         "type": "package",
         "dependencies": {
           "Nuke.Common": "6.0.1"
@@ -2120,13 +2120,14 @@
     }
   },
   "libraries": {
-    "CloudTek.Build/0.11.2": {
-      "sha512": "zaS+IZKBR+ELlZnt9xE1oyN8x9e5KfAtRb8AuCc6wQOjuLl/YAFmNxkP2AZkflnJ0gOMcncW4QD5SXMLUrRU7g==",
+    "CloudTek.Build/0.11.3": {
+      "sha512": "YvfLaa0qbSuqvsnXQ8/H7XzQspMPVc3deEo6MSFVS/GlNggPHyFVw1wNCOw0ZqcCDAxXIU25Jr5KISMZmRrY7g==",
       "type": "package",
-      "path": "cloudtek.build/0.11.2",
+      "path": "cloudtek.build/0.11.3",
       "files": [
         ".nupkg.metadata",
-        "cloudtek.build.0.11.2.nupkg.sha512",
+        ".signature.p7s",
+        "cloudtek.build.0.11.3.nupkg.sha512",
         "cloudtek.build.nuspec",
         "lib/net6.0/CloudTek.Build.dll"
       ]
@@ -7403,7 +7404,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "CloudTek.Build >= 0.11.2",
+      "CloudTek.Build >= 0.11.*",
       "Nuke.Common >= 6.0.1"
     ]
   },
@@ -7449,7 +7450,7 @@
         "dependencies": {
           "CloudTek.Build": {
             "target": "Package",
-            "version": "[0.11.2, )"
+            "version": "[0.11.*, )"
           },
           "Nuke.Common": {
             "target": "Package",
