@@ -133,7 +133,7 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}/src/${{ inputs.Directory }}
         run: |
-          dotnet pack ${{ inputs.Directory }} --output ${{ github.workspace }}/output
+          dotnet pack ${{ inputs.Directory }}.csproj --output ${{ github.workspace }}/output
       # - id: nuke
       #   uses: cloud-tek/actions/nuke@0.18
       #   name: nuke
