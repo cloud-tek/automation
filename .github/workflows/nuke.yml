@@ -129,6 +129,12 @@ jobs:
         shell: bash
         run: |
           echo "{ \"tools\": { \"dotnet\": \"${{ inputs.NetCoreVersion }}\" }, \"msbuild-sdks\": { \"Microsoft.Build.NoTargets\": \"3.5.6\" } }" > ${{ github.workspace }}/global.json
+      - name: diag
+        shell: bash
+        working-directory: ${{ github.workspace }}
+        run: |
+          tree .
+          cat ./global.json
       - name: dotnet pack
         shell: bash
         working-directory: ${{ github.workspace }}/src/${{ inputs.Directory }}
