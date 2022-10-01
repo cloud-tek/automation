@@ -14,15 +14,13 @@
         "outputPath": "/Users/mmisztal/Checkout/cloudtek/automation/build/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/mmisztal/.nuget/NuGet/NuGet.Config"
+          "/Users/mmisztal/.config/NuGet/NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "https://api.nuget.org/v3/index.json": {},
-          "https://nuget.pkg.github.com/cloud-tek/index.json": {},
-          "https://nuget.pkg.github.com/ionizd/index.json": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
