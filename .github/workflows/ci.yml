@@ -34,7 +34,7 @@ jobs:
     uses: cloud-tek/automation/.github/workflows/nuke.yml@main
     name: build
     with:
-      Directory: ${{ github.workspace }}
+      Directory: CloudTek.Automation.K8S
       NetCoreVersion: 6.0.301
       Pack:         true
       Push:         true
