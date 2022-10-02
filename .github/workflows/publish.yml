@@ -1,4 +1,4 @@
-name: "nuke"
+name: "powershell"
 
 on:
   workflow_call:

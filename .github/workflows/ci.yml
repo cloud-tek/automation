@@ -30,9 +30,9 @@ on:
     inputs: {}
 
 jobs:
-  build:
+  publish:
     uses: cloud-tek/automation/.github/workflows/publish.yml@main
-    name: build
+    name: publish
     with:
       Module: CloudTek.Automation.K8S
       NuGetApiUrl:  'https://nuget.pkg.github.com/cloud-tek/index.json'
