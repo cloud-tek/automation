@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>CloudTek.Automation.Shell</id>
+    <version>1.0.0</version>
+    <authors>@mmisztal1980</authors>
+    <description>This package contains powershell automation</description>
+    <tags>powershell automation</tags>
+    <dependencies>
+      <group targetFramework="net6.0" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="/Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.Shell/content/scripts/CloudTek.Automation.Shell.psd1" target="./CloudTek.Automation.Shell.psd1" />
+    <file src="/Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.Shell/content/scripts/ShellExecutor.psm1" target="./ShellExecutor.psm1" />
+  </files>
+</package>

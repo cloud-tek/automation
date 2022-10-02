@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "bZw2a7vmI81/0nVDBBaiKzWn6O0OeQZVZyi57KSz6pziq6Qehs5q9ZHkMthilKYc8g4POcKeR8vmGsv+8XqMsg==",
+  "dgSpecHash": "lY5vfkB6+dMUiX7FHDeNPaalh823/QgBtSzhPe6yYuMwtUztkHhVrQvHWeIyOVjy/YFWuneGdBAkSpdFUpBwgg==",
   "success": true,
   "projectFilePath": "/Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.Shell/CloudTek.Automation.Shell.csproj",
   "expectedPackageFiles": [],
