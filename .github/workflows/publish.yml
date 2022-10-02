@@ -24,7 +24,7 @@ on:
 
 jobs:
   powershell:
-    name: nuke
+    name: powershell
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -79,7 +79,7 @@ jobs:
           cat ./global.json
       - name: publish-module.ps1
         shell: pwsh
-        working-directory: ${{ github.workspace }}/src/${{ inputs.Module }}
+        working-directory: ${{ github.workspace }}/src
         run: |
           ${{ github.workspace }}/scripts/Publish-Module.ps1 `
             -module ${{ inputs.Module }} `
