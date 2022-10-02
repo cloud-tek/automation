@@ -31,13 +31,10 @@ on:
 
 jobs:
   build:
-    uses: cloud-tek/automation/.github/workflows/nuke.yml@main
+    uses: cloud-tek/automation/.github/workflows/publish.yml@main
     name: build
     with:
-      Directory: CloudTek.Automation.K8S
-      NetCoreVersion: 6.0.301
-      Pack:         true
-      Push:         true
+      Module: CloudTek.Automation.K8S
       NuGetApiUrl:  'https://nuget.pkg.github.com/cloud-tek/index.json'
     secrets:
       NuGetFeedCloudTek:  ${{ secrets.NUGET_FEED_CLOUDTEK }}
