@@ -12,7 +12,7 @@
   # RootModule = ''
 
   # Version number of this module.
-  ModuleVersion = '1.0.9'
+  ModuleVersion = '0.0.1'
 
   # Supported PSEditions
   CompatiblePSEditions = 'Core'
@@ -101,7 +101,7 @@
           # LicenseUri = ''
 
           # A URL to the main website for this project.
-          # ProjectUri = ''
+          ProjectUri = 'https://github.com/cloud-tek/automation'
 
           # A URL to an icon representing this module.
           IconUri = 'https://avatars.githubusercontent.com/u/35167581?s=400&u=ca5fdf8da213a9ab3edd83813b5f3491dea70f6c&v=4'
