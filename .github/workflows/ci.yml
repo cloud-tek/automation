@@ -15,7 +15,7 @@ on:
       - ".github/workflows/**"
       - "build/**"
       - "scripts/**"
-      - "CloudTek.Automation.*/**"
+      - "src/**"
       - "GitVersion.yml"
   pull_request:
     types:
@@ -26,7 +26,7 @@ on:
       - ".github/workflows/**"
       - "build/**"
       - "scripts/**"
-      - "CloudTek.Automation.*/**"
+      - "src/**"
       - "GitVersion.yml"
   workflow_dispatch:
     inputs: {}
