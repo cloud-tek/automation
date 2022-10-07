@@ -3,6 +3,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <Authors>@mmisztal1980</Authors>
     <PackageTags>k8s kubernetes powershell automation</PackageTags>
+    <RepositoryUrl>https://github.com/cloud-tek/automation</RepositoryUrl>
     <Description>
       This package contains reusable kubernetes powershell automation
     </Description>
