@@ -104,7 +104,7 @@
           # ProjectUri = ''
 
           # A URL to an icon representing this module.
-          # IconUri = ''
+          IconUri = 'https://avatars.githubusercontent.com/u/35167581?s=400&u=ca5fdf8da213a9ab3edd83813b5f3491dea70f6c&v=4'
 
           # ReleaseNotes of this module
           # ReleaseNotes = ''
