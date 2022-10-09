@@ -102,6 +102,7 @@
 
           # A URL to the main website for this project.
           ProjectUri = 'https://github.com/cloud-tek/automation'
+          RepositoryUrl = 'https://github.com/cloud-tek/automation'
 
           # A URL to an icon representing this module.
           IconUri = 'https://avatars.githubusercontent.com/u/35167581?s=400&u=ca5fdf8da213a9ab3edd83813b5f3491dea70f6c&v=4'
