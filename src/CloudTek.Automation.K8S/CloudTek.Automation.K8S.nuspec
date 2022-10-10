@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>CloudTek.Automation.K8S</id>
+    <version>0.0.1</version>
+    <title>CloudTek.Automation.K8S</title>
+    <authors>cloud-tek</authors>
+    <owners>cloud-tek</owners>
+    <repository type="git" url="https://github.com/cloud-tek/automation.git" />
+    <!-- <licenseUrl>https://github.com/dfch/biz.dfch.PS.System.Utilities/blob/master/LICENSE</licenseUrl><!-->
+    <projectUrl>https://github.com/cloud-tek/automation</projectUrl>
+    <iconUrl>https://avatars.githubusercontent.com/u/35167581?s=400&u=ca5fdf8da213a9ab3edd83813b5f3491dea70f6c&v=4</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description></description>
+    <summary>This Microsoft PowerShell module contains Cmdlets to perform various actions and utilties/convenience functions such as string conversion and formatting.</summary>
+    <releaseNotes></releaseNotes>
+    <copyright>(c) 2022 cloud-tek</copyright>
+    <language>en-US</language>
+    <tags>PowerShell K8S</tags>
+    <!-- <dependencies>
+      <dependency id="biz.dfch.PS.System.Logging" version="1.0.3" />
+    </dependencies> -->
+  </metadata>
+  <files xmlns="">
+    <file src="CloudTek.Automation.K8S.psd1" target="CloudTek.Automation.K8S.psd1" />
+    <file src="HELM.psm1" target="HELM.psm1" />
+    <file src="Kubectl.psm1" target="Kubectl.psm1" />
+  </files>
+</package>
