@@ -6,6 +6,9 @@ Param(
   [Parameter(Mandatory = $false)][string]$organization
 )
 
+Install-Module PowershellGet;
+Import-Module PowershellGet;
+
 $sourceName = "GitHub";
 $source = "https://nuget.pkg.github.com/$organization/index.json"
 $creds = New-Object System.Management.Automation.PSCredential -ArgumentList $username, (ConvertTo-SecureString -AsPlainText $password -Force);
