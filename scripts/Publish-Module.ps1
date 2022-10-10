@@ -18,4 +18,4 @@ $version = '0.0.1'
 $apiKey = 'n/a' # keep this as n/a!
 
 Write-Host "Publishing..."
-Publish-Module -Path "./$module" -Repository $sourceName -Credential $creds -Force -NuGetApiKey $apiKey;
+Publish-Module -Path "./$module" -Repository $sourceName -Credential $creds -Force -NuGetApiKey $apiKey -Verbose;
