@@ -47,6 +47,7 @@ jobs:
     uses: cloud-tek/automation/.github/workflows/nuke.yml@main
     name: nuke
     with:
+      Directory: src/CloudTek.Automation.K8S
       NuGetApiUrl:  'https://nuget.pkg.github.com/cloud-tek/index.json'
     secrets:
       NuGetFeedCloudTek:  ${{ secrets.NUGET_FEED_CLOUDTEK }}
