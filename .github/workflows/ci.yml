@@ -49,6 +49,7 @@ jobs:
     with:
       Directory: CloudTek.Automation.K8S
       NuGetApiUrl:  'https://nuget.pkg.github.com/cloud-tek/index.json'
+      NetCoreVersion: 6.0.200
     secrets:
       NuGetFeedCloudTek:  ${{ secrets.NUGET_FEED_CLOUDTEK }}
       NuGetUsername:      ${{ secrets.NUGET_USERNAME }}
