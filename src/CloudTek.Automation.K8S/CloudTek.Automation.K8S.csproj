@@ -1,17 +1,18 @@
 <Project Sdk="Microsoft.Build.NoTargets">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <Authors>@mmisztal1980</Authors>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <Authors>mmisztal1980</Authors>
+    <Company>cloud-tek</Company>
     <PackageTags>k8s kubernetes powershell automation</PackageTags>
     <RepositoryUrl>https://github.com/cloud-tek/automation</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
     <Description>
       This package contains reusable kubernetes powershell automation
     </Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="content/scripts/*.ps*1">
+    <Content Include="*.ps*1">
       <Pack>true</Pack>
       <PackagePath>.</PackagePath>
     </Content>

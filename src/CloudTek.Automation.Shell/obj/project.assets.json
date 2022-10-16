@@ -11,7 +11,7 @@
     "/Users/mmisztal/.nuget/packages/": {}
   },
   "project": {
-    "version": "1.0.0",
+    "version": "0.1.46",
     "restore": {
       "projectUniqueName": "/Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.Shell/CloudTek.Automation.Shell.csproj",
       "projectName": "CloudTek.Automation.Shell",
