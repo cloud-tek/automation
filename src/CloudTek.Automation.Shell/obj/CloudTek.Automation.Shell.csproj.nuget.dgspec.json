@@ -5,7 +5,7 @@
   },
   "projects": {
     "/Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.Shell/CloudTek.Automation.Shell.csproj": {
-      "version": "0.1.46",
+      "version": "0.1.51",
       "restore": {
         "projectUniqueName": "/Users/mmisztal/Checkout/cloudtek/automation/src/CloudTek.Automation.Shell/CloudTek.Automation.Shell.csproj",
         "projectName": "CloudTek.Automation.Shell",
