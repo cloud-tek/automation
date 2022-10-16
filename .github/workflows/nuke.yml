@@ -135,20 +135,20 @@ jobs:
         run: |
           tree .
           cat ./global.json
-      - name: dotnet pack
-        shell: bash
-        working-directory: ${{ github.workspace }}/src/${{ inputs.Directory }}
-        run: |
-          dotnet pack ${{ inputs.Directory }}.csproj --output ${{ github.workspace }}/output
-      # - id: nuke
-      #   uses: cloud-tek/actions/nuke@0.18
-      #   name: nuke
-      #   with:
-      #     directory: ${{ github.workspace }}
-      #     Compile:          ${{ inputs.Compile }}
-      #     UnitTests:        ${{ inputs.UnitTests }}
-      #     IntegrationTests: ${{ inputs.IntegrationTests }}
-      #     Pack:             ${{ inputs.Pack }}
-      #     Push:             ${{ inputs.Push }}
-      #     NuGetApiUrl:      '${{ inputs.NuGetApiUrl }}'
-      #     NuGetApiKey:      '${{ secrets.NuGetPassword }}'
+      # - name: dotnet pack
+      #   shell: bash
+      #   working-directory: ${{ github.workspace }}/src/${{ inputs.Directory }}
+      #   run: |
+      #     dotnet pack ${{ inputs.Directory }}.csproj --output ${{ github.workspace }}/output
+      - id: nuke
+        uses: cloud-tek/actions/nuke@0.18
+        name: nuke
+        with:
+          directory: ${{ github.workspace }}
+          Compile:          ${{ inputs.Compile }}
+          UnitTests:        ${{ inputs.UnitTests }}
+          IntegrationTests: ${{ inputs.IntegrationTests }}
+          Pack:             ${{ inputs.Pack }}
+          Push:             ${{ inputs.Push }}
+          NuGetApiUrl:      '${{ inputs.NuGetApiUrl }}'
+          NuGetApiKey:      '${{ secrets.NuGetPassword }}'
