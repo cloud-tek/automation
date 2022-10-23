@@ -22,7 +22,7 @@ Register-PSRepository `
 
 Write-Host "Publishing: $module ==($version)==> $name ..." -ForegroundColor Gray;
 
-Publish-Module -Path "./$module" `
+Publish-Module -Path "$PSScriptRoot/../src/$module" `
   -Repository $name `
   -NuGetApiKey $apiKey `
   -Force `
