@@ -70,6 +70,6 @@ jobs:
         run: |
           ${{ github.workspace }}/scripts/Publish-Module.ps1 `
             -module ${{ inputs.Module }} `
-            -url ${{ secrets.NuGetApiUrl }} `
+            -url ${{ inputs.NuGetApiUrl }} `
             -apikey ${{ secrets.NuGetApiKey }} `
             -organization "cloud-tek";

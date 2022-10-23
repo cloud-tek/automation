@@ -1,3 +1,5 @@
+#!/usr/local/bin/pwsh
+
 [CmdletBinding()]
 Param(
   [Parameter(Mandatory = $true)][string]$module,
