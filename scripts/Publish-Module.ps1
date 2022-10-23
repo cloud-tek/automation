@@ -8,7 +8,7 @@ Param(
   [Parameter(Mandatory = $false)][string]$organization
 )
 
-Install-Module PowershellGet;
+Install-Module PowershellGet -Force;
 Import-Module PowershellGet;
 
 $sourceName = "NuGet";
