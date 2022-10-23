@@ -3,14 +3,8 @@ name: "powershell"
 on:
   workflow_call:
     secrets:
-      NuGetFeedCloudTek:
-        description: "NuGet Feed (cloud-tek)"
-        required: false
-      NuGetUsername:
-        description: "NuGet Username"
-        required: false
-      NuGetPassword:
-        description: "NuGet Password"
+      NuGetApiKey:
+        description: "NuGet API Key"
         required: false
     inputs:
       NuGetApiUrl:
@@ -49,7 +43,6 @@ jobs:
           <configuration>
             <packageSources>
               <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
-              <add key="nuget.cloudtek.io" value="${{ secrets.NuGetFeedCloudTek }}" protocolVersion="3"/>
             </packageSources>
             <packageRestore>
               <add key="enabled" value="True" />
@@ -62,12 +55,6 @@ jobs:
               <add key="format" value="0" />
               <add key="disabled" value="False" />
             </packageManagement>
-            <packageSourceCredentials>
-              <nuget.cloudtek.io>
-                <add key="Username" value="${{ secrets.NuGetUsername }}"/>
-                <add key="ClearTextPassword" value="${{ secrets.NuGetPassword }}" />
-              </nuget.cloudtek.io>
-            </packageSourceCredentials>
           </configuration>
           "@
           $nuget | Out-File -FilePath ${{ github.workspace }}/nuget.config
@@ -83,6 +70,6 @@ jobs:
         run: |
           ${{ github.workspace }}/scripts/Publish-Module.ps1 `
             -module ${{ inputs.Module }} `
-            -username ${{ secrets.NuGetUsername }} `
-            -password ${{ secrets.NuGetPassword }} `
+            -url ${{ secrets.NuGetApiUrl }} `
+            -apikey ${{ secrets.NuGetApiKey }} `
             -organization "cloud-tek";

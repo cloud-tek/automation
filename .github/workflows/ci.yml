@@ -33,25 +33,23 @@ on:
 
 # https://github.com/PowerShell/PowerShellGet/issues/163
 jobs:
-  # publish:
-  #   uses: cloud-tek/automation/.github/workflows/publish.yml@main
-  #   name: publish
+  publish:
+    uses: cloud-tek/automation/.github/workflows/publish.yml@main
+    name: publish
+    with:
+      Module: CloudTek.Automation.K8S
+      NuGetApiUrl:  'https://api.nuget.org/v3/index.json'
+    secrets:
+      NuGetApiKey:  '${{ secrets.NUGET_API_KEY }}'
+  # nuke:
+  #   uses: cloud-tek/automation/.github/workflows/nuke.yml@main
+  #   name: nuke
   #   with:
-  #     Module: CloudTek.Automation.K8S
+  #     Directory: CloudTek.Automation.K8S
   #     NuGetApiUrl:  'https://nuget.pkg.github.com/cloud-tek/index.json'
+  #     NetCoreVersion: 6.0.401
+  #     Pack: true
   #   secrets:
   #     NuGetFeedCloudTek:  ${{ secrets.NUGET_FEED_CLOUDTEK }}
   #     NuGetUsername:      ${{ secrets.NUGET_USERNAME }}
   #     NuGetPassword:      ${{ secrets.NUGET_PASSWORD }}
-  nuke:
-    uses: cloud-tek/automation/.github/workflows/nuke.yml@main
-    name: nuke
-    with:
-      Directory: CloudTek.Automation.K8S
-      NuGetApiUrl:  'https://nuget.pkg.github.com/cloud-tek/index.json'
-      NetCoreVersion: 6.0.401
-      Pack: true
-    secrets:
-      NuGetFeedCloudTek:  ${{ secrets.NUGET_FEED_CLOUDTEK }}
-      NuGetUsername:      ${{ secrets.NUGET_USERNAME }}
-      NuGetPassword:      ${{ secrets.NUGET_PASSWORD }}
