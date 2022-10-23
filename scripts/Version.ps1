@@ -12,16 +12,16 @@ Push-Location -Path "$PSScriptRoot/../src/$module";
 
 try {
   Write-Host "Settings $module version to $version ..." -ForegroundColor Gray;
-  [string]$file = (Get-Content "./$module.psd1");
-  $rgx = [regex]::matches($file, "\s*ModuleVersion\s=\s['""](\d*.\d*.\d*)['""]\s*");
 
-  if($rgx.Count -eq 0) {
-    throw "No ModuleVersion = 'major.minor.patch' found";
-  } else {
-    $file.Replace($rgx[0], "ModuleVersion = ""$($version)""");
-    Set-Content "./$module.psd1" -Value $file;
+  [string]$file = (Get-Content "./$module.psd1" -Raw -Encoding utf8);
+
+    $file = $file.Replace("ModuleVersion = ""<VERSION>""", "ModuleVersion = ""$($version)""");
+
+    Set-Content "./$module.psd1" `
+      -Value $file `
+      -NoNewline;
+
     Write-Host "Done" -ForegroundColor Green;
-  }
 }
 catch {
   Write-Error "Failed to read $module.psd1 ... : $_";
