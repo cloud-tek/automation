@@ -12,7 +12,7 @@
   # RootModule = ''
 
   # Version number of this module.
-  ModuleVersion = '0.0.1'
+  ModuleVersion = $(if ($null -ne $env:GitVersion_NuGetVersionV2) { $env:GitVersion_NuGetVersionV2 } else { "0.0.1"})
 
   # Supported PSEditions
   CompatiblePSEditions = 'Core'

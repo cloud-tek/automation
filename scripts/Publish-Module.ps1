@@ -16,7 +16,6 @@ $source = $url
 
 Register-PSRepository -Name $sourceName -SourceLocation $source -PublishLocation $source; #-Credential $creds;
 
-$version = '0.0.1'
 $apiKey = $apiKey; # 'n/a' # keep this as n/a!
 
 Write-Host "Publishing..."
