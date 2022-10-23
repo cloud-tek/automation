@@ -65,12 +65,19 @@ jobs:
           tree .
           cat ./global.json
           printenv
-      - name: publish-module.ps1
+      - name: version.ps1
         shell: pwsh
-        working-directory: ${{ github.workspace }}/src
+        working-directory: ${{ github.workspace }}/scripts
         run: |
-          ${{ github.workspace }}/scripts/Publish-Module.ps1 `
+          ./Version.ps1 `
+            -module ${{ inputs.Module }} `
+            -version ${{ env.GitVersion_NuGetVersionV2 }};
+      - name: publish.ps1
+        shell: pwsh
+        working-directory: ${{ github.workspace }}/scripts
+        run: |
+          ./Publish.ps1 `
             -module ${{ inputs.Module }} `
             -url ${{ inputs.NuGetApiUrl }} `
             -apikey ${{ secrets.NuGetApiKey }} `
-            -organization "cloud-tek";
+            -version ${{ env.GitVersion_NuGetVersionV2 }};
