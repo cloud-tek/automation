@@ -13,8 +13,8 @@ Import-Module PowershellGet;
 
 $sourceName = "NuGet";
 $source = $url
-$creds = New-Object System.Management.Automation.PSCredential -ArgumentList $username, (ConvertTo-SecureString -AsPlainText $password -Force);
-Register-PSRepository -Name $sourceName -SourceLocation $source -PublishLocation $source -Credential $creds;
+#$creds = New-Object System.Management.Automation.PSCredential -ArgumentList $username, (ConvertTo-SecureString -AsPlainText $password -Force);
+Register-PSRepository -Name $sourceName -SourceLocation $source -PublishLocation $source; #-Credential $creds;
 
 $version = '0.0.1'
 $apiKey = $apiKey; # 'n/a' # keep this as n/a!
