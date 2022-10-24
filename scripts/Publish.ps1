@@ -26,6 +26,8 @@ Push-Location -Path "$PSScriptRoot/../src/$module"
 try {
 & ./PrePublish.ps1
 
+Get-PSRepository
+
 Publish-Module -Path "$PSScriptRoot/../src/$module"`
   -Repository $name `
   -NuGetApiKey $apiKey `
