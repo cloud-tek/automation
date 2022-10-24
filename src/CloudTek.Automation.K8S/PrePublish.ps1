@@ -5,5 +5,6 @@
 );
 
 $modules | % {
-  Import-Module -Name "$PSScriptRoot/../$_" -Force;
+  Register-PSRepository -Name $_ -SourceLocation "$PSScriptRoot/../$_";
+  Install-Module $_ -Repository $_
 }
