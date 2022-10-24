@@ -1,4 +1,4 @@
-name: "powershell"
+name: "publish"
 
 on:
   workflow_call:
@@ -15,10 +15,17 @@ on:
         description: "Powershell module to publish"
         type: string
         required: true
+      modules:
+        description: "Powershell modules to publish (json, array of objects)"
+        type: string
+        required: true
 
 jobs:
-  powershell:
-    name: powershell
+  publish:
+    strategy:
+      matrix:
+        module: ${{ fromJson(inputs.modules) }}
+    name: ${{ matrix.module.id }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -58,26 +65,19 @@ jobs:
           </configuration>
           "@
           $nuget | Out-File -FilePath ${{ github.workspace }}/nuget.config
-      - name: diag
-        shell: bash
-        working-directory: ${{ github.workspace }}
-        run: |
-          tree .
-          cat ./global.json
-          printenv
       - name: version.ps1
         shell: pwsh
         working-directory: ${{ github.workspace }}/scripts
         run: |
           ./Version.ps1 `
-            -module ${{ inputs.Module }} `
+            -module ${{ matrix.module.id }} `
             -version ${{ env.GitVersion_NuGetVersionV2 }};
       - name: publish.ps1
         shell: pwsh
         working-directory: ${{ github.workspace }}/scripts
         run: |
           ./Publish.ps1 `
-            -module ${{ inputs.Module }} `
+            -module ${{ matrix.module.id }} `
             -url ${{ inputs.NuGetApiUrl }} `
             -apikey ${{ secrets.NuGetApiKey }} `
             -version ${{ env.GitVersion_NuGetVersionV2 }};

@@ -1,7 +1,6 @@
 name: ci
 
 env:
-  NETCORE_VERSION: 6.0.100
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
   DOTNET_ROLL_FORWARD: Major
 
@@ -13,7 +12,6 @@ on:
     - release/*
     paths:
       - ".github/workflows/**"
-      - "build/**"
       - "scripts/**"
       - "src/**"
       - "GitVersion.yml"
@@ -24,7 +22,6 @@ on:
     - main
     paths:
       - ".github/workflows/**"
-      - "build/**"
       - "scripts/**"
       - "src/**"
       - "GitVersion.yml"
@@ -33,23 +30,19 @@ on:
 
 # https://github.com/PowerShell/PowerShellGet/issues/163
 jobs:
-  publish:
+  powershell:
     uses: cloud-tek/automation/.github/workflows/publish.yml@main
-    name: publish
+    name: powershell
     with:
-      Module: CloudTek.Automation.K8S
       NuGetApiUrl:  'https://api.nuget.org/v3/index.json'
+      modules: |
+        [
+          {
+            "id": "CloudTek.Automation.Shell"
+          },
+          {
+            "id": "CloudTek.Automation.K8S"
+          }
+        ]
     secrets:
       NuGetApiKey:  '${{ secrets.NUGET_API_KEY }}'
-  # nuke:
-  #   uses: cloud-tek/automation/.github/workflows/nuke.yml@main
-  #   name: nuke
-  #   with:
-  #     Directory: CloudTek.Automation.K8S
-  #     NuGetApiUrl:  'https://nuget.pkg.github.com/cloud-tek/index.json'
-  #     NetCoreVersion: 6.0.401
-  #     Pack: true
-  #   secrets:
-  #     NuGetFeedCloudTek:  ${{ secrets.NUGET_FEED_CLOUDTEK }}
-  #     NuGetUsername:      ${{ secrets.NUGET_USERNAME }}
-  #     NuGetPassword:      ${{ secrets.NUGET_PASSWORD }}
