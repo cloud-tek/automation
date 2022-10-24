@@ -15,7 +15,7 @@ try {
 
   [string]$file = (Get-Content "./$module.psd1" -Raw -Encoding utf8);
 
-    $file = $file.Replace("ModuleVersion = ""<VERSION>""", "ModuleVersion = ""$($version)""");
+    $file = $file.Replace("ModuleVersion = ""0.0.0""", "ModuleVersion = ""$($version)""");
 
     Set-Content "./$module.psd1" `
       -Value $file `

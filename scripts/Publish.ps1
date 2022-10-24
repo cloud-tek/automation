@@ -22,10 +22,22 @@ Register-PSRepository `
 
 Write-Host "Publishing: $module ==($version)==> $name ..." -ForegroundColor Gray;
 
-Publish-Module -Path "$PSScriptRoot/../src/$module" `
+Push-Location -Path "$PSScriptRoot/../src/$module"
+try {
+& ./PrePublish.ps1
+
+Publish-Module -Path .`
   -Repository $name `
   -NuGetApiKey $apiKey `
   -Force `
   -Verbose;
+}
+catch {
+  Write-Error "Failed to publish module $module : $_";
+  Exit 1;
+}
+finally {
+  Pop-Location;
+}
 
 Write-Host "Done" -ForegroundColor Green;
