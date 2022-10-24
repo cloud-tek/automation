@@ -11,10 +11,6 @@ on:
         description: "Target NuGet Feed Url"
         type: string
         required: false
-      Module:
-        description: "Powershell module to publish"
-        type: string
-        required: true
       modules:
         description: "Powershell modules to publish (json, array of objects)"
         type: string
