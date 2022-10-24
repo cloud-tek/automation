@@ -26,7 +26,7 @@ Push-Location -Path "$PSScriptRoot/../src/$module"
 try {
 & ./PrePublish.ps1
 
-Get-PSRepository
+Get-PSRepository | Out-String | Write-Host -ForegroundColor Gray;
 
 Publish-Module -Path "$PSScriptRoot/../src/$module"`
   -Repository $name `
