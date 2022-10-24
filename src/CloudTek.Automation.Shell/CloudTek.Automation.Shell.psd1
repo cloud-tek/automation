@@ -30,7 +30,7 @@
   Copyright = ''
 
   # Description of the functionality provided by this module
-  Description = 'This package contains reusable kubernetes powershell automation. Created to simplify the psm1 delivery process.'
+  Description = 'This package contains reusable powershell automation for exexuting cmds in a shell. Created to simplify the psm1 delivery process.'
 
   # Minimum version of the PowerShell engine required by this module
   PowerShellVersion = '7.2'
@@ -66,11 +66,10 @@
   # FormatsToProcess = @()
 
   # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
-  NestedModules = @("./HELM.psm1", "./Kubectl.psm1")
+  NestedModules = @("./ShellExecutor.psm1")
 
   # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-  FunctionsToExport = @("Deploy-HelmTemplate", "Kubectl-Apply")
-
+  FunctionsToExport = @("Invoke-ShellCommand")
   # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
   CmdletsToExport = @()
 
