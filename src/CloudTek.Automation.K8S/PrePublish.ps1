@@ -15,6 +15,6 @@ $modules | % {
   Find-Module -Name "$_";
   Get-Module -ListAvailable;
 
-  Install-Module $_ -Repository $_ -ErrorAction Continue;
+  Install-Module $_ -Repository $_ -Verbose -ErrorAction Continue;
   Write-Host "module installed"
 }
