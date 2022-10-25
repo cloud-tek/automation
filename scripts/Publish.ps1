@@ -11,6 +11,11 @@ Param(
 Install-Module PowershellGet -Force;
 Import-Module PowershellGet;
 
+# https://stackoverflow.com/questions/63385304/powershell-install-no-match-was-found-for-the-specified-search-criteria-and-mo
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+Unregister-PSRepository -Name PSGallery
+Register-PSRepository -Default
+
 $name = "NuGet";
 
 Push-Location -Path "$PSScriptRoot/../src/$module"
