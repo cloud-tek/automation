@@ -61,11 +61,6 @@ jobs:
           </configuration>
           "@
           $nuget | Out-File -FilePath ${{ github.workspace }}/nuget.config
-      - name: init.ps1
-        shell: pwsh
-        working-directory: ${{ github.workspace }}/scripts
-        run: |
-          ./Init.ps1
       - name: version.ps1
         shell: pwsh
         working-directory: ${{ github.workspace }}/scripts
@@ -82,3 +77,9 @@ jobs:
             -url ${{ inputs.NuGetApiUrl }} `
             -apikey ${{ secrets.NuGetApiKey }} `
             -version ${{ env.GitVersion_NuGetVersionV2 }};
+      - name: get-error
+        if: failure()
+        shell: pwsh
+        working-directory: ${{ github.workspace }}/scripts
+        run: |
+          Get-Error
