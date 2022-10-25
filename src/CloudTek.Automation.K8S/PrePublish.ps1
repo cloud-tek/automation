@@ -10,6 +10,9 @@ $modules | % {
   Register-PSRepository -Name $_ -SourceLocation "$PSScriptRoot/../$_";
   Write-Host "repo registered";
   Get-PSRepository;
+
+  Find-Module -Name "CloudTek.Automation.K8S"
+
   Install-Module $_ -Repository $_;
   Write-Host "module installed"
 }
