@@ -8,13 +8,8 @@ $modules | % {
   Write-Host "Registering PSRepository ($_) ..." -ForegroundColor Gray;
   Write-Host "`t Installing $_ ..." -ForegroundColor Gray;
   Register-PSRepository -Name $_ -SourceLocation "$PSScriptRoot/../$_";
-  # Write-Host "repo registered";
-  # Get-PSRepository;
 
-  # Find-Module -Name "CloudTek.Automation.K8S";
-  # Find-Module -Name "$_";
-  # Get-Module -ListAvailable;
+  Get-PSRepository;
 
-  Install-Module $_ -Repository $_ -MinimumVersion "0.0.0" -Verbose -ErrorAction Continue;
-  Write-Host "module installed"
+  Install-Module $_ -Repository $_ -MinimumVersion "0.0.0" -Verbose -ErrorAction Break;
 }
