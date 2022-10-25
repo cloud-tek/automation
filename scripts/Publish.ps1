@@ -13,6 +13,10 @@ Import-Module PowershellGet;
 
 $name = "NuGet";
 
+Push-Location -Path "$PSScriptRoot/../src/$module"
+try {
+& ./PrePublish.ps1
+
 Write-Host "Registering PSRepository ($name)..." -ForegroundColor Gray;
 
 Register-PSRepository `
@@ -22,9 +26,6 @@ Register-PSRepository `
 
 Write-Host "Publishing: $module ==($version)==> $name ..." -ForegroundColor Gray;
 
-Push-Location -Path "$PSScriptRoot/../src/$module"
-try {
-& ./PrePublish.ps1
 
 Get-PSRepository | Out-String | Write-Host -ForegroundColor Gray;
 
