@@ -11,5 +11,8 @@ $modules | % {
 
   Get-PSRepository;
 
+  Get-Module -ListAvailable PowerShellGet,PackageManagement;
+  Get-Module -ListAvailable $_
+
   Install-Module $_ -Repository $_ -MinimumVersion "0.0.0" -Verbose -ErrorAction Break;
 }
