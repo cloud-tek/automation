@@ -30,11 +30,10 @@ try {
 
   & ./PrePublish.ps1
 
+  Get-Error;
+
 
 Write-Host "Publishing: $module ==($version)==> $name ..." -ForegroundColor Gray;
-
-
-Get-PSRepository | Out-String | Write-Host -ForegroundColor Gray;
 
 Publish-Module -Path "$PSScriptRoot/../src/$module"`
   -Repository $name `
