@@ -15,14 +15,15 @@ $name = "NuGet";
 
 Push-Location -Path "$PSScriptRoot/../src/$module"
 try {
-& ./PrePublish.ps1
+  Write-Host "Registering PSRepository ($name)..." -ForegroundColor Gray;
 
-Write-Host "Registering PSRepository ($name)..." -ForegroundColor Gray;
+  Register-PSRepository `
+    -Name $name `
+    -SourceLocation $url `
+    -PublishLocation $url;
 
-Register-PSRepository `
-  -Name $name `
-  -SourceLocation $url `
-  -PublishLocation $url;
+  & ./PrePublish.ps1
+
 
 Write-Host "Publishing: $module ==($version)==> $name ..." -ForegroundColor Gray;
 
