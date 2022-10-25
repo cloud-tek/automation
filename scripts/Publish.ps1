@@ -32,6 +32,8 @@ try {
 
   Get-Error;
 
+  $PSVersionTable;
+
 
 Write-Host "Publishing: $module ==($version)==> $name ..." -ForegroundColor Gray;
 
