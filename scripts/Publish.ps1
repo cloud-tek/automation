@@ -42,7 +42,7 @@ Publish-Module -Path "$PSScriptRoot/../src/$module"`
   -Verbose;
 }
 catch {
-  Write-Error "Failed to publish module $module : $_";
+  Write-Error "Failed to publish module $module : `n`t$_";
   Exit 1;
 }
 finally {

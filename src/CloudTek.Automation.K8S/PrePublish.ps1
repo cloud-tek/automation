@@ -14,6 +14,6 @@ $modules | % {
   Find-Module -Name "CloudTek.Automation.K8S";
   Find-Module -Name "$_";
 
-  Install-Module $_ -Repository $_;
+  Install-Module $_ -Repository $_ -ErrorAction Continue;
   Write-Host "module installed"
 }
