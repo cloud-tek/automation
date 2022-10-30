@@ -19,6 +19,7 @@ on:
 jobs:
   publish:
     strategy:
+      max-parallel: 1
       matrix:
         module: ${{ fromJson(inputs.modules) }}
     name: ${{ matrix.module.id }}
