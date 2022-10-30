@@ -78,6 +78,11 @@ jobs:
         working-directory: /opt/microsoft/powershell/7/Modules
         run: |
          tree
+      - name: diag pwshget
+        shell: bash
+        working-directory: /opt/microsoft/powershell/7/Modules
+        run: |
+         cat ./PowerShellGet/PowerShellGet.psd1
       - name: publish.ps1
         shell: pwsh
         working-directory: ${{ github.workspace }}/scripts
