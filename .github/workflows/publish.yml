@@ -86,9 +86,9 @@ jobs:
       #    tree
       - name: cat ${{ matrix.module.id }}.psd1
         shell: bash
-        working-directory: ${{ github.workspace }}/scripts
+        working-directory: ${{ github.workspace }}/src
         run: |
-         cat ./src/${{ matrix.module.id }}/${{ matrix.module.id }}.psd1
+         cat ./${{ matrix.module.id }}/${{ matrix.module.id }}.psd1
       # - name: diag pwsh modules (/usr/local/share/powershell/Modules)
       #   shell: bash
       #   working-directory: /usr/local/share/powershell/Modules
