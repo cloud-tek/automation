@@ -10,6 +10,7 @@ Param(
 
 #[string]$version = "3.0.17-beta17"
 #Install-Module PowershellGet -Force -AllowPrerelease;# -RequiredVersion $version;
+Remove-Module -Name PowershellGet;
 Import-Module -Name "/home/runner/.local/share/powershell/Modules/PowerShellGet/3.0.17/PowerShellGet.psd1" -Force; # -RequiredVersion $version;
 
 # https://stackoverflow.com/questions/63385304/powershell-install-no-match-was-found-for-the-specified-search-criteria-and-mo
