@@ -69,31 +69,31 @@ jobs:
           ./Version.ps1 `
             -module ${{ matrix.module.id }} `
             -version ${{ env.GitVersion_NuGetVersionV2 }};
-      - name: Install-Module
-        shell: pwsh
-        working-directory: ${{ github.workspace }}
-        run: |
-          Install-Module PowershellGet -Force -AllowPrerelease;
-      - name: diag pwsh
+      # - name: Install-Module
+      #   shell: pwsh
+      #   working-directory: ${{ github.workspace }}
+      #   run: |
+      #     Install-Module PowershellGet -Force -AllowPrerelease;
+      # - name: diag pwsh
+      #   shell: bash
+      #   working-directory: /opt/microsoft/powershell/7/Modules
+      #   run: |
+      #     printenv
+      # - name: diag pwsh modules (/opt/microsoft/powershell/7/Modules)
+      #   shell: bash
+      #   working-directory: /opt/microsoft/powershell/7/Modules
+      #   run: |
+      #    tree
+      - name: cat ${{ matrix.module.id }}.psd1
         shell: bash
-        working-directory: /opt/microsoft/powershell/7/Modules
+        working-directory: ${{ github.workspace }}/scripts
         run: |
-          printenv
-      - name: diag pwsh modules (/opt/microsoft/powershell/7/Modules)
-        shell: bash
-        working-directory: /opt/microsoft/powershell/7/Modules
-        run: |
-         tree
-      - name: diag pwshget (/opt/microsoft/powershell/7/Modules)
-        shell: bash
-        working-directory: /opt/microsoft/powershell/7/Modules
-        run: |
-         cat ./PowerShellGet/PowerShellGet.psd1
-      - name: diag pwsh modules (/usr/local/share/powershell/Modules)
-        shell: bash
-        working-directory: /usr/local/share/powershell/Modules
-        run: |
-         tree
+         cat ./src/${{ matrix.module.id }}/${{ matrix.module.id }}.psd1
+      # - name: diag pwsh modules (/usr/local/share/powershell/Modules)
+      #   shell: bash
+      #   working-directory: /usr/local/share/powershell/Modules
+      #   run: |
+      #    tree
       # - name: diag pwshget (/usr/local/share/powershell/Modules)
       #   shell: bash
       #   working-directory: /usr/local/share/powershell/Modules
