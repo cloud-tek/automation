@@ -13,6 +13,8 @@ Param(
 # Remove-Module -Name PowershellGet;
 Import-Module -Name "/home/runner/.local/share/powershell/Modules/PowerShellGet/3.0.17/PowerShellGet.psd1" -Force; # -RequiredVersion $version;
 
+Get-Command -Module PowershellGet | Select-Object -Property name, version -First 3
+
 # https://stackoverflow.com/questions/63385304/powershell-install-no-match-was-found-for-the-specified-search-criteria-and-mo
 Write-Host "Registering PSRepository (PSGallery) ..." -ForegroundColor Gray;
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
