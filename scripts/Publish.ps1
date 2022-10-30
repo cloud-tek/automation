@@ -9,8 +9,8 @@ Param(
 )
 
 [string]$version = "3.0.17-beta17"
-Install-Module PowershellGet -Force -AllowPrerelease -RequiredVersion $version;
-Import-Module PowershellGet -RequiredVersion $version;
+Install-Module PowershellGet -Force -AllowPrerelease;# -RequiredVersion $version;
+#Import-Module PowershellGet; # -RequiredVersion $version;
 
 # https://stackoverflow.com/questions/63385304/powershell-install-no-match-was-found-for-the-specified-search-criteria-and-mo
 Write-Host "Registering PSRepository (PSGallery) ..." -ForegroundColor Gray;
