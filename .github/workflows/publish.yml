@@ -77,7 +77,7 @@ jobs:
         shell: bash
         working-directory: /opt/microsoft/powershell/7/Modules
         run: |
-          printenv | grep PS
+          printenv
       - name: diag pwsh modules (/opt/microsoft/powershell/7/Modules)
         shell: bash
         working-directory: /opt/microsoft/powershell/7/Modules
