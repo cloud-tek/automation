@@ -93,11 +93,11 @@ jobs:
         working-directory: /usr/local/share/powershell/Modules
         run: |
          tree
-      - name: diag pwshget (/usr/local/share/powershell/Modules)
-        shell: bash
-        working-directory: /usr/local/share/powershell/Modules
-        run: |
-         cat ./PowerShellGet/PowerShellGet.psd1
+      # - name: diag pwshget (/usr/local/share/powershell/Modules)
+      #   shell: bash
+      #   working-directory: /usr/local/share/powershell/Modules
+      #   run: |
+      #    cat ./PowerShellGet/PowerShellGet.psd1
       - name: publish.ps1
         shell: pwsh
         working-directory: ${{ github.workspace }}/scripts
