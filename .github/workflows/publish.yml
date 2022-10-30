@@ -68,6 +68,16 @@ jobs:
           ./Version.ps1 `
             -module ${{ matrix.module.id }} `
             -version ${{ env.GitVersion_NuGetVersionV2 }};
+      - name: Install-Module
+        shell: pwsh
+        working-directory: ${{ github.workspace }}
+        run: |
+          Install-Module PowershellGet -Force -AllowPrerelease;
+      - name: diag pwsh modules
+        shell: bash
+        working-directory: /opt/microsoft/powershell/7/Modules
+        run: |
+         tree
       - name: publish.ps1
         shell: pwsh
         working-directory: ${{ github.workspace }}/scripts
