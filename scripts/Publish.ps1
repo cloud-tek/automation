@@ -45,12 +45,14 @@ Write-Host "Publishing: $module ==($version)==> $name ..." -ForegroundColor Gray
 Publish-Module -Path "$PSScriptRoot/../src/$module"`
   -Repository $name `
   -NuGetApiKey $apiKey `
+  -ErrorAction Continue
   -Force `
   -Verbose;
+
+  Get-Error;
 }
 catch {
   Write-Error "Failed to publish module $module : `n`t$_";
-  Get-Error;
   Exit 1;
 }
 finally {
