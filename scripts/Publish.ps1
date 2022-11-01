@@ -34,8 +34,6 @@ try {
 
   & ./PrePublish.ps1
 
-  Get-Error;
-
   $PSVersionTable;
 
   Get-Module;
@@ -52,6 +50,7 @@ Publish-Module -Path "$PSScriptRoot/../src/$module"`
 }
 catch {
   Write-Error "Failed to publish module $module : `n`t$_";
+  Get-Error;
   Exit 1;
 }
 finally {
