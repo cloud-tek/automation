@@ -42,11 +42,12 @@ try {
 
 Write-Host "Publishing: $module ==($version)==> $name ..." -ForegroundColor Gray;
 
-Publish-Module -Path "$PSScriptRoot/../src/$module"`
+Publish-PSResource -Path "$PSScriptRoot/../src/$module"`
   -Repository $name `
   -NuGetApiKey $apiKey `
   -Force `
-  -Verbose;
+  -Verbose `
+  -ErrorAction SilentlyContinue;
 
   Get-Error;
 }
