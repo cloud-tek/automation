@@ -45,7 +45,6 @@ Write-Host "Publishing: $module ==($version)==> $name ..." -ForegroundColor Gray
 Publish-PSResource -Path "$PSScriptRoot/../src/$module"`
   -Repository $name `
   -ApiKey $apiKey `
-  -Force `
   -Verbose `
   -ErrorAction SilentlyContinue;
 
