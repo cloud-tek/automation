@@ -8,47 +8,23 @@ Param(
   [Parameter(Mandatory = $true)][string]$version
 )
 
-#[string]$version = "3.0.17-beta17"
-#Install-Module PowershellGet -Force -AllowPrerelease;# -RequiredVersion $version;
-# Remove-Module -Name PowershellGet;
-Import-Module -Name "/home/runner/.local/share/powershell/Modules/PowerShellGet/3.0.17/PowerShellGet.psd1" -Force; # -RequiredVersion $version;
+Import-Module -Name "$PSScriptRoot/Utils.psm1" -Force;
+Import-PowerShellGet -Version "3.0.17";
 
-Get-Command -Module PowershellGet | Select-Object -Property name, version -First 3
-
-# https://stackoverflow.com/questions/63385304/powershell-install-no-match-was-found-for-the-specified-search-criteria-and-mo
-Write-Host "Registering PSRepository (PSGallery) ..." -ForegroundColor Gray;
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-Unregister-PSRepository -Name PSGallery
-Register-PSRepository -Default
-
-$name = "NuGet";
+Register-PSGallery;
+Register-NuGet -url $url;
 
 Push-Location -Path "$PSScriptRoot/../src/$module"
 try {
-  Write-Host "Registering PSRepository ($name)..." -ForegroundColor Gray;
-
-  Register-PSRepository `
-    -Name $name `
-    -SourceLocation $url `
-    -PublishLocation $url;
-
   & ./PrePublish.ps1
 
-  $PSVersionTable;
+  Write-Host "Publishing: $module ==($version)==> nuget ..." -ForegroundColor Gray;
 
-  Get-Module;
-  #Get-InstalledModule;
-
-
-Write-Host "Publishing: $module ==($version)==> $name ..." -ForegroundColor Gray;
-
-Publish-PSResource -Path "$PSScriptRoot/../src/$module"`
-  -Repository $name `
-  -ApiKey $apiKey `
-  -Verbose `
-  -ErrorAction SilentlyContinue;
-
-  Get-Error;
+  Publish-PSResource -Path "$PSScriptRoot/../src/$module"`
+    -Repository "nuget" `
+    -ApiKey $apiKey `
+    -Verbose `
+    -ErrorAction SilentlyContinue;
 }
 catch {
   Write-Error "Failed to publish module $module : `n`t$_";
