@@ -7,13 +7,10 @@ function Register-PSGallery() {
 }
 
 function Register-NuGet([string]$url) {
-  [string]$nuget = "https://api.nuget.org/v3/index.json";
   Write-Host "Registering PSRepository ($name)..." -ForegroundColor Gray;
+  [string]$nuget = "https://api.nuget.org/v3/index.json";
 
-  if($url -ne $nuget) {
-    Register-PSResourceRepository -Name "NuGetGallery" -Uri "https://api.nuget.org/v3/index.json" -Trusted
-  }
-
+  Register-PSResourceRepository -Name "NuGetGallery" -Uri $nuget -Trusted
   Register-PSResourceRepository -Name "nuget" -Uri $url -Trusted;
 
   Register-PSRepository `
