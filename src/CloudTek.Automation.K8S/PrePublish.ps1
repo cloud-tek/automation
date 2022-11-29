@@ -6,5 +6,8 @@
 
 $data.RequiredModules | % {
   Write-Host "`t Installing $($_.ModuleName) ($($_.ModuleVersion)) ..." -ForegroundColor Gray;
-  Install-PSResource -Name $_.ModuleName -Version $_.ModuleVersion -Repository $Repository -Verbose;
+
+  Invoke-Command -ScriptBlock {
+    Install-PSResource -Name $_.ModuleName -Version $_.ModuleVersion -Repository $Repository -Verbose;
+  } -Retries 5 -Interval 10000;
 }
