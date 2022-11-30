@@ -21,6 +21,7 @@ function Register-PSResourceRepositories([string]$url) {
     @{ Name = "NuGetGallery"; Uri = "https://api.nuget.org/v3/index.json"; Trusted = $true; Priority = 50 }
   );
 
+  Unregister-PSResourceRepository -Name PSGallery;
   Register-PSResourceRepository -Repository $repositories;
   Register-PSRepository `
   -Name "nuget" `
