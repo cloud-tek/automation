@@ -9,7 +9,7 @@ $data.RequiredModules | % {
   Write-Host "`t Installing $($_.ModuleName) ($($_.ModuleVersion)) ..." -ForegroundColor Gray;
 
   Get-PSResourceRepository -Name "$($_.ModuleName)-local";
-  Find-PSResource -Repository "$($_.ModuleName)-local";
+  Find-PSResource -Repository "$($_.ModuleName)-local" -Name $_.ModuleName;
 
   Install-PSResource -Name $_.ModuleName -Version $_.ModuleVersion -Repository "$($_.ModuleName)-local" -Verbose;
   # Invoke-Command -ScriptBlock {
