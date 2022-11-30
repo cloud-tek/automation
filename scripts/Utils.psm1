@@ -86,5 +86,6 @@ function Invoke-Command {
 
 Export-ModuleMember -Function Import-PowershellGet;
 Export-ModuleMember -Function Register-PSGallery;
-Export-ModuleMember -Function Register-NuGet;
+Export-ModuleMember -Function Register-PSResourceRepositories;
+Export-ModuleMember -Function Register-LocalPSResourceRepository;
 Export-ModuleMember -Function Invoke-Command;
