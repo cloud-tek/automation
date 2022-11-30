@@ -11,7 +11,7 @@ Param(
 Import-Module -Name "$PSScriptRoot/Utils.psm1" -Force;
 Import-PowerShellGet -Version "3.0.17";
 
-Register-PSGallery;
+# Register-PSGallery;
 Register-PSResourceRepositories -url $url;
 
 Push-Location -Path "$PSScriptRoot/../src/$module"
