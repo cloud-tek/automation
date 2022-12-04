@@ -12,7 +12,7 @@ $data.RequiredModules | % {
   Find-PSResource -Repository "$($_.ModuleName)-local" -Name $_.ModuleName;
 
   Write-Host "=== Before installation";
-  Get-PSResourceRepository;
+  Get-PSResourceRepository | Out-String | Write-Host;
   Install-PSResource -Name $_.ModuleName -Version $_.ModuleVersion -Repository "$($_.ModuleName)-local" -Verbose;
   Write-Host "=== Check after installation";
   Get-PSResource;
