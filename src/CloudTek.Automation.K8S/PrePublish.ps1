@@ -12,6 +12,8 @@ $data.RequiredModules | % {
   Find-PSResource -Repository "$($_.ModuleName)-local" -Name $_.ModuleName;
 
   Install-PSResource -Name $_.ModuleName -Version $_.ModuleVersion -Repository "$($_.ModuleName)-local" -Verbose;
+  Write-Host "=== Check after installation";
+  Get-PSResource;
   # Invoke-Command -ScriptBlock {
   #   Install-PSResource -Name $_.ModuleName -Version $_.ModuleVersion -Repository "$($_.ModuleName)-local" -Verbose;
   # } -Retries 10 -Interval 10000;
