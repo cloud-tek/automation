@@ -8,11 +8,12 @@ $data.RequiredModules | % {
   Register-LocalPSResourceRepository -name "$($_.ModuleName)-local" -path "$PSScriptRoot/../$($_.ModuleName)";
   Write-Host "`t Installing $($_.ModuleName) ($($_.ModuleVersion)) ..." -ForegroundColor Gray;
 
-  Get-PSResourceRepository -Name "$($_.ModuleName)-local";
-  Find-PSResource -Repository "$($_.ModuleName)-local" -Name $_.ModuleName;
+  #Get-PSResourceRepository -Name "$($_.ModuleName)-local";
+  #Find-PSResource -Repository "$($_.ModuleName)-local" -Name $_.ModuleName;
 
   Write-Host "=== Before installation";
   Get-PSResourceRepository | Out-String | Write-Host;
+  Find-PSResource -Repository "$($_.ModuleName)-local" | Out-String | Write-Host;
   Install-PSResource -Name $_.ModuleName -Version $_.ModuleVersion -Repository "$($_.ModuleName)-local" -Verbose;
   Write-Host "=== Check after installation";
   Get-PSResource;
