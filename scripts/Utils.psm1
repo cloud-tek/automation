@@ -11,7 +11,7 @@ function Register-LocalPSResourceRepository([string] $path, [string]$name) {
     @{ Name = $name; Uri = $path; Trusted = $true; Priority = 10 }
   );
 
-  Register-PSResourceRepository -Repository $repositories;
+  Register-PSResourceRepository -Repository $repositories -Verbose;
 }
 
 function Register-PSResourceRepositories([string]$url) {
