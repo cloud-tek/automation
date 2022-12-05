@@ -5,9 +5,13 @@
 [hashtable]$data = Import-PowerShellDataFile ./CloudTek.Automation.K8S.psd1
 
 $data.RequiredModules | % {
-  Register-LocalPSResourceRepository -name "$($_.ModuleName)-local" -path "$PSScriptRoot/../$($_.ModuleName)";
+  [string]$repository =  "$($_.ModuleName)-local";
+  [string]$path = Resolve-Path -Path "$PSScriptRoot/../$($_.ModuleName)";
+
+  Register-LocalPSResourceRepository -name $repository -path "$path/artifacts";
   Write-Host "`t Installing $($_.ModuleName) ($($_.ModuleVersion)) ..." -ForegroundColor Gray;
 
+  Save-PSResource -Name $_.ModuleName -Repository $repository -Path $path -AsNupkg -Verbose;
   #Get-PSResourceRepository -Name "$($_.ModuleName)-local";
   #Find-PSResource -Repository "$($_.ModuleName)-local" -Name $_.ModuleName;
 
