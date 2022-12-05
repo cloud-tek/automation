@@ -15,7 +15,17 @@ $data.RequiredModules | % {
   Get-PSResourceRepository | Out-String | Write-Host;
   # -Repository "$($_.ModuleName)-local"
   Find-PSResource -Name "CloudTek*" | Out-String | Write-Host;
-  Install-PSResource -Name $_.ModuleName -Version $_.ModuleVersion -Repository "$($_.ModuleName)-local" -Verbose;
+
+
+  # Install-PSResource -Name $_.ModuleName -Version $_.ModuleVersion -Repository "$($_.ModuleName)-local" -Verbose;
+
+  Install-PSResource -RequiredResource @{
+    "$($_.ModuleName)" = @{
+      version = "$($_.ModuleVersion)"
+      repository = "$($_.ModuleName)-local"
+     }
+  }
+
   Write-Host "=== Check after installation";
   Get-PSResource;
   # Invoke-Command -ScriptBlock {
