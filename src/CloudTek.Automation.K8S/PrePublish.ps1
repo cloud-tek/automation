@@ -24,7 +24,7 @@ $data.RequiredModules | % {
       version = "$($_.ModuleVersion)"
       repository = "$($_.ModuleName)-local"
      }
-  }
+  } -Verbose -Debug;
 
   Write-Host "=== Check after installation";
   Get-PSResource;
