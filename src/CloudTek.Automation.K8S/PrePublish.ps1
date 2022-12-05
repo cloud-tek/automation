@@ -8,7 +8,7 @@ $data.RequiredModules | % {
   [string]$repository =  "$($_.ModuleName)-local";
   [string]$path = Resolve-Path -Path "$PSScriptRoot/../$($_.ModuleName)";
 
-  if(!Test-Path -PathType container "$path/artifacts")
+  if(!(Test-Path -PathType container "$path/artifacts"))
   {
     New-Item -ItemType Directory -Path "$path/artifacts";
   }
