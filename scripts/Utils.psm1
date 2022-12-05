@@ -7,9 +7,10 @@ function Register-PSGallery() {
 }
 
 function Register-LocalPSResourceRepository([string] $path, [string]$name) {
-  Write-Host "Registering PSRepository ($name : $path) ..." -ForegroundColor Gray;
+  [string]$p = Resolve-Path -Path $path;
+  Write-Host "Registering PSRepository ($name : $p) ..." -ForegroundColor Gray;
   [hashtable[]]$repositories = @(
-    @{ Name = $name; Uri = $path; Trusted = $true; Priority = 10 }
+    @{ Name = $name; Uri = "$p"; Trusted = $true; Priority = 10 }
   );
 
   Register-PSResourceRepository -Repository $repositories -Verbose;
