@@ -7,6 +7,7 @@ function Register-PSGallery() {
 }
 
 function Register-LocalPSResourceRepository([string] $path, [string]$name) {
+  Write-Host "Registering PSRepository ($name : $path) ..." -ForegroundColor Gray;
   [hashtable[]]$repositories = @(
     @{ Name = $name; Uri = $path; Trusted = $true; Priority = 10 }
   );
