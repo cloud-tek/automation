@@ -13,7 +13,7 @@ $data.RequiredModules | % {
     New-Item -ItemType Directory -Path "$path/artifacts";
   }
 
-  Register-LocalPSResourceRepository -name $repository -path "$path/artifacts";
+  Register-LocalPSResourceRepository -name $repository -path $path;
   Write-Host "`t Installing $($_.ModuleName) ($($_.ModuleVersion)) ..." -ForegroundColor Gray;
 
   Write-Host "=== Before save-psresource";
