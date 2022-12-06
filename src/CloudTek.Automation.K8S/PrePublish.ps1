@@ -8,13 +8,10 @@ $data.RequiredModules | % {
   [string]$repository =  "$($_.ModuleName)-local";
   [string]$path = Resolve-Path -Path "$PSScriptRoot/../$($_.ModuleName)";
 
-  if(!(Test-Path -PathType container "$path/artifacts"))
-  {
-    New-Item -ItemType Directory -Path "$path/artifacts";
-  }
-
   Register-LocalPSResourceRepository -name $repository -path $path;
   Write-Host "`t Installing $($_.ModuleName) ($($_.ModuleVersion)) ..." -ForegroundColor Gray;
+
+  & ../../scripts/Version.ps1 -module $_.ModuleName -version $_.ModuleVersion;
 
   Write-Host "=== Before save-psresource";
   Save-PSResource `
