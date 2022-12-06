@@ -16,12 +16,14 @@ $data.RequiredModules | % {
   Register-LocalPSResourceRepository -name $repository -path "$path/artifacts";
   Write-Host "`t Installing $($_.ModuleName) ($($_.ModuleVersion)) ..." -ForegroundColor Gray;
 
+  Write-Host "=== Before save-psresource";
   Save-PSResource `
     -Name $_.ModuleName `
     -Repository $repository `
     -Version $_.ModuleVersion `
     -Path $path `
     -AsNupkg -Verbose;
+  Write-Host "=== After save-psresource";
   #Get-PSResourceRepository -Name "$($_.ModuleName)-local";
   #Find-PSResource -Repository "$($_.ModuleName)-local" -Name $_.ModuleName;
 
