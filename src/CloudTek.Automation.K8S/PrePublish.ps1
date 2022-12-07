@@ -1,5 +1,5 @@
 #!/usr/local/bin/pwsh
-
+using module ../../scripts/Utils.psm1
 # https://github.com/PowerShell/PowerShellGet/blob/master/help/Register-PSResourceRepository.md#example-3
 
 [hashtable]$data = Import-PowerShellDataFile ./CloudTek.Automation.K8S.psd1
@@ -14,7 +14,7 @@ $data.RequiredModules | % {
   & ../../scripts/Version.ps1 -module $_.ModuleName -version $_.ModuleVersion;
 
   Write-Host "=== Before save-psresource";
-  Publish-Module -Path $path -Repository $repository;
+  Publish-Module -Path $path -Repository $repository -Verbose;
   # Save-PSResource `
   #   -Name $_.ModuleName `
   #   -Repository $repository `
