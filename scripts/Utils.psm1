@@ -14,6 +14,7 @@ function Register-LocalPSResourceRepository([string] $path, [string]$name) {
   );
 
   Register-PSResourceRepository -Repository $repositories -Verbose;
+  Register-PSRepository -SourceLocation $p -PublishLocation $p -Name $name;
 }
 
 function Register-PSResourceRepositories([string]$url) {
