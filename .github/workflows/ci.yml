@@ -43,7 +43,7 @@ jobs:
     uses: cloud-tek/automation/.github/workflows/publish-local.yml@main
     name: publish (local)
     with:
-      modules: ${{ env.Modules }}
+      modules: ${{ inputs.Modules }}
 
     secrets:
       NuGetApiKey:  '${{ secrets.NUGET_API_KEY }}'
