@@ -14,12 +14,13 @@ $data.RequiredModules | % {
   & ../../scripts/Version.ps1 -module $_.ModuleName -version $_.ModuleVersion;
 
   Write-Host "=== Before save-psresource";
-  Save-PSResource `
-    -Name $_.ModuleName `
-    -Repository $repository `
-    -Version $_.ModuleVersion `
-    -Path $path `
-    -AsNupkg -Verbose;
+  Publish-Module -Path $path -Repository $repository;
+  # Save-PSResource `
+  #   -Name $_.ModuleName `
+  #   -Repository $repository `
+  #   -Version $_.ModuleVersion `
+  #   -Path $path `
+  #   -AsNupkg -Verbose;
   Write-Host "=== After save-psresource";
   #Get-PSResourceRepository -Name "$($_.ModuleName)-local";
   #Find-PSResource -Repository "$($_.ModuleName)-local" -Name $_.ModuleName;
