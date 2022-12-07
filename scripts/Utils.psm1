@@ -6,6 +6,19 @@ function Register-PSGallery() {
   Register-PSRepository -Default
 }
 
+function Register-LocalRepository() {
+  [string]$p = "$PSScriptRoot/../packages";
+
+  [hashtable]$arguments = @{
+    Name = "local"
+    SourceLocation = $p
+    PublishLocation = $p
+    InstallationPolicy = "Trusted"
+  };
+
+  Register-PSRepository @arguments;
+}
+
 function Register-LocalPSResourceRepository([string] $path, [string]$name) {
   [string]$p = Resolve-Path -Path $path;
   Write-Host "Registering PSRepository ($name : $p) ..." -ForegroundColor Gray;
@@ -90,6 +103,7 @@ function Invoke-Command {
 
 Export-ModuleMember -Function Import-PowershellGet;
 Export-ModuleMember -Function Register-PSGallery;
+Export-ModuleMember -Function Register-LocalRepository;
 Export-ModuleMember -Function Register-PSResourceRepositories;
 Export-ModuleMember -Function Register-LocalPSResourceRepository;
 Export-ModuleMember -Function Invoke-Command;

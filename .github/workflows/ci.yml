@@ -3,6 +3,15 @@ name: ci
 env:
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
   DOTNET_ROLL_FORWARD: Major
+  Modules: |
+    [
+      {
+        "id": "CloudTek.Automation.Shell"
+      },
+      {
+        "id": "CloudTek.Automation.K8S"
+      }
+    ]
 
 on:
   push:
@@ -30,19 +39,21 @@ on:
 
 # https://github.com/PowerShell/PowerShellGet/issues/163
 jobs:
-  powershell:
-    uses: cloud-tek/automation/.github/workflows/publish.yml@main
-    name: powershell
+  publish-local:
+    uses: cloud-tek/automation/.github/workflows/publish-local.yml@main
+    name: publish (local)
     with:
-      NuGetApiUrl:  'https://api.nuget.org/v3/index.json'
-      modules: |
-        [
-          {
-            "id": "CloudTek.Automation.Shell"
-          },
-          {
-            "id": "CloudTek.Automation.K8S"
-          }
-        ]
+      modules: '${{ env.Modules }}'
+
     secrets:
       NuGetApiKey:  '${{ secrets.NUGET_API_KEY }}'
+
+  # powershell:
+  #   uses: cloud-tek/automation/.github/workflows/publish-local.yml@main
+  #   name: powershell
+  #   with:
+  #     NuGetApiUrl:  'https://api.nuget.org/v3/index.json'
+  #     modules: '${{ env.Modules }}'
+
+  #   secrets:
+  #     NuGetApiKey:  '${{ secrets.NUGET_API_KEY }}'
