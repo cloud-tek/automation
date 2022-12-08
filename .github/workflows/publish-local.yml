@@ -1,4 +1,4 @@
-name: "publish (local)"
+name: "publish"
 
 on:
   workflow_call:
@@ -9,7 +9,7 @@ on:
         required: true
 
 jobs:
-  publish:
+  local:
     # strategy:
     #   max-parallel: 1
     #   matrix:
@@ -71,7 +71,7 @@ jobs:
         working-directory: ${{ github.workspace }}/scripts
         run: |
           ./Publish-Local.ps1 `
-            -modules ${{ inputs.Modules }}
+            -modules ${{ inputs.Modules }};
       - name: ls packages
         shell: bash
         working-directory: ${{ github.workspace }}/packages
