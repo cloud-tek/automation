@@ -2,38 +2,29 @@
 
 [CmdletBinding()]
 Param(
-  [Parameter(Mandatory = $true)][string]$modules,
+  [Parameter(Mandatory = $true)][string]$module,
   [Parameter(Mandatory = $true)][string]$version
 )
 
+Push-Location -Path "$PSScriptRoot/../src/$module";
+
 try {
-  $list = ConvertFrom-Json -InputObject $modules;
-}
-catch {
-  Write-Error "Failed to deserialize module list : $_  : $modules";
-  Exit 1;
-}
+  Write-Host "Settings $module version to $version ..." -ForegroundColor Gray;
 
-$list | % {
-  try {
-    Push-Location -Path "$PSScriptRoot/../src/$($_.id)";
-    Write-Host "Settings $($_.id) version to $version ..." -ForegroundColor Gray;
-
-    [string]$file = (Get-Content "./$($_.id).psd1" -Raw -Encoding utf8);
+  [string]$file = (Get-Content "./$module.psd1" -Raw -Encoding utf8);
 
     $file = $file.Replace("ModuleVersion = ""0.0.0""", "ModuleVersion = ""$($version)""");
 
-    Set-Content "./$($_.id).psd1" `
+    Set-Content "./$module.psd1" `
       -Value $file `
       -NoNewline;
 
     Write-Host "Done" -ForegroundColor Green;
-  }
-  catch {
-    Write-Error "Failed to read $($_.id).psd1 ... : $_";
-    Exit 1;
-  }
-  finally {
-    Pop-Location;
-  }
+}
+catch {
+  Write-Error "Failed to read $module.psd1 ... : $_";
+  Exit 1;
+}
+finally {
+  Pop-Location;
 }

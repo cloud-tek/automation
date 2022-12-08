@@ -40,25 +40,33 @@ on:
 # https://github.com/PowerShell/PowerShellGet/issues/163
 jobs:
   publish-local:
-    uses: cloud-tek/automation/.github/workflows/publish-local.yml@main
-    name: publish
+    uses: cloud-tek/automation/.github/workflows/prepublish.yml@main
+    name: pre-publish
     with:
       modules: |
-        '[
+        [
           {
             "id": "CloudTek.Automation.Shell"
           },
           {
             "id": "CloudTek.Automation.K8S"
           }
-        ]'
+        ]
 
   # powershell:
   #   uses: cloud-tek/automation/.github/workflows/publish-local.yml@main
   #   name: powershell
   #   with:
   #     NuGetApiUrl:  'https://api.nuget.org/v3/index.json'
-  #     modules: '${{ env.Modules }}'
+  #     modules:
+        # [
+        #   {
+        #     "id": "CloudTek.Automation.Shell"
+        #   },
+        #   {
+        #     "id": "CloudTek.Automation.K8S"
+        #   }
+        # ]
 
   #   secrets:
   #     NuGetApiKey:  '${{ secrets.NUGET_API_KEY }}'

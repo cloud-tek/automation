@@ -10,10 +10,9 @@ on:
 
 jobs:
   local:
-    # strategy:
-    #   max-parallel: 1
-    #   matrix:
-    #     module: ${{ fromJson(inputs.modules) }}
+    strategy:
+      matrix:
+        module: ${{ fromJson(inputs.modules) }}
     name: ${{ matrix.module.id }}
     runs-on: ubuntu-latest
     steps:
@@ -64,14 +63,14 @@ jobs:
         working-directory: ${{ github.workspace }}/scripts
         run: |
           ./Version.ps1 `
-            -modules "${{ inputs.modules }}" `
+            -module ${{ matrix.module.id }} `
             -version ${{ env.GitVersion_NuGetVersionV2 }};
       - name: Publish-Local.ps1
         shell: pwsh
         working-directory: ${{ github.workspace }}/scripts
         run: |
           ./Publish-Local.ps1 `
-            -modules "${{ inputs.modules }}";
+            -module ${{ matrix.module.id }};
       - name: ls packages
         shell: bash
         working-directory: ${{ github.workspace }}/packages

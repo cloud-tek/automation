@@ -13,7 +13,7 @@
 
 [CmdletBinding()]
 Param(
-  [Parameter(Mandatory = $true)][string]$modules
+  [Parameter(Mandatory = $true)][string]$module
 )
 
 Import-Module -Name "$PSScriptRoot/Utils.psm1" -Force;
@@ -23,32 +23,24 @@ Register-PSGallery;
 Register-LocalRepository;
 
 try {
-  $list = ConvertFrom-Json -InputObject $modules;
-} catch {
-  Write-Error "Failed to deserialize module list : $_  : $modules";
+  Push-Location -Path "$PSScriptRoot/../src/$module"
+
+  Get-PSRepository -Name "local";
+
+  [hashtable] $publishArgs = @{
+    Repository = "local"
+    Path       = "$PSScriptRoot/../src/$module"
+  };
+
+  Publish-Module @publishArgs;
+}
+catch {
+  Write-Error "Failed to publish module locally, $module : `n`t$_";
   Exit 1;
 }
-
-$list | % {
-  try {
-    Push-Location -Path "$PSScriptRoot/../src/$($_.id)"
-
-    Get-PSRepository -Name "local";
-
-    [hashtable] $publishArgs = @{
-      Repository = "local"
-      Path = "$PSScriptRoot/../src/$($_.id)"
-    };
-
-    Publish-Module @publishArgs;
-  }
-  catch {
-    Write-Error "Failed to publish module locally, $($_.id) : `n`t$_";
-    Exit 1;
-  }
-  finally {
-    Pop-Location;
-  }
+finally {
+  Pop-Location;
 }
+
 
 Write-Host "Done" -ForegroundColor Green;
