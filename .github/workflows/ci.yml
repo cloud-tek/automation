@@ -45,9 +45,6 @@ jobs:
     with:
       modules: $Modules
 
-    secrets:
-      NuGetApiKey:  '${{ secrets.NUGET_API_KEY }}'
-
   # powershell:
   #   uses: cloud-tek/automation/.github/workflows/publish-local.yml@main
   #   name: powershell
