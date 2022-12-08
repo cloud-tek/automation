@@ -44,14 +44,14 @@ jobs:
     name: publish
     with:
       modules: |
-        [
+        "[
           {
             "id": "CloudTek.Automation.Shell"
           },
           {
             "id": "CloudTek.Automation.K8S"
           }
-        ]
+        ]"
 
   # powershell:
   #   uses: cloud-tek/automation/.github/workflows/publish-local.yml@main
