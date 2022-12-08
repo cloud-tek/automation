@@ -64,7 +64,7 @@ jobs:
         working-directory: ${{ github.workspace }}/scripts
         run: |
           ./Version.ps1 `
-            -module ${{ matrix.module.id }} `
+            -modules ${{ inputs.Modules }} `
             -version ${{ env.GitVersion_NuGetVersionV2 }};
       - name: Publish-Local.ps1
         shell: pwsh
