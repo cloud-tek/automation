@@ -13,7 +13,8 @@
 
 [CmdletBinding()]
 Param(
-  [Parameter(Mandatory = $true)][string]$module
+  [Parameter(Mandatory = $true)][string]$module,
+  [Parameter(Mandatory = $false)][string]$version = "0.0.0"
 )
 
 Import-Module -Name "$PSScriptRoot/Utils.psm1" -Force;
@@ -27,11 +28,25 @@ try {
 
   Get-PSRepository -Name "local";
 
+  & $PSScriptRoot/Version.ps1 -module $module -version $version;
+
+  [hashtable]$data = Import-PowerShellDataFile "./$module.psd1"
+
+  if ($null -ne $data.RequiredModules) {
+    $data.RequiredModules | % {
+      & $PSScriptRoot/Publish-Local.ps1 -module $_.ModuleName -version $_.ModuleVersion;
+
+      Install-Module -Repository "local" -Name $_.ModuleName -RequiredVersion $_.Version -Verbose -Force;
+    }
+  }
+
   [hashtable] $publishArgs = @{
-    Repository = "local"
-    Path       = "$PSScriptRoot/../src/$module"
+    Repository  = "local"
+    Path        = "$PSScriptRoot/../src/$module"
+    Force       = $true
   };
 
+  Get-Location | Out-String | Write-Host;
   Publish-Module @publishArgs;
 }
 catch {
