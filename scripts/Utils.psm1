@@ -14,7 +14,7 @@ function Register-LocalRepository() {
     SourceLocation = $p
     PublishLocation = $p
     InstallationPolicy = "Trusted"
-    ErrorAction = SilentlyContinue
+    ErrorAction = "SilentlyContinue"
   };
 
   Register-PSRepository @arguments;
