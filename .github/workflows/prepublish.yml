@@ -70,3 +70,7 @@ jobs:
         working-directory: ${{ github.workspace }}/packages
         run: |
          ls -l
+      - uses: actions/upload-artifact@v3
+        with:
+          name: ${{ matrix.module.id }}
+          path: ${{ github.workspace }}/packages/${{ matrix.module.id }}
