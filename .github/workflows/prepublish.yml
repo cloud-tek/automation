@@ -1,4 +1,4 @@
-name: "publish-local"
+name: "prepublish"
 
 on:
   workflow_call:

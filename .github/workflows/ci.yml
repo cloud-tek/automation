@@ -41,7 +41,7 @@ on:
 jobs:
   prepublish:
     uses: cloud-tek/automation/.github/workflows/prepublish.yml@main
-    name: pre-publish
+    name: prepublish
     with:
       modules: |
         [
@@ -53,8 +53,10 @@ jobs:
           }
         ]
   publish:
+    needs:
+    - prepublish
     uses: cloud-tek/automation/.github/workflows/publish.yml@main
-    name: powershell
+    name: publish
     with:
       NuGetApiUrl:  'https://api.nuget.org/v3/index.json'
       modules: |
