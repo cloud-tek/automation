@@ -63,7 +63,7 @@ jobs:
           $nuget | Out-File -FilePath ${{ github.workspace }}/nuget.config
       - uses: actions/download-artifact@v3
         with:
-          path:${{ github.workspace }}/packages
+          path: ${{ github.workspace }}/packages
       - name: ls packages
         shell: bash
         working-directory: ${{ github.workspace }}/packages
