@@ -64,6 +64,11 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           path: ${{ github.workspace }}/packages
+      - name: mv *.nupkg
+        shell: bash
+        working-directory: ${{ github.workspace }}/packages
+        run: |
+          mv ./**/*.nupkg .
       - name: ls packages
         shell: bash
         working-directory: ${{ github.workspace }}/packages
