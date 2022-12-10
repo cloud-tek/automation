@@ -79,6 +79,11 @@ jobs:
         working-directory: ${{ github.workspace }}/packages
         run: |
          ls -l
+      - name: Install-Module PowershellGet
+        shell: pwsh
+        working-directory: ${{ github.workspace }}/scripts
+        run: |
+          Install-Module PowerShellGet -AllowPrerelease -AllowClobber;
       - name: Test.ps1
         shell: pwsh
         working-directory: ${{ github.workspace }}/scripts
