@@ -61,11 +61,55 @@ jobs:
           </configuration>
           "@
           $nuget | Out-File -FilePath ${{ github.workspace }}/nuget.config
-      - uses: actions/download-artifact@v3
-        with:
-          path:${{ github.workspace }}/packages
-      - name: ls packages
-        shell: bash
-        working-directory: ${{ github.workspace }}/packages
+      - name: version.ps1
+        shell: pwsh
+        working-directory: ${{ github.workspace }}/scripts
         run: |
-         ls -l
+          ./Version.ps1 `
+            -module ${{ matrix.module.id }} `
+            -version ${{ env.GitVersion_NuGetVersionV2 }};
+      - name: Install-Module
+        shell: pwsh
+        working-directory: ${{ github.workspace }}
+        run: |
+          Install-Module PowershellGet -Force -AllowPrerelease;
+      # - name: diag pwsh
+      #   shell: bash
+      #   working-directory: /opt/microsoft/powershell/7/Modules
+      #   run: |
+      #     printenv
+      # - name: diag pwsh modules (/opt/microsoft/powershell/7/Modules)
+      #   shell: bash
+      #   working-directory: /opt/microsoft/powershell/7/Modules
+      #   run: |
+      #    tree
+      - name: cat ${{ matrix.module.id }}.psd1
+        shell: bash
+        working-directory: ${{ github.workspace }}/src
+        run: |
+         cat ./${{ matrix.module.id }}/${{ matrix.module.id }}.psd1
+      # - name: diag pwsh modules (/usr/local/share/powershell/Modules)
+      #   shell: bash
+      #   working-directory: /usr/local/share/powershell/Modules
+      #   run: |
+      #    tree
+      # - name: diag pwshget (/usr/local/share/powershell/Modules)
+      #   shell: bash
+      #   working-directory: /usr/local/share/powershell/Modules
+      #   run: |
+      #    cat ./PowerShellGet/PowerShellGet.psd1
+      - name: publish.ps1
+        shell: pwsh
+        working-directory: ${{ github.workspace }}/scripts
+        run: |
+          ./Publish.ps1 `
+            -module ${{ matrix.module.id }} `
+            -url ${{ inputs.NuGetApiUrl }} `
+            -apikey ${{ secrets.NuGetApiKey }} `
+            -version ${{ env.GitVersion_NuGetVersionV2 }};
+      - name: get-error
+        if: failure()
+        shell: pwsh
+        working-directory: ${{ github.workspace }}/scripts
+        run: |
+          Get-Error
