@@ -69,6 +69,11 @@ jobs:
         working-directory: ${{ github.workspace }}/packages
         run: |
           mv ./**/*.nupkg .
+      - name: rm -R
+        shell: bash
+        working-directory: ${{ github.workspace }}/packages
+        run: |
+          rm -R -- */
       - name: ls packages
         shell: bash
         working-directory: ${{ github.workspace }}/packages
