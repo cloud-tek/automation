@@ -81,9 +81,9 @@ jobs:
          ls -l
       - name: Install-Module PowershellGet
         shell: pwsh
-        working-directory: ${{ github.workspace }}/scripts
+        working-directory: ${{ github.workspace }}
         run: |
-          Install-Module PowerShellGet -AllowPrerelease -AllowClobber;
+          Install-Module PowershellGet -Force -AllowPrerelease -AllowClobber;
       - name: Test.ps1
         shell: pwsh
         working-directory: ${{ github.workspace }}/scripts
