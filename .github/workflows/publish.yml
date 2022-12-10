@@ -79,3 +79,8 @@ jobs:
         working-directory: ${{ github.workspace }}/packages
         run: |
          ls -l
+      - name: Test.ps1
+        shell: pwsh
+        working-directory: ${{ github.workspace }}/scripts
+        run: |
+          ./Test.ps1;
