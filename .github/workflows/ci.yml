@@ -57,7 +57,7 @@ jobs:
     name: powershell
     with:
       NuGetApiUrl:  'https://api.nuget.org/v3/index.json'
-      modules:
+      modules: |
         [
           {
             "id": "CloudTek.Automation.Shell"
