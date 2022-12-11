@@ -36,6 +36,7 @@ try {
     -Repository "nuget" `
     -ApiKey $apiKey `
     -Verbose `
+    -SkipDependenciesCheck `
     -ErrorAction Stop;
 }
 catch {
