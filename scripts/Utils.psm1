@@ -23,7 +23,6 @@ function Register-LocalRepository() {
 function Register-LocalPSResourceRepository([string] $path = "$PSScriptRoot/../packages", [string]$name = "local") {
   [string]$p = Resolve-Path -Path $path;
   Write-Host "Registering PSRepository ($name : $p) ..." -ForegroundColor Gray;
-  Unregister-PSRepository -Name "local";
   [hashtable[]]$repositories = @(
     @{ Name = $name; Uri = "$p"; Trusted = $true; Priority = 10 }
   );

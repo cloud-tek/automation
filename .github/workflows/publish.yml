@@ -84,11 +84,11 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           Install-Module PowershellGet -Force -AllowPrerelease -AllowClobber;
-      - name: Test.ps1
-        shell: pwsh
-        working-directory: ${{ github.workspace }}/scripts
-        run: |
-          ./Test.ps1;
+      # - name: Test.ps1
+      #   shell: pwsh
+      #   working-directory: ${{ github.workspace }}/scripts
+      #   run: |
+      #     ./Test.ps1;
       - name: Publish.ps1
         shell: pwsh
         working-directory: ${{ github.workspace }}/scripts
