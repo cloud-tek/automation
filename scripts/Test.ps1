@@ -5,6 +5,6 @@ Register-LocalPSResourceRepository -name "local" -path "$PSScriptRoot/../package
 
 Get-PsResourceRepository;
 
-Get-PSRepository -Name "local";
+Get-PSRepository -Name "local" | Out-String | Write-Host;
 
-Get-PSResource -Repository "local";
+#Get-PSResource -Name "local";
