@@ -19,7 +19,6 @@ Register-PSGallery;
 Register-PSResourceRepositories -url $url;
 Register-LocalPSResourceRepository -name $local -path $packages;
 
-Push-Location -Path "$PSScriptRoot/../packages"
 try {
   Push-Location -Path $path;
 
