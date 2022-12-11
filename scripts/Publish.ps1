@@ -8,22 +8,26 @@ Param(
   [Parameter(Mandatory = $true)][string]$version
 )
 
+[string]$packages = "$PSScriptRoot/../packages";
+[string]$local = "local";
+
 Import-Module -Name "$PSScriptRoot/Utils.psm1" -Force;
 Import-PowerShellGet -Version "3.0.17";
 
 Register-PSGallery;
 Register-PSResourceRepositories -url $url;
+Register-LocalPSResourceRepository -name $local -path $packages;
 
-Push-Location -Path "$PSScriptRoot/../src/$module"
+Push-Location -Path "$PSScriptRoot/../packages"
 try {
-  & ./PrePublish.ps1
+  # & ./PrePublish.ps1
 
-  Write-Host "=== Check after prepublish";
-  Get-PSResource;
+  # Write-Host "=== Check after prepublish";
+  # Get-PSResource;
 
-  Write-Host "Publishing: $module ==($version)==> nuget ..." -ForegroundColor Gray;
+  # Write-Host "Publishing: $module ==($version)==> nuget ..." -ForegroundColor Gray;
 
-  Publish-PSResource -Path "$PSScriptRoot/../src/$module"`
+  Publish-PSResource -Path "$packages/$module/.nupkg" `
     -Repository "nuget" `
     -ApiKey $apiKey `
     -Verbose `

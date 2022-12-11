@@ -89,3 +89,12 @@ jobs:
         working-directory: ${{ github.workspace }}/scripts
         run: |
           ./Test.ps1;
+      - name: Publish.ps1
+        shell: pwsh
+        working-directory: ${{ github.workspace }}/scripts
+        run: |
+          ./Publish.ps1 `
+            -module ${{ matrix.module.id }} `
+            -version ${{ env.GitVersion_NuGetVersionV2 }} ``
+            -url ${{ inputs.NuGetApiUrl }} `
+            -apiKey ${{ secrets.NuGetApiKey }};
