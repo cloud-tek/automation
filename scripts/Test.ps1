@@ -7,4 +7,4 @@ Get-PsResourceRepository;
 
 Get-PSRepository -Name "local";
 
-Find-PSResource -Name "CloudTek*"
+Find-PSResource -Repository "local";
