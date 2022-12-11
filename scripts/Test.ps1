@@ -7,4 +7,4 @@ Get-PsResourceRepository;
 
 Get-PSRepository -Name "local";
 
-Find-PSResource -Repository "local";
+Get-PSResource -Repository "local";
