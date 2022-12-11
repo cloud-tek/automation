@@ -27,7 +27,7 @@ try {
 
   # Write-Host "Publishing: $module ==($version)==> nuget ..." -ForegroundColor Gray;
 
-  Publish-PSResource -Path "$packages/$module/.nupkg" `
+  Publish-PSResource -Path "$packages/$module.nupkg" `
     -Repository "nuget" `
     -ApiKey $apiKey `
     -Verbose `
