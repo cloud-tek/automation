@@ -8,6 +8,7 @@ Param(
   [Parameter(Mandatory = $true)][string]$version
 )
 
+[string]$path = "$PSScriptRoot/../src/$module";
 [string]$packages = "$PSScriptRoot/../packages";
 [string]$local = "local";
 
@@ -20,14 +21,19 @@ Register-LocalPSResourceRepository -name $local -path $packages;
 
 Push-Location -Path "$PSScriptRoot/../packages"
 try {
-  # & ./PrePublish.ps1
+  Push-Location -Path $path;
 
-  # Write-Host "=== Check after prepublish";
-  # Get-PSResource;
+  & $PSScriptRoot/Version.ps1 -module $module -version $version;
 
-  # Write-Host "Publishing: $module ==($version)==> nuget ..." -ForegroundColor Gray;
+  [hashtable]$data = Import-PowerShellDataFile "./$module.psd1"
 
-  Publish-PSResource -Path "$packages/$module.$version.nupkg" `
+  if ($null -ne $data.RequiredModules) {
+    $data.RequiredModules | % {
+      Install-Module -Repository "local" -Name $_.ModuleName -RequiredVersion $_.Version -Verbose -Force;
+    }
+  }
+
+  Publish-PSResource -Path $path `
     -Repository "nuget" `
     -ApiKey $apiKey `
     -Verbose `
