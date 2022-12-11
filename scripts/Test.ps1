@@ -9,4 +9,5 @@ Get-PSRepository -Name "local" | Out-String | Write-Host;
 
 #Get-PSResource -Name "local";
 
-Find-PSResource -Name "CloudTek*" -Repository "local" | Out-String | Write-Host;
+Find-PSResource -Name "CloudTek.Automation.Shell" -Repository "local" | Out-String | Write-Host;
+Find-PSResource -Name "CloudTek.Automation.K8S" -Repository "local" | Out-String | Write-Host;
