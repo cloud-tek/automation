@@ -33,11 +33,11 @@ jobs:
           branch: main
           configuration: .config/configuration.changelog.json
       - name: setup gitversion
-        uses: gittools/actions/gitversion/setup@v0.9.7
+        uses: gittools/actions/gitversion/setup@v0.9.15
         with:
           versionSpec: '5.x'
       - name: run giversion
-        uses: gittools/actions/gitversion/execute@v0.9.7
+        uses: gittools/actions/gitversion/execute@v0.9.15
       - name: nuget.config (pwsh)
         shell: pwsh
         run: |
