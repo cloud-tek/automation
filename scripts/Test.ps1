@@ -9,4 +9,4 @@ Get-PSRepository -Name "local" | Out-String | Write-Host;
 
 #Get-PSResource -Name "local";
 
-Find-PSResource -Name "CloudTek*" -Repository "local";
+Find-PSResource -Name "CloudTek*" -Repository "local" | Out-String | Write-Host;
