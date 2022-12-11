@@ -36,7 +36,7 @@ try {
     -Repository "nuget" `
     -ApiKey $apiKey `
     -Verbose `
-    -ErrorAction SilentlyContinue;
+    -ErrorAction Stop;
 }
 catch {
   Write-Error "Failed to publish module $module : `n`t$_";
