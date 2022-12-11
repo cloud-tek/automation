@@ -95,6 +95,6 @@ jobs:
         run: |
           ./Publish.ps1 `
             -module ${{ matrix.module.id }} `
-            -version ${{ env.GitVersion_NuGetVersionV2 }} ``
+            -version ${{ env.GitVersion_NuGetVersionV2 }} `
             -url ${{ inputs.NuGetApiUrl }} `
-            -apiKey ${{ secrets.NuGetApiKey }};
+            -apikey ${{ secrets.NuGetApiKey }};
