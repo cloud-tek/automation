@@ -89,8 +89,6 @@ jobs:
         shell: pwsh
         working-directory: ${{ github.workspace }}/scripts
         run: |
-          Write-Host ${{ env.GitVersion_FullSemVer }};
-          Write-Host $env:GitVersion_FullSemVer
           ./Publish.ps1 `
             -module ${{ matrix.module.id }} `
 <<<<<<< HEAD
