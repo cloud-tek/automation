@@ -57,11 +57,11 @@ jobs:
         shell: bash
         working-directory: ${{ github.workspace }}
         run: |
-          if [ $GitVersion_PreReleaseLabelWithDath -eq '' ]
+          if [ $GitVersion_PreReleaseLabelWithDath = '' ]
           then
             echo single dash: true
           fi
-          if [ $GitVersion_PreReleaseLabelWithDath -eq "" ]
+          if [ $GitVersion_PreReleaseLabelWithDath = "" ]
           then
             echo double dash: true
           fi
