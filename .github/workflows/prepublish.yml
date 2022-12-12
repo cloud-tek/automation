@@ -90,3 +90,8 @@ jobs:
         with:
           name: ${{ matrix.module.id }}
           path: ${{ github.workspace }}/packages/${{ matrix.module.id }}*.nupkg
+      - name: cat ${{ matrix.module.id }}.psd1
+        shell: bash
+        working-directory: ${{ github.workspace }}/src/${{ matrix.module.id }}
+        run: |
+          cat ./${{ matrix.module.id }}.psd1
