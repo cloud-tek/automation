@@ -110,3 +110,8 @@ jobs:
             -prelease ${{ env.GitVersion_PreReleaseTag }} `
             -url ${{ inputs.NuGetApiUrl }} `
             -apikey ${{ secrets.NuGetApiKey }};
+      - name: cat ${{ matrix.module.id }}.psd1
+        shell: bash
+        working-directory: ${{ github.workspace }}/src/${{ matrix.module.id }}
+        run: |
+          cat ./${{ matrix.module.id }}.psd1
