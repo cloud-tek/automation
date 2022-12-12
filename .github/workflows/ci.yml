@@ -1,5 +1,5 @@
 name: ci
-
+# test
 env:
   ACTIONS_ALLOW_UNSECURE_COMMANDS: true
   DOTNET_ROLL_FORWARD: Major
