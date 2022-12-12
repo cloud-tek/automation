@@ -53,23 +53,13 @@ jobs:
           </configuration>
           "@
           $nuget | Out-File -FilePath ${{ github.workspace }}/nuget.config
-      - name: diag
-        shell: bash
-        working-directory: ${{ github.workspace }}
-        run: |
-          if [ $GitVersion_PreReleaseLabelWithDath = '' ]; then
-            echo single dash: true
-          fi
-          if [ $GitVersion_PreReleaseLabelWithDath = "" ]; then
-            echo double dash: true
-          fi
       - name: Install-Module PowershellGet
         shell: pwsh
         working-directory: ${{ github.workspace }}
         run: |
           Install-Module PowershellGet -Force -AllowPrerelease;
       - name: Publish-Local.ps1
-        if: ${{ env.GitVersion_PreReleaseLabelWithDash }} == ''
+        if: ${{ !env.GitVersion_PreReleaseLabelWithDash }}
         shell: pwsh
         working-directory: ${{ github.workspace }}/scripts
         run: |
@@ -77,7 +67,7 @@ jobs:
             -module ${{ matrix.module.id }} `
             -version ${{ env.GitVersion_MajorMinorPatch }};
       - name: Publish-Local.ps1 (prerelease)
-        if: ${{ env.GitVersion_PreReleaseLabelWithDash }} != ''
+        if: ${{ env.GitVersion_PreReleaseLabelWithDash }}
         shell: pwsh
         working-directory: ${{ github.workspace }}/scripts
         run: |
