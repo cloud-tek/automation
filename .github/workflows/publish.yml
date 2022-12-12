@@ -91,7 +91,6 @@ jobs:
         run: |
           ./Publish.ps1 `
             -module ${{ matrix.module.id }} `
-<<<<<<< HEAD
             -version ${{ env.GitVersion_MajorMinorPatch }} `
             -url ${{ inputs.NuGetApiUrl }} `
             -apikey ${{ secrets.NuGetApiKey }};
@@ -104,8 +103,5 @@ jobs:
             -module ${{ matrix.module.id }} `
             -version ${{ env.GitVersion_MajorMinorPatch }} `
             -prelease ${{ env.GitVersion_PreReleaseTag }} `
-=======
-            -version ${{ env.GitVersion_FullSemVer }} `
->>>>>>> 0625019 (fix: fullsemver)
             -url ${{ inputs.NuGetApiUrl }} `
             -apikey ${{ secrets.NuGetApiKey }};
