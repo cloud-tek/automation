@@ -70,7 +70,7 @@ jobs:
         run: |
           ./Publish-Local.ps1 `
             -module ${{ matrix.module.id }} `
-            -version ${{ env.GitVersion_NuGetVersionV2 }};
+            -version ${{ env.GitVersion_FullSemVer }};
       - name: ls packages
         shell: bash
         working-directory: ${{ github.workspace }}/packages
