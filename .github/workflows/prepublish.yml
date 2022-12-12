@@ -65,13 +65,6 @@ jobs:
         run: |
           Write-Host ${{ env.GitVersion_FullSemVer }};
           Write-Host $env:GitVersion_FullSemVer;
-      - name: Publish-Local.ps1
-        shell: pwsh
-        working-directory: ${{ github.workspace }}/scripts
-        run: |
-          ./Publish-Local.ps1 `
-            -module ${{ matrix.module.id }} `
-            -version ${{ env.GitVersion_MajorMinorPatch }};
       - name: Publish-Local.ps1 (prerelease)
         if: env.GitVersion_PreReleaseLabelWithDash && env.GitVersion_PreReleaseLabelWithDash != ''
         shell: pwsh
