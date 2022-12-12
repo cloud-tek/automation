@@ -90,7 +90,7 @@ jobs:
         run: |
           Install-Module PowershellGet -Force -AllowPrerelease -AllowClobber;
       - name: Publish.ps1
-        if: ${{ !env.GitVersion_PreReleaseLabelWithDash }}
+        if: (!env.GitVersion_PreReleaseLabelWithDash)
         shell: pwsh
         working-directory: ${{ github.workspace }}/scripts
         run: |
@@ -100,7 +100,7 @@ jobs:
             -url ${{ inputs.NuGetApiUrl }} `
             -apikey ${{ secrets.NuGetApiKey }};
       - name: Publish.ps1 (prerelease)
-        if: ${{ env.GitVersion_PreReleaseLabelWithDash }}
+        if: env.GitVersion_PreReleaseLabelWithDash
         shell: pwsh
         working-directory: ${{ github.workspace }}/scripts
         run: |

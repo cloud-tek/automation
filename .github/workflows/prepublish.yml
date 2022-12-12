@@ -59,7 +59,7 @@ jobs:
         run: |
           Install-Module PowershellGet -Force -AllowPrerelease;
       - name: Publish-Local.ps1
-        if: ${{ !env.GitVersion_PreReleaseLabelWithDash }}
+        if: (!env.GitVersion_PreReleaseLabelWithDash)
         shell: pwsh
         working-directory: ${{ github.workspace }}/scripts
         run: |
@@ -73,7 +73,7 @@ jobs:
             -module ${{ matrix.module.id }} `
             -version ${{ env.GitVersion_MajorMinorPatch }};
       - name: Publish-Local.ps1 (prerelease)
-        if: ${{ env.GitVersion_PreReleaseLabelWithDash }}
+        if: env.GitVersion_PreReleaseLabelWithDash
         shell: pwsh
         working-directory: ${{ github.workspace }}/scripts
         run: |
@@ -90,8 +90,3 @@ jobs:
         with:
           name: ${{ matrix.module.id }}
           path: ${{ github.workspace }}/packages/${{ matrix.module.id }}*.nupkg
-      - name: cat ${{ matrix.module.id }}.psd1
-        shell: bash
-        working-directory: ${{ github.workspace }}/src/${{ matrix.module.id }}
-        run: |
-          cat ./${{ matrix.module.id }}.psd1
