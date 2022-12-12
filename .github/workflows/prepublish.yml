@@ -53,6 +53,18 @@ jobs:
           </configuration>
           "@
           $nuget | Out-File -FilePath ${{ github.workspace }}/nuget.config
+      - name: diag
+        shell: bash
+        working-directory: ${{ github.workspace }}
+        run: |
+          if [ $GitVersion_PreReleaseLabelWithDath -eq '' ]
+          then
+            echo single dash: true
+          fi
+          if [ $GitVersion_PreReleaseLabelWithDath -eq "" ]
+          then
+            echo double dash: true
+          fi
       - name: Install-Module PowershellGet
         shell: pwsh
         working-directory: ${{ github.workspace }}
