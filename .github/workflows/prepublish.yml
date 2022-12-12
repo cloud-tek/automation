@@ -58,19 +58,14 @@ jobs:
         working-directory: ${{ github.workspace }}
         run: |
           Install-Module PowershellGet -Force -AllowPrerelease;
-      - name: Test.ps1
-        shell: pwsh
-        working-directory: ${{ github.workspace }}/scripts
-        run: |
-          Write-Host ${{ env.GitVersion_FullSemVer }};
-          Write-Host $env:GitVersion_FullSemVer;
       - name: Publish-Local.ps1
         shell: pwsh
         working-directory: ${{ github.workspace }}/scripts
         run: |
           ./Publish-Local.ps1 `
             -module ${{ matrix.module.id }} `
-            -version ${{ env.GitVersion_FullSemVer }};
+            -version ${{ env.GitVersion_MajorMinorPatch }} `
+            -prelease ${{ env.GitVersion_PreReleaseTag }};
       - name: ls packages
         shell: bash
         working-directory: ${{ github.workspace }}/packages

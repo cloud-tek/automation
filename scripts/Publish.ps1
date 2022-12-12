@@ -5,7 +5,8 @@ Param(
   [Parameter(Mandatory = $true)][string]$module,
   [Parameter(Mandatory = $true)][string]$url,
   [Parameter(Mandatory = $true)][string]$apikey,
-  [Parameter(Mandatory = $true)][string]$version
+  [Parameter(Mandatory = $true)][string]$version,
+  [Parameter(Mandatory = $false)][string]$prelease
 )
 
 [string]$path = "$PSScriptRoot/../src/$module";
@@ -22,13 +23,15 @@ Register-LocalPSResourceRepository -name $local -path $packages;
 try {
   Push-Location -Path $path;
 
-  & $PSScriptRoot/Version.ps1 -module $module -version $version;
+  & $PSScriptRoot/Version.ps1 -module $module -version $version -prerelease $prerelase;
 
   [hashtable]$data = Import-PowerShellDataFile "./$module.psd1"
 
   if ($null -ne $data.RequiredModules) {
     $data.RequiredModules | % {
-      Install-Module -Repository "local" -Name $_.ModuleName -RequiredVersion $_.Version -Verbose -Force;
+      [string]$computedVersion = if([string]::IsNullOrEmpty($prerelease)) { $_.Version; } else { "$($_.Version)-$prerelease" }
+
+      Install-Module -Repository "local" -Name $_.ModuleName -RequiredVersion $computedVersion -Verbose -Force;
     }
   }
 

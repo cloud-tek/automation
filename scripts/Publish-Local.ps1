@@ -14,7 +14,8 @@
 [CmdletBinding()]
 Param(
   [Parameter(Mandatory = $true)][string]$module,
-  [Parameter(Mandatory = $false)][string]$version = "0.0.0"
+  [Parameter(Mandatory = $false)][string]$version = "0.0.0",
+  [Parameter(Mandatory = $false)][string]$prelease
 )
 
 Import-Module -Name "$PSScriptRoot/Utils.psm1" -Force;
@@ -34,9 +35,11 @@ try {
 
   if ($null -ne $data.RequiredModules) {
     $data.RequiredModules | % {
-      & $PSScriptRoot/Publish-Local.ps1 -module $_.ModuleName -version $_.ModuleVersion;
+      & $PSScriptRoot/Publish-Local.ps1 -module $_.ModuleName -version $_.ModuleVersion -prelease $prerelease;
 
-      Install-Module -Repository "local" -Name $_.ModuleName -RequiredVersion $_.Version -Verbose -Force;
+      [string]$computedVersion = if([string]::IsNullOrEmpty($prerelease)) { $_.Version; } else { "$($_.Version)-$prerelease" }
+
+      Install-Module -Repository "local" -Name $_.ModuleName -RequiredVersion $computedVersion -Verbose -Force;
     }
   }
 
