@@ -6,4 +6,4 @@ This repository contains core powershell automation.
 
 - CloudTek.Automation.Shell
 - CloudTek.Automation.K8S
-- CloudTek.Automation.ArgoCD
+- CloudTek.Automation.ArgoCD 
