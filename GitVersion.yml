@@ -1,4 +1,7 @@
 mode: Mainline
+legacy-semver-padding: 1
+build-metadata-padding: 1
+commits-since-version-source-padding: 1
 merge-message-formats:
   ghmerge: ^Merge pull-request \#(?<PullRequestNumber>\d+)\ from (?<SourceBranch>.+) to (?<TargetBranch>.+)
 branches:
