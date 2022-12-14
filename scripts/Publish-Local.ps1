@@ -15,7 +15,7 @@
 Param(
   [Parameter(Mandatory = $true)][string]$module,
   [Parameter(Mandatory = $false)][string]$version = "0.0.0",
-  [Parameter(Mandatory = $false)][string]$prelease
+  [Parameter(Mandatory = $false)][string]$prerelease
 )
 
 Import-Module -Name "$PSScriptRoot/Utils.psm1" -Force;
@@ -29,13 +29,13 @@ try {
 
   Get-PSRepository -Name "local";
 
-  & $PSScriptRoot/Version.ps1 -module $module -version $version;
+  & $PSScriptRoot/Version.ps1 -module $module -version $version -prerelease $prerelease;
 
   [hashtable]$data = Import-PowerShellDataFile "./$module.psd1"
 
   if ($null -ne $data.RequiredModules) {
     $data.RequiredModules | % {
-      & $PSScriptRoot/Publish-Local.ps1 -module $_.ModuleName -version $_.ModuleVersion -prelease $prerelease;
+      & $PSScriptRoot/Publish-Local.ps1 -module $_.ModuleName -version $_.ModuleVersion -prerelease $prerelease;
 
       [string]$computedVersion = if([string]::IsNullOrEmpty($prerelease)) { $_.Version; } else { "$($_.Version)-$prerelease" }
 

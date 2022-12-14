@@ -6,7 +6,7 @@ Param(
   [Parameter(Mandatory = $true)][string]$url,
   [Parameter(Mandatory = $true)][string]$apikey,
   [Parameter(Mandatory = $true)][string]$version,
-  [Parameter(Mandatory = $false)][string]$prelease
+  [Parameter(Mandatory = $false)][string]$prerelease
 )
 
 [string]$path = "$PSScriptRoot/../src/$module";

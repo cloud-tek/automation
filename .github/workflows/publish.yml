@@ -107,7 +107,7 @@ jobs:
           ./Publish.ps1 `
             -module ${{ matrix.module.id }} `
             -version ${{ env.GitVersion_MajorMinorPatch }} `
-            -prelease ${{ env.GitVersion_PreReleaseTag }} `
+            -prerelease ${{ env.GitVersion_PreReleaseTag }} `
             -url ${{ inputs.NuGetApiUrl }} `
             -apikey ${{ secrets.NuGetApiKey }};
       - name: cat ${{ matrix.module.id }}.psd1

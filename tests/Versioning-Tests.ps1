@@ -7,6 +7,7 @@ Describe -Name "versioning tests" {
   It "Should render version correctly" -ForEach @(
     @{ "Name" = "Test01"; "Version" = "0.7.8"; "PreRelease" = $null; }
     @{ "Name" = "Test02"; "Version" = "0.9.0"; "PreRelease" = "beta5"; }
+    @{ "Name" = "Test03"; "Version" = "0.19.0"; "PreRelease" = "beta7"; }
   )  {
     # Arrange
     [string]$source = "$PSScriptRoot/data/Module.psd1";
