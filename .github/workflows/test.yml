@@ -63,9 +63,69 @@ jobs:
         shell: pwsh
         working-directory: ${{ github.workspace }}/tests
         run: |
-          & ./Versioning-Tests.ps1;
+          Import-Module "Pester";
+
+          $configuration = [PesterConfiguration]@{
+            Run = @{
+              Path = "${{ github.workspace }}/tests/Versioning-Tests.ps1"
+            }
+            Debug = @{
+              ShowFullErrors = $true
+              WriteDebugMessages = $true
+              WriteDebugMessagesFrom = "Mock"
+            }
+            Output = @{
+              Verbosity = "Normal"
+            }
+            CodeCoverage = @{
+              Enabled = $true
+              OutputFormat = "Cobertura"
+              OutputPath = ${{ github.workspace }}/tests/versioning-tests.coverage.xml
+            }
+            TestResult = @{
+              Enabled = $true
+              OutputFormat = "JUnitXml"
+              OutputPath = "${{ github.workspace }}/tests/versioning-tests.results.xml"
+            }
+          };
+
+          Invoke-Pester -Configuration $configuration;
       - name: Publishing-Tests.ps1
         shell: pwsh
         working-directory: ${{ github.workspace }}/tests
         run: |
-          & ./Publishing-Tests.ps1;
+          Import-Module "Pester";
+
+          $configuration = [PesterConfiguration]@{
+            Run = @{
+              Path = "${{ github.workspace }}/tests/Publishing-Tests.ps1"
+            }
+            Debug = @{
+              ShowFullErrors = $true
+              WriteDebugMessages = $true
+              WriteDebugMessagesFrom = "Mock"
+            }
+            Output = @{
+              Verbosity = "Normal"
+            }
+            CodeCoverage = @{
+              Enabled = $true
+              OutputFormat = "Cobertura"
+              OutputPath = ${{ github.workspace }}/tests/publishing-tests.coverage.xml
+            }
+            TestResult = @{
+              Enabled = $true
+              OutputFormat = "JUnitXml"
+              OutputPath = "${{ github.workspace }}/tests/publishing-tests.results.xml"
+            }
+          };
+
+          Invoke-Pester -Configuration $configuration;
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()    # run this step even if previous step failed
+        with:
+          name: Pester Tests            # Name of the check run which will be created
+          path: ${{ github.workspace }}/tests/*.results.xml    # Path to test results
+          reporter: java-junit        # Format of test results
+
