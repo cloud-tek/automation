@@ -6,3 +6,5 @@ node_modules/
 [Tt]emp/
 [Pp]ackages/
 Test*/
+
+tmp/*

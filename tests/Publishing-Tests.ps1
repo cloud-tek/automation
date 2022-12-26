@@ -8,6 +8,7 @@ Describe -Name "local publishing tests" {
     @{ "Name" = "Test01"; "Version" = "0.7.8"; "PreRelease" = $null; }
     @{ "Name" = "Test02"; "Version" = "0.7.9"; "PreRelease" = $null; }
     @{ "Name" = "Test03"; "Version" = "0.8.0"; "PreRelease" = $null; }
+    # https://github.com/PowerShell/PowerShellGet/issues/843
     # @{ "Name" = "Test02"; "Version" = "0.9.0"; "PreRelease" = "beta.5"; }
     # @{ "Name" = "Test03"; "Version" = "0.19.0"; "PreRelease" = "beta7"; }
   )  {
