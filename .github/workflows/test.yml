@@ -13,7 +13,7 @@ jobs:
     # strategy:
     #   matrix:
     #     module: ${{ fromJson(inputs.modules) }}
-    name: Pester
+    name: pester
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -64,7 +64,7 @@ jobs:
         working-directory: ${{ github.workspace }}/tests
         run: |
           & ./Versioning-Tests.ps1;
-      - name: Versioning-Tests.ps1
+      - name: Publishing-Tests.ps1
         shell: pwsh
         working-directory: ${{ github.workspace }}/tests
         run: |
