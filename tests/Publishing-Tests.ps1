@@ -4,7 +4,7 @@ Install-Module Pester;
 Import-Module Pester;
 
 Describe -Name "local publishing tests" {
-  It "Should render version correctly" -ForEach @(
+  It "Should publish module correctly" -ForEach @(
     @{ "Name" = "Test01"; "Version" = "0.7.8"; "PreRelease" = $null; }
     @{ "Name" = "Test02"; "Version" = "0.7.9"; "PreRelease" = $null; }
     @{ "Name" = "Test03"; "Version" = "0.8.0"; "PreRelease" = $null; }
@@ -30,9 +30,7 @@ Describe -Name "local publishing tests" {
     # Assert
     [hashtable]$data = Import-PowerShellDataFile "$path/$($Name).psd1";
 
-    [string]$expectedVersion = if ($null -eq $PreRelease) { $Version } else { "$Version-$($PreRelease.Replace(".", [string]::Empty))"};
-
-    $data.ModuleVersion | Should -Be $Version -Because "$Name ModuleVersion should be $Version";
+    s$data.ModuleVersion | Should -Be $Version -Because "$Name ModuleVersion should be $Version";
 
     if($null -ne $PreRelease) {
       $data.PrivateData.PSData.PreRelease | Should -Be "-$PreRelease" -Because "$Name PSData.PreRelease should be -$PreRelease";
