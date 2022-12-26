@@ -39,8 +39,24 @@ on:
 
 # https://github.com/PowerShell/PowerShellGet/issues/163
 jobs:
+  test:
+    uses: cloud-tek/automation/.github/workflows/test.yml
+    name: prepublish
+    with:
+      modules: |
+        [
+          {
+            "id": "CloudTek.Automation.Shell"
+          },
+          {
+            "id": "CloudTek.Automation.K8S"
+          }
+        ]
   prepublish:
-    uses: cloud-tek/automation/.github/workflows/prepublish.yml@main
+    needs:
+    - test
+    uses: cloud-tek/automation/.github/workflows/prepublish.yml
+    if: github.ref == 'refs/heads/main'
     name: prepublish
     with:
       modules: |
@@ -55,7 +71,8 @@ jobs:
   publish:
     needs:
     - prepublish
-    uses: cloud-tek/automation/.github/workflows/publish.yml@main
+    uses: cloud-tek/automation/.github/workflows/publish.yml
+    if: github.ref == 'refs/heads/main'
     name: publish
     with:
       NuGetApiUrl:  'https://api.nuget.org/v3/index.json'

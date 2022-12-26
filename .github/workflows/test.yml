@@ -1,0 +1,108 @@
+name: "tests"
+
+on:
+  workflow_call:
+    inputs:
+      modules:
+        description: "Powershell modules to test (json, array of objects)"
+        type: string
+        required: true
+
+jobs:
+  local:
+    strategy:
+      matrix:
+        module: ${{ fromJson(inputs.modules) }}
+    name: ${{ matrix.module.id }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: "0"
+      - id: auto-release
+        uses: cloud-tek/actions/auto-release@0.19
+        with:
+          branch: main
+          configuration: .config/configuration.changelog.json
+      - name: setup gitversion
+        uses: gittools/actions/gitversion/setup@v0.9.15
+        with:
+          versionSpec: '5.x'
+      - name: run giversion
+        uses: gittools/actions/gitversion/execute@v0.9.15
+      - name: nuget.config (pwsh)
+        shell: pwsh
+        run: |
+          $nuget = @"
+          <?xml version="1.0" encoding="utf-8"?>
+          <configuration>
+            <packageSources>
+              <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
+            </packageSources>
+            <packageRestore>
+              <add key="enabled" value="True" />
+              <add key="automatic" value="True" />
+            </packageRestore>
+            <bindingRedirects>
+              <add key="skip" value="False" />
+            </bindingRedirects>
+            <packageManagement>
+              <add key="format" value="0" />
+              <add key="disabled" value="False" />
+            </packageManagement>
+          </configuration>
+          "@
+          $nuget | Out-File -FilePath ${{ github.workspace }}/nuget.config
+      - name: Install-Module(s)
+        shell: pwsh
+        working-directory: ${{ github.workspace }}
+        run: |
+          Install-Module PowershellGet -Force -AllowPrerelease;
+          Install-Module Pester -Force;
+      - name: Versioning-Tests.ps1
+        shell: pwsh
+        working-directory: ${{ github.workspace }}/tests
+        run: |
+          & ./Versioning-Tests.ps1;
+      - name: Versioning-Tests.ps1
+        shell: pwsh
+        working-directory: ${{ github.workspace }}/tests
+        run: |
+          & ./Publishing-Tests.ps1;
+      # - name: Publish-Local.ps1
+      #   if: ${{ !env.GitVersion_PreReleaseLabelWithDash }}
+      #   shell: pwsh
+      #   working-directory: ${{ github.workspace }}/scripts
+      #   run: |
+      #     Write-Host ${{ env.GitVersion_FullSemVer }};
+      #     Write-Host $env:GitVersion_FullSemVer;
+      # - name: Publish-Local.ps1
+      #   shell: pwsh
+      #   working-directory: ${{ github.workspace }}/scripts
+      #   run: |
+      #     ./Publish-Local.ps1 `
+      #       -module ${{ matrix.module.id }} `
+      #       -version ${{ env.GitVersion_MajorMinorPatch }};
+      # - name: Publish-Local.ps1 (prerelease)
+      #   if: ${{ env.GitVersion_PreReleaseLabelWithDash }}
+      #   shell: pwsh
+      #   working-directory: ${{ github.workspace }}/scripts
+      #   run: |
+      #     ./Publish-Local.ps1 `
+      #       -module ${{ matrix.module.id }} `
+      #       -version ${{ env.GitVersion_MajorMinorPatch }} `
+      #       -prerelease ${{ env.GitVersion_PreReleaseTag }};
+      # - name: ls packages
+      #   shell: bash
+      #   working-directory: ${{ github.workspace }}/packages
+      #   run: |
+      #    ls -l
+      # - uses: actions/upload-artifact@v3
+      #   with:
+      #     name: ${{ matrix.module.id }}
+      #     path: ${{ github.workspace }}/packages/${{ matrix.module.id }}*.nupkg
+      # - name: cat ${{ matrix.module.id }}.psd1
+      #   shell: bash
+      #   working-directory: ${{ github.workspace }}/src/${{ matrix.module.id }}
+      #   run: |
+      #     cat ./${{ matrix.module.id }}.psd1

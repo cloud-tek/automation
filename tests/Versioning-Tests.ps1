@@ -25,17 +25,17 @@ Describe -Name "versioning tests" {
     # Assert
     [hashtable]$data = Import-PowerShellDataFile "$path/$($Name).psd1";
 
-    [string]$expectedVersion = if ($null -eq $PreRelease) { $Version } else { "$Version-$PreRelease"};
+    [string]$expectedVersion = if ($null -eq $PreRelease) { $Version } else { "$Version-$($PreRelease.Replace(".", [string]::Empty))"};
 
     $data.ModuleVersion | Should -Be $Version -Because "$Name ModuleVersion should be $Version";
 
     if($null -ne $PreRelease) {
-      $data.PrivateData.PSData.PreRelease | Should -Be "-$PreRelease" -Because "$Name PSData.PreRelease should be -$PreRelease";
+      $data.PrivateData.PSData.PreRelease | Should -Be "-$($PreRelease.Replace(".", [string]::Empty))" -Because "$Name PSData.PreRelease should be -$($PreRelease.Replace(".", [string]::Empty))";
     }
 
     if ($null -ne $data.RequiredModules) {
       $data.RequiredModules | % {
-        $_.ModuleVersion | Should -Be $expectedVersion -Because "$Name RequiredModules' ModuleVersion should be $expectedVersion";
+        $_.ModuleVersion | Should -Be $Version -Because "$Name RequiredModules' ModuleVersion should be $Version";
       }
     }
   }

@@ -12,9 +12,12 @@ Push-Location -Path "$PSScriptRoot/../src/$module";
 try {
   [string]$file = (Get-Content "./$module.psd1" -Raw -Encoding utf8);
     if(-not([string]::IsNullOrEmpty($prerelease))) {
-      Write-Host "Settings $module version to $version-$prerelease ..." -ForegroundColor Gray;
+      $prerelease = $prerelease.Replace(".", [string]::Empty);
+      [string]$computedVersion = if ($version.EndsWith($prerelease)) { $version } else { "$($version)-$($prerelease)" };
+      Write-Host "Settings $module version to $computedVersion ..." -ForegroundColor Gray;
       $file = $file.Replace("# Prerelease = ''", "Prerelease = '-$($prerelease)'");
-      $file = $file.Replace("      ModuleVersion = ""0.0.0""", "      ModuleVersion = ""$($version)-$($prerelease)""");
+
+      $file = $file.Replace("      ModuleVersion = ""0.0.0""", "      ModuleVersion = ""$($version)"""); # $computedVersion
     } else {
       Write-Host "Settings $module version to $version ..." -ForegroundColor Gray;
     }

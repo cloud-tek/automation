@@ -37,9 +37,9 @@ try {
     $data.RequiredModules | % {
       & $PSScriptRoot/Publish-Local.ps1 -module $_.ModuleName -version $_.ModuleVersion -prerelease $prerelease;
 
-      [string]$computedVersion = if([string]::IsNullOrEmpty($prerelease)) { $_.Version; } else { "$($_.Version)-$prerelease" }
+      [string]$computedVersion = if([string]::IsNullOrEmpty($prerelease)) { $_.Version; } else { "$($_.Version)-$($prerelease.Replace(".", [string]::Empty))" }
 
-      Install-Module -Repository "local" -Name $_.ModuleName -RequiredVersion $computedVersion -Verbose -Force;
+      Install-Module -Repository "local" -Name $_.ModuleName -RequiredVersion $version -Verbose -Force;
     }
   }
 
