@@ -5,9 +5,11 @@ Import-Module Pester;
 
 Describe -Name "local publishing tests" {
   It "Should render version correctly" -ForEach @(
-    # @{ "Name" = "Test01"; "Version" = "0.7.8"; "PreRelease" = $null; }
+    @{ "Name" = "Test01"; "Version" = "0.7.8"; "PreRelease" = $null; }
+    @{ "Name" = "Test02"; "Version" = "0.7.9"; "PreRelease" = $null; }
+    @{ "Name" = "Test03"; "Version" = "0.8.0"; "PreRelease" = $null; }
     # @{ "Name" = "Test02"; "Version" = "0.9.0"; "PreRelease" = "beta.5"; }
-    @{ "Name" = "Test03"; "Version" = "0.19.0"; "PreRelease" = "beta7"; }
+    # @{ "Name" = "Test03"; "Version" = "0.19.0"; "PreRelease" = "beta7"; }
   )  {
     # Arrange
     [string]$source = "$PSScriptRoot/data/Module.psd1";

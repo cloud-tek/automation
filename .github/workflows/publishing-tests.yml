@@ -6,9 +6,6 @@ on:
 
 jobs:
   pester:
-    # strategy:
-    #   matrix:
-    #     module: ${{ fromJson(inputs.modules) }}
     name: pester
     runs-on: ubuntu-latest
     steps:
