@@ -40,7 +40,7 @@ on:
 
 # https://github.com/PowerShell/PowerShellGet/issues/163
 jobs:
-  test:
+  publishing-tests:
     uses: ./.github/workflows/publishing-tests.yml
     name: publishing-tests
   prepublish:
