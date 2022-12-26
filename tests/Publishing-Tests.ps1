@@ -43,5 +43,3 @@ Describe -Name "local publishing tests" {
     }
   }
 }
-
-

@@ -114,6 +114,12 @@ jobs:
           };
 
           Invoke-Pester -Configuration $configuration;
+      - name: diag
+        if: success() || failure()
+        shell: bash
+        working-directory: ${{ github.workspace }}/packages
+        run: |
+          ls -l
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: success() || failure()
