@@ -78,9 +78,9 @@ jobs:
               Verbosity = "Normal"
             }
             CodeCoverage = @{
-              Enabled = $true
-              OutputFormat = "Cobertura"
-              OutputPath = "${{ github.workspace }}/tests/versioning-tests.coverage.xml"
+              Enabled = $false
+              # OutputFormat = "Cobertura"
+              # OutputPath = "${{ github.workspace }}/tests/versioning-tests.coverage.xml"
             }
             TestResult = @{
               Enabled = $true
@@ -109,9 +109,9 @@ jobs:
               Verbosity = "Normal"
             }
             CodeCoverage = @{
-              Enabled = $true
-              OutputFormat = "Cobertura"
-              OutputPath = "${{ github.workspace }}/tests/publishing-tests.coverage.xml"
+              Enabled = $false
+              # OutputFormat = "Cobertura"
+              # OutputPath = "${{ github.workspace }}/tests/publishing-tests.coverage.xml"
             }
             TestResult = @{
               Enabled = $true
