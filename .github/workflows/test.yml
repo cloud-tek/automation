@@ -80,7 +80,7 @@ jobs:
             CodeCoverage = @{
               Enabled = $true
               OutputFormat = "Cobertura"
-              OutputPath = ${{ github.workspace }}/tests/versioning-tests.coverage.xml
+              OutputPath = "${{ github.workspace }}/tests/versioning-tests.coverage.xml"
             }
             TestResult = @{
               Enabled = $true
@@ -111,7 +111,7 @@ jobs:
             CodeCoverage = @{
               Enabled = $true
               OutputFormat = "Cobertura"
-              OutputPath = ${{ github.workspace }}/tests/publishing-tests.coverage.xml
+              OutputPath = "${{ github.workspace }}/tests/publishing-tests.coverage.xml"
             }
             TestResult = @{
               Enabled = $true
