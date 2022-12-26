@@ -30,7 +30,7 @@ Describe -Name "local publishing tests" {
     # Assert
     [hashtable]$data = Import-PowerShellDataFile "$path/$($Name).psd1";
 
-    s$data.ModuleVersion | Should -Be $Version -Because "$Name ModuleVersion should be $Version";
+    $data.ModuleVersion | Should -Be $Version -Because "$Name ModuleVersion should be $Version";
 
     if($null -ne $PreRelease) {
       $data.PrivateData.PSData.PreRelease | Should -Be "-$PreRelease" -Because "$Name PSData.PreRelease should be -$PreRelease";

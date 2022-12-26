@@ -114,7 +114,7 @@ jobs:
           };
 
           Invoke-Pester -Configuration $configuration;
-      - name: diag
+      - name: ls packages
         if: success() || failure()
         shell: bash
         working-directory: ${{ github.workspace }}/packages
