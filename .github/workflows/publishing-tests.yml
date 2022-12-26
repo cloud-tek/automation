@@ -1,4 +1,4 @@
-name: "test"
+name: "publishing-tests"
 
 on:
   workflow_call:
@@ -123,9 +123,9 @@ jobs:
           Invoke-Pester -Configuration $configuration;
       - name: Test Report
         uses: dorny/test-reporter@v1
-        if: success() || failure()    # run this step even if previous step failed
+        if: success() || failure()
         with:
-          name: Pester Tests            # Name of the check run which will be created
-          path: ${{ github.workspace }}/tests/*.results.xml    # Path to test results
-          reporter: java-junit        # Format of test results
+          name: Publishing Test Results
+          path: ${{ github.workspace }}/tests/*.results.xml
+          reporter: java-junit
 
