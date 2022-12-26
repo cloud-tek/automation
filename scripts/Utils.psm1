@@ -101,6 +101,128 @@ function Invoke-Command {
   }
 }
 
+function Copy-File {
+  [CmdletBinding()]
+  Param(
+      [Parameter(Mandatory=$false)]
+      [string]$File,
+
+      [Parameter(Mandatory=$true)]
+      [string]$Source,
+
+      [Parameter(Mandatory=$true)]
+      [string]$Destination
+  )
+  [string]$src = "$Source";
+  [string]$dst = "$Destination";
+
+  if([string]::IsNullOrEmpty($File)) {
+
+  } else {
+    [string]$fileName = $File.Replace("./", [string]::Empty);
+    $src = [string]::Concat($src, "/$fileName");
+    $dst = [string]::Concat($dst, "/$fileName");
+  }
+
+  if(-not(Test-Path -Path $src -PathType Leaf)) {
+    throw "Required file $src does not exist";
+  }
+
+  Copy-Item -Path $src -Destination $dst -Force;
+  Write-Host "Copied $src ==> $dst" -ForegroundColor Gray;
+}
+
+function Copy-Module {
+  [CmdletBinding()]
+  Param(
+      [Parameter(Position=0, Mandatory=$true)]
+      [string]$Module,
+
+      [Parameter(Position=1, Mandatory=$true)]
+      [string]$Source,
+
+      [Parameter(Position=2, Mandatory=$true)]
+      [string]$Destination
+  )
+
+  [string]$src = "$Source/$Module";
+  [string]$dst = "$Destination/$Module";
+
+  if(-not(Test-Path -Path $src)) {
+    throw "Source path $Source/$Module does not exist";
+  }
+
+  if(-not(Test-Path -Path $dst)) {
+    New-Item -Path $dst -ItemType Directory;
+  }
+
+  [hashtable]$data = Import-PowerShellDataFile "$src/$Module.psd1"
+
+  if ($null -ne $data.ScriptsToProcess) {
+    $data.ScriptsToProcess | % {
+      Copy-File -File $_ -Source $src -Destination $dst;
+    }
+  }
+
+  if ($null -ne $data.TypesToProcess) {
+    $data.TypesToProcess | % {
+      Copy-File -File $_ -Source $src -Destination $dst;
+    }
+  }
+
+  if ($null -ne $data.FormatsToProcess) {
+    $data.FormatsToProcess | % {
+      Copy-File -File $_ -Source $src -Destination $dst;
+    }
+  }
+
+  if ($null -ne $data.NestedModules) {
+    $data.NestedModules | % {
+      Copy-File -File $_ -Source $src -Destination $dst;
+    }
+  }
+
+  Copy-File -File "$Module.psd1" -Source $src -Destination $dst;
+}
+
+function Copy-TestModule {
+  [CmdletBinding()]
+  Param(
+      [Parameter(Position=0, Mandatory=$true)]
+      [string]$Module,
+
+      [Parameter(Position=1, Mandatory=$true)]
+      [string]$Source,
+
+      [Parameter(Position=2, Mandatory=$true)]
+      [string]$Destination
+  )
+
+  [string]$src = "$Source";
+  [string]$dst = "$Destination/$Module";
+
+  if(-not(Test-Path -Path $src)) {
+    throw "Source path $Source/$Module does not exist";
+  }
+
+  if(-not(Test-Path -Path $dst)) {
+    New-Item -Path $dst -ItemType Directory;
+  } else {
+    Remove-Item $dst -Recurse -Force;
+    New-Item -Path $dst -ItemType Directory;
+  }
+
+  [hashtable]$data = Import-PowerShellDataFile "$src/Module.psd1"
+
+  if ($null -ne $data.NestedModules) {
+    $data.NestedModules | % {
+      Copy-File -Source "$src/$_" -Destination "$dst/$_";
+    }
+  }
+
+  Copy-File -Source "$src/Module.psd1" -Destination "$dst/$Module.psd1";
+}
+
 
 Export-ModuleMember -Function Import-PowershellGet;
 Export-ModuleMember -Function Register-PSGallery;
@@ -108,3 +230,5 @@ Export-ModuleMember -Function Register-LocalRepository;
 Export-ModuleMember -Function Register-PSResourceRepositories;
 Export-ModuleMember -Function Register-LocalPSResourceRepository;
 Export-ModuleMember -Function Invoke-Command;
+Export-ModuleMember -Function Copy-Module;
+Export-ModuleMember -Function Copy-TestModule;

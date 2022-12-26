@@ -6,8 +6,11 @@ Param(
   [Parameter(Mandatory = $true)][string]$version,
   [Parameter(Mandatory = $false)][string]$prerelease
 )
+Import-Module -Name "$PSScriptRoot/Utils.psm1" -Force;
 
-Push-Location -Path "$PSScriptRoot/../src/$module";
+Copy-Module -Module $module -Source "src" -Destination "tmp";
+
+Push-Location -Path "$PSScriptRoot/../tmp/$module";
 
 try {
   [string]$file = (Get-Content "./$module.psd1" -Raw -Encoding utf8);
