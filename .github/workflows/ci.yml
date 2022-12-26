@@ -40,7 +40,7 @@ on:
 # https://github.com/PowerShell/PowerShellGet/issues/163
 jobs:
   test:
-    uses: cloud-tek/automation/.github/workflows/test.yml
+    uses: .github/workflows/test.yml
     name: prepublish
     with:
       modules: |
@@ -55,7 +55,7 @@ jobs:
   prepublish:
     needs:
     - test
-    uses: cloud-tek/automation/.github/workflows/prepublish.yml
+    uses: .github/workflows/prepublish.yml
     if: github.ref == 'refs/heads/main'
     name: prepublish
     with:
@@ -71,7 +71,7 @@ jobs:
   publish:
     needs:
     - prepublish
-    uses: cloud-tek/automation/.github/workflows/publish.yml
+    uses: .github/workflows/publish.yml
     if: github.ref == 'refs/heads/main'
     name: publish
     with:
