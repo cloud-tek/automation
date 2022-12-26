@@ -9,7 +9,7 @@ on:
         required: true
 
 jobs:
-  local:
+  pester:
     strategy:
       matrix:
         module: ${{ fromJson(inputs.modules) }}

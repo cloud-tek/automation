@@ -41,7 +41,7 @@ on:
 jobs:
   test:
     uses: ./.github/workflows/test.yml
-    name: prepublish
+    name: test
     with:
       modules: |
         [
