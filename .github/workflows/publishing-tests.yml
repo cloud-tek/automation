@@ -2,11 +2,7 @@ name: "publishing-tests"
 
 on:
   workflow_call:
-    inputs:
-      modules:
-        description: "Powershell modules to test (json, array of objects)"
-        type: string
-        required: true
+    inputs: {}
 
 jobs:
   pester:
