@@ -10,10 +10,10 @@ on:
 
 jobs:
   pester:
-    strategy:
-      matrix:
-        module: ${{ fromJson(inputs.modules) }}
-    name: ${{ matrix.module.id }}
+    # strategy:
+    #   matrix:
+    #     module: ${{ fromJson(inputs.modules) }}
+    name: Pester
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
