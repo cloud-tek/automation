@@ -23,6 +23,7 @@ on:
       - ".github/workflows/**"
       - "scripts/**"
       - "src/**"
+      - "tests/**"
       - "GitVersion.yml"
   pull_request:
     types:
