@@ -2,8 +2,12 @@
 
 Install-Module Pester;
 Import-Module Pester;
+Import-Module "$PSScriptRoot/../scripts/Utils.psm1" -Force;
 
 Describe -Name "local publishing tests" {
+  BeforeAll {
+    Remove-Item "$PSScriptRoot/../packages/*.nupkg";
+  }
   It "Should publish module correctly" -ForEach @(
     @{ "Name" = "Test01"; "Version" = "0.7.8"; "PreRelease" = $null; }
     @{ "Name" = "Test02"; "Version" = "0.7.9"; "PreRelease" = $null; }
@@ -13,23 +17,13 @@ Describe -Name "local publishing tests" {
     # @{ "Name" = "Test03"; "Version" = "0.19.0"; "PreRelease" = "beta7"; }
   )  {
     # Arrange
-    [string]$source = "$PSScriptRoot/data/Module.psd1";
-    [string]$path = "$PSScriptRoot/../src/$($Name)"
-    if (Test-Path -Path $path) {
-      Remove-Item $path -Recurse -Force;
-    }
-
-    Remove-Item "$PSScriptRoot/../packages/*.nupkg";
-
-    New-Item -Path $path -ItemType Directory;
-    Copy-Item -Path $source -Destination "$path/$($Name).psd1";
-    Copy-Item -Path $source -Destination "$path/Script.ps1";
+    Copy-TestModule -Module $Name -Source "$PSScriptRoot/data" -Destination "$PSScriptRoot/../src";
 
     # Act
     & $PSScriptRoot/../scripts/Publish-Local.ps1 -module $Name -version $Version -prerelease $PreRelease;
 
     # Assert
-    [hashtable]$data = Import-PowerShellDataFile "$path/$($Name).psd1";
+    [hashtable]$data = Import-PowerShellDataFile "$PSScriptRoot/../tmp/$Name/$($Name).psd1";
 
     $data.ModuleVersion | Should -Be $Version -Because "$Name ModuleVersion should be $Version";
 
@@ -40,7 +34,10 @@ Describe -Name "local publishing tests" {
     if ($null -ne $data.RequiredModules) {
       $data.RequiredModules | % {
         $_.ModuleVersion | Should -Be $Version -Because "$Name RequiredModules' ModuleVersion should be $Version";
+        Test-Path -Path "$PSScriptRoot/../packages/$($_.ModuleName).$($_.ModuleVersion).nupkg" -PathType Leaf | Should -Be $true -Because "$($_.ModuleName).$($_.ModuleVersion).nupkg (dependency) should have been published locally";
       }
     }
+
+    Test-Path -Path "$PSScriptRoot/../packages/$Name.$Version.nupkg" -PathType Leaf | Should -Be $true -Because "$Name.$Version.nupkg should have been published locally";
   }
 }

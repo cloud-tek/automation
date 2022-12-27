@@ -25,12 +25,10 @@ Register-PSGallery;
 Register-LocalRepository;
 
 try {
-  Push-Location -Path "$PSScriptRoot/../src/$module"
-
-  Get-PSRepository -Name "local";
-
   & $PSScriptRoot/Version.ps1 -module $module -version $version -prerelease $prerelease;
 
+  Get-PSRepository -Name "local";
+  Push-Location -Path "$PSScriptRoot/../tmp/$module"
   [hashtable]$data = Import-PowerShellDataFile "./$module.psd1"
 
   if ($null -ne $data.RequiredModules) {
@@ -45,7 +43,7 @@ try {
 
   [hashtable] $publishArgs = @{
     Repository  = "local"
-    Path        = "$PSScriptRoot/../src/$module"
+    Path        = "$PSScriptRoot/../tmp/$module"
     Force       = $true
   };
 

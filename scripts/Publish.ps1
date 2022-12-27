@@ -9,7 +9,7 @@ Param(
   [Parameter(Mandatory = $false)][string]$prerelease
 )
 
-[string]$path = "$PSScriptRoot/../src/$module";
+[string]$path = "$PSScriptRoot/../tmp/$module";
 [string]$packages = "$PSScriptRoot/../packages";
 [string]$local = "local";
 

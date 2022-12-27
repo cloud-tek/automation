@@ -8,7 +8,7 @@ Param(
 )
 Import-Module -Name "$PSScriptRoot/Utils.psm1" -Force;
 
-Copy-Module -Module $module -Source "src" -Destination "tmp";
+Copy-Module -Module $module -Source "$PSScriptRoot/../src" -Destination "$PSScriptRoot/../tmp";
 
 Push-Location -Path "$PSScriptRoot/../tmp/$module";
 
