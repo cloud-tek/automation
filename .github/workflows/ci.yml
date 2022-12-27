@@ -23,6 +23,7 @@ on:
       - ".github/workflows/**"
       - "scripts/**"
       - "src/**"
+      - "tests/**"
       - "GitVersion.yml"
   pull_request:
     types:
@@ -39,8 +40,14 @@ on:
 
 # https://github.com/PowerShell/PowerShellGet/issues/163
 jobs:
+  publishing-tests:
+    uses: ./.github/workflows/publishing-tests.yml
+    name: publishing-tests
   prepublish:
-    uses: cloud-tek/automation/.github/workflows/prepublish.yml@main
+    needs:
+    - publishing-tests
+    uses: ./.github/workflows/prepublish.yml
+    if: github.ref == 'refs/heads/main'
     name: prepublish
     with:
       modules: |
@@ -55,7 +62,8 @@ jobs:
   publish:
     needs:
     - prepublish
-    uses: cloud-tek/automation/.github/workflows/publish.yml@main
+    uses: ./.github/workflows/publish.yml
+    if: github.ref == 'refs/heads/main'
     name: publish
     with:
       NuGetApiUrl:  'https://api.nuget.org/v3/index.json'

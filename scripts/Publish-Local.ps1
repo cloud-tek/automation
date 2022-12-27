@@ -15,7 +15,7 @@
 Param(
   [Parameter(Mandatory = $true)][string]$module,
   [Parameter(Mandatory = $false)][string]$version = "0.0.0",
-  [Parameter(Mandatory = $false)][string]$prelease
+  [Parameter(Mandatory = $false)][string]$prerelease
 )
 
 Import-Module -Name "$PSScriptRoot/Utils.psm1" -Force;
@@ -25,27 +25,25 @@ Register-PSGallery;
 Register-LocalRepository;
 
 try {
-  Push-Location -Path "$PSScriptRoot/../src/$module"
+  & $PSScriptRoot/Version.ps1 -module $module -version $version -prerelease $prerelease;
 
   Get-PSRepository -Name "local";
-
-  & $PSScriptRoot/Version.ps1 -module $module -version $version;
-
+  Push-Location -Path "$PSScriptRoot/../tmp/$module"
   [hashtable]$data = Import-PowerShellDataFile "./$module.psd1"
 
   if ($null -ne $data.RequiredModules) {
     $data.RequiredModules | % {
-      & $PSScriptRoot/Publish-Local.ps1 -module $_.ModuleName -version $_.ModuleVersion -prelease $prerelease;
+      & $PSScriptRoot/Publish-Local.ps1 -module $_.ModuleName -version $_.ModuleVersion -prerelease $prerelease;
 
-      [string]$computedVersion = if([string]::IsNullOrEmpty($prerelease)) { $_.Version; } else { "$($_.Version)-$prerelease" }
+      [string]$computedVersion = if([string]::IsNullOrEmpty($prerelease)) { $_.Version; } else { "$($_.Version)-$($prerelease.Replace(".", [string]::Empty))" }
 
-      Install-Module -Repository "local" -Name $_.ModuleName -RequiredVersion $computedVersion -Verbose -Force;
+      Install-Module -Repository "local" -Name $_.ModuleName -RequiredVersion $version -Verbose -Force;
     }
   }
 
   [hashtable] $publishArgs = @{
     Repository  = "local"
-    Path        = "$PSScriptRoot/../src/$module"
+    Path        = "$PSScriptRoot/../tmp/$module"
     Force       = $true
   };
 

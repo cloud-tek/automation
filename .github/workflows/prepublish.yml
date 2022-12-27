@@ -73,7 +73,7 @@ jobs:
           ./Publish-Local.ps1 `
             -module ${{ matrix.module.id }} `
             -version ${{ env.GitVersion_MajorMinorPatch }} `
-            -prelease ${{ env.GitVersion_PreReleaseTag }};
+            -prerelease ${{ env.GitVersion_PreReleaseTag }};
       - name: ls packages
         shell: bash
         working-directory: ${{ github.workspace }}/packages

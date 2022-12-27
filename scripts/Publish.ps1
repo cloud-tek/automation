@@ -6,10 +6,10 @@ Param(
   [Parameter(Mandatory = $true)][string]$url,
   [Parameter(Mandatory = $true)][string]$apikey,
   [Parameter(Mandatory = $true)][string]$version,
-  [Parameter(Mandatory = $false)][string]$prelease
+  [Parameter(Mandatory = $false)][string]$prerelease
 )
 
-[string]$path = "$PSScriptRoot/../src/$module";
+[string]$path = "$PSScriptRoot/../tmp/$module";
 [string]$packages = "$PSScriptRoot/../packages";
 [string]$local = "local";
 
@@ -29,7 +29,7 @@ try {
 
   if ($null -ne $data.RequiredModules) {
     $data.RequiredModules | % {
-      [string]$computedVersion = if([string]::IsNullOrEmpty($prerelease)) { $_.Version; } else { "$($_.Version)-$prerelease" }
+      [string]$computedVersion = if([string]::IsNullOrEmpty($prerelease)) { $_.Version; } else { "$($_.Version)-$($prerelease.Replace(".", [string]::Empty))" }
 
       Install-Module -Repository "local" -Name $_.ModuleName -RequiredVersion $computedVersion -Verbose -Force;
     }
