@@ -21,10 +21,9 @@ Register-PSResourceRepositories -url $url;
 Register-LocalPSResourceRepository -name $local -path $packages;
 
 try {
-  Push-Location -Path $path;
-
   & $PSScriptRoot/Version.ps1 -module $module -version $version -prerelease $prerelase;
 
+  Push-Location -Path $path;
   [hashtable]$data = Import-PowerShellDataFile "./$module.psd1"
 
   if ($null -ne $data.RequiredModules) {
