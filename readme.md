@@ -2,6 +2,10 @@
 
 This repository contains core powershell automation.
 
+> **Note**
+>
+> The repository is currently under release-testing
+
 ## Modules
 
 - CloudTek.Automation.Shell
