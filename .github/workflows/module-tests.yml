@@ -62,7 +62,7 @@ jobs:
           "ExecuteTests=$result" | Out-Host
           "ExecuteTests=$result" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append;
       - name: Tests.ps1
-        if: ${{ env.ExecuteTests }} == "true"
+        if: ${{ env.ExecuteTests }} == 'true'
         shell: pwsh
         working-directory: ${{ github.workspace }}/src/${{ matrix.module.id }}
         run: |
@@ -95,7 +95,7 @@ jobs:
           Invoke-Pester -Configuration $configuration;
       - name: Test Report
         uses: dorny/test-reporter@v1
-        if: ${{ env.ExecuteTests }} == "true" && (success() || failure())
+        if: ${{ env.ExecuteTests }} == 'true' && (success() || failure())
         with:
           name: "${{ matrix.module.id }} Test Results"
           path: ${{ github.workspace }}/tests/*.results.xml
