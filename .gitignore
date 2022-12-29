@@ -7,4 +7,4 @@ node_modules/
 [Pp]ackages/
 Test*/
 
-tmp/*
+[Tt]mp/*
