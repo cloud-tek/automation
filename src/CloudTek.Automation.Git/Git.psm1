@@ -1,6 +1,3 @@
-
-Import-Module $PSScriptRoot/ArgoCD-Utils.psm1 -Force;
-
 function Invoke-CommandAt {
   [CmdLetBinding()]
   param(
