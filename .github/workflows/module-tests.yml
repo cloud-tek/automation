@@ -11,6 +11,7 @@ on:
 jobs:
   pester:
     strategy:
+      fail-fast: false
       matrix:
         module: ${{ fromJson(inputs.modules) }}
     name: pester
