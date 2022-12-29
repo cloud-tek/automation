@@ -1,6 +1,25 @@
 
 Import-Module $PSScriptRoot/ArgoCD-Utils.psm1 -Force;
 
+function Invoke-CommandAt {
+  [CmdLetBinding()]
+  param(
+    [Parameter(Mandatory = $true)][scriptblock]$ScriptBlock,
+    [Parameter(Mandatory = $true)][string]$Location
+  )
+
+  Set-StrictMode -Version Latest;
+  $ErrorActionPreference = "Stop";
+
+  try {
+    Push-Location -Path $Location;
+    $ScriptBlock.Invoke();
+  }
+  finally {
+    Pop-Location;
+  }
+}
+
 function Get-GitRepository() {
   [CmdLetBinding()]
   [OutputType([string[]])]
@@ -17,14 +36,15 @@ function Get-GitRepository() {
   Get-Command -Cmd "git";
   Get-Folder -Path $Checkout -Create;
 
-  try {
-    Push-Location -Path $Checkout;
+  Invoke-CommandAt -ScriptBlock {
     & git clone $repository $Name
+    Write-Host "$repository cloned ==> $Checkout/$Name" -ForegroundColor Green;
+  } -Location "$Checkout";
+
+  Invoke-CommandAt -ScriptBlock {
     & git checkout $Branch
-  }
-  finally {
-    Pop-Location;
-  }
+    Write-Host "branch: $Branch" -ForegroundColor Green;
+  } -Location "$Checkout/$Name";
 }
 
 Export-ModuleMember -Function Get-GitRepository;

@@ -10,7 +10,9 @@ Import-Module $PSScriptRoot/Git.psm1 -Force;
     ) {
         # Arrange
         [string]$folder = "repo";
-        [string]$checkout = "$PSScriptRoot/tmp";
+        [string]$checkout = "$env:HOME/tmp";
+
+        Get-Folder -Path $checkout -Create;
 
         if (Test-Path -Path "$checkout/$folder" -PathType Container) {
           Remove-Item -Path "$checkout/$folder" -Recurse -Force;
@@ -24,6 +26,6 @@ Import-Module $PSScriptRoot/Git.psm1 -Force;
           -Name $folder
 
         # Assert
-        Test-Path -Path "$PSScriptRoot/tmp/repo" | Should -Be $true;
+        Test-Path -Path "$checkout/$folder" | Should -Be $true;
     }
   }
