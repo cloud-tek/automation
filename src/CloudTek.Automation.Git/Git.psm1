@@ -17,6 +17,12 @@ function Invoke-CommandAt {
   }
 }
 
+function Initialize-Git() {
+  & git --version
+  & git config user.name "CloudTek.Autmation.Git"
+  & git config user.email "<>"
+}
+
 function Get-GitRepository() {
   [CmdLetBinding()]
   [OutputType([string[]])]
@@ -37,6 +43,10 @@ function Get-GitRepository() {
     & git clone $repository $Name
     Write-Host "$repository cloned ==> $Checkout/$Name" -ForegroundColor Green;
   } -Location "$Checkout";
+
+  Invoke-CommandAt -ScriptBlock {
+    Initialize-Git;
+  } -Location "$Checkout/$Name"
 
   Invoke-CommandAt -ScriptBlock {
     & git checkout $Branch
