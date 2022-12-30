@@ -99,7 +99,7 @@ jobs:
         shell: bash
         run: |
           whoami
-          ls -l ~
+          ls -l ~/tmp
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: ${{ env.ExecuteTests }} == 'true' && (success() || failure())
