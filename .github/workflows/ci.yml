@@ -48,6 +48,7 @@ jobs:
     name: module-tests
     secrets:
       pat: ${{ secrets.REPOSITORY_PAT }}
+      key: ${{ secrets.OPS_GIT_TEST_REPO_KEY }}
     with:
       modules: |
         [

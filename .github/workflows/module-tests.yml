@@ -6,6 +6,9 @@ on:
       pat:
         description: personal access token
         required: true
+      key:
+        description: repository deployment key
+        required: true
     inputs:
       modules:
         description: "Powershell modules to publish (json, array of objects)"
@@ -51,13 +54,24 @@ jobs:
         shell: bash
         run: |
           CONFIG=~/.ssh/config
-          mkdir -p ~/.ssh
-          # >/dev/null 2>&1
-          ls -a -l ~
-          ls -a -l ~/.ssh
+          mkdir -p ~/.ssh >/dev/null 2>&1
           touch $CONFIG
           chmod 600 $CONFIG
-          cat $CONFIG
+
+          cat << EOF > ~/.ssh/config
+          ${key}
+          EOF
+
+          cat << EOF > ~/.ssh/config
+          Host github-test-cloudtek
+            HostName github.com
+            AddKeysToAgent yes
+            PreferredAuthentications publickey
+            IdentityFile ~/.ssh/id_cloudtek_key
+          EOF
+
+          cat ~/.ssh/config
+
       - name: Find ${{ matrix.module.id }}/Tests.ps1
         shell: pwsh
         working-directory: ${{ github.workspace }}/src/${{ matrix.module.id }}
