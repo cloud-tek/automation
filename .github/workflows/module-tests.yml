@@ -58,7 +58,7 @@ jobs:
           touch $CONFIG
           chmod 600 $CONFIG
 
-          cat << EOF > ~/.ssh/config
+          cat << EOF > ~/.ssh/id_cloudtek_key
           ${key}
           EOF
 
