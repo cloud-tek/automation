@@ -50,7 +50,7 @@ jobs:
       - name: cat ~/.ssh/config
         shell: bash
         run: |
-          CONFIG="~/.ssh/config"
+          CONFIG=~/.ssh/config
           mkdir -p ~/.ssh
           # >/dev/null 2>&1
           ls -a -l ~
