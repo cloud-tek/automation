@@ -43,7 +43,7 @@ Describe -Name "git operations tests" {
 
   It "Should clone the git repository using GitHub deploy key auth and set the correct branch" {
     # Arrange
-    [string]$folder = "repo";
+    [string]$folder = "ops-git-test-repo";
     [string]$checkout = "$env:HOME/tmp";
 
     Get-Folder -Path $checkout -Create;
