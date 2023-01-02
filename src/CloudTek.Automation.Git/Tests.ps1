@@ -76,6 +76,7 @@ Describe -Name "git operations tests" {
     # Arrange
     [string]$folder = "ops-git-test-repo-2";
     [string]$checkout = "$env:HOME/tmp";
+    [string]$branch = "main";
 
     Get-Folder -Path $checkout -Create;
 
@@ -86,21 +87,31 @@ Describe -Name "git operations tests" {
     if ($null -eq $env:GITHUB_ACTION) {
       Get-GitRepository `
         -Repository "git@github.com:cloud-tek/automation.git" `
-        -Branch "main" `
+        -Branch $branch `
         -Checkout $checkout `
         -Name $folder;
     }
     else {
       Get-GitRepository `
         -Repository "git@github-test-cloudtek:cloud-tek/ops-git-test-repo.git" `
-        -Branch "main" `
+        -Branch $branch `
         -Checkout $checkout `
         -Name $folder;
     }
 
     # Act
-
+    {
+     Invoke-GitCommit `
+      -Checkout $checkout `
+      -Name $folder `
+      -Branch $branch `
+      -Message "" `
+      -Push `
+      -ScriptBlock {
+        "Test run" | Out-File -FilePath "$((get-date).ToLocalTime().ToString("yyyy-MM-dd HHmmss")).txt";
+     }
+    } | Should -Not -Throw;
     # Assert
-    Test-Path -Path "$checkout/$folder" | Should -Be $true;
+    #Test-Path -Path "$checkout/$folder" | Should -Be $true;
   }
 }
