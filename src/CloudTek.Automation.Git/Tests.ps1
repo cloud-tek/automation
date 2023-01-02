@@ -63,7 +63,6 @@ Describe -Name "git operations tests" {
     elseif ($null -ne $env:CloudTek_PAT) {
       Get-GitRepository `
         -Repository "git@github-test-cloudtek:cloud-tek/automation.git" `
-        -Token "$env:CloudTek_PAT" `
         -Branch "main" `
         -Checkout $checkout `
         -Name $folder;
