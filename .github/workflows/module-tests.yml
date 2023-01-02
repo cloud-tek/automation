@@ -51,6 +51,7 @@ jobs:
         shell: bash
         run: |
           CONFIG="~/.ssh/config"
+          mkdir -p ~/.ssh >/dev/null 2>&1
           touch $CONFIG
           chmod 600 $CONFIG
           cat $CONFIG
