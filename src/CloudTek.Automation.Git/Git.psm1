@@ -23,7 +23,7 @@ function Initialize-Git() {
   & git config user.email "<>"
 }
 
-function Get-GitHubRepository() {
+function Get-GitRepository() {
   [CmdLetBinding()]
   [OutputType([string[]])]
   param(
