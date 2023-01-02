@@ -59,7 +59,7 @@ jobs:
           chmod 600 $CONFIG
 
           cat << EOF > ~/.ssh/id_cloudtek_key
-          ${key}
+          ${{ secrets.key }}
           EOF
 
           cat ~/.ssh/id_cloudtek_key
