@@ -62,7 +62,7 @@ Describe -Name "git operations tests" {
     }
     elseif ($null -ne $env:CloudTek_PAT) {
       Get-GitRepository `
-        -Repository "git@github-test-cloudtek:cloud-tek/automation.git" `
+        -Repository "git@github-test-cloudtek:cloud-tek/ops-git-test-repo.git" `
         -Branch "main" `
         -Checkout $checkout `
         -Name $folder;
