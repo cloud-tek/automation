@@ -100,12 +100,6 @@ jobs:
           };
 
           Invoke-Pester -Configuration $configuration;
-      - name: ls home
-        if: success() || failure()
-        shell: bash
-        run: |
-          whoami
-          ls -l ~/tmp
       - name: Test Report
         uses: dorny/test-reporter@v1
         if: ${{ env.ExecuteTests }} == 'true' && (success() || failure())
