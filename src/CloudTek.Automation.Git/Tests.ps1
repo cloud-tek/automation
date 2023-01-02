@@ -60,15 +60,12 @@ Describe -Name "git operations tests" {
         -Checkout $checkout `
         -Name $folder;
     }
-    elseif ($null -ne $env:CloudTek_PAT) {
+    else {
       Get-GitRepository `
-        -Repository "git@github-test-cloudtek:cloud-tek/ops-git-test-repo.git" `
+        -Repository "git@github-test-cloudtek:git@github-test-cloudtek:cloud-tek/ops-git-test-repo.git" `
         -Branch "main" `
         -Checkout $checkout `
         -Name $folder;
-    }
-    else {
-      throw "Unable to authenticate Get-GitRepository";
     }
 
     # Assert
