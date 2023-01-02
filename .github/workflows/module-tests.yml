@@ -47,12 +47,13 @@ jobs:
           </configuration>
           "@
           $nuget | Out-File -FilePath ${{ github.workspace }}/nuget.config
-      # - name: Install-Module(s)
-      #   shell: pwsh
-      #   working-directory: ${{ github.workspace }}
-      #   run: |
-      #     Install-Module PowershellGet -Force -AllowPrerelease;
-      #     Install-Module Pester -Force;
+      - name: cat ~/.ssh/config
+        shell: bash
+        run: |
+          CONFIG="~/.ssh/config"
+          touch $CONFIG
+          chmod 600 $CONFIG
+          cat $CONFIG
       - name: Find ${{ matrix.module.id }}/Tests.ps1
         shell: pwsh
         working-directory: ${{ github.workspace }}/src/${{ matrix.module.id }}
