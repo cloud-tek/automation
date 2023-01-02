@@ -53,6 +53,7 @@ function Get-GitRepository() {
   } -Location "$Checkout";
 
   Invoke-CommandAt -ScriptBlock {
+    Write-Host "Initializing git in: $Checkout/$Name ..."
     Initialize-Git;
   } -Location "$Checkout/$Name"
 
