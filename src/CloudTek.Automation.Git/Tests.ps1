@@ -43,7 +43,7 @@ Describe -Name "git operations tests" {
 
   It "Should clone the git repository using GitHub deploy key auth and set the correct branch" {
     # Arrange
-    [string]$folder = "ops-git-test-repo";
+    [string]$folder = "ops-git-test-repo-1";
     [string]$checkout = "$env:HOME/tmp";
 
     Get-Folder -Path $checkout -Create;
@@ -67,6 +67,38 @@ Describe -Name "git operations tests" {
         -Checkout $checkout `
         -Name $folder;
     }
+
+    # Assert
+    Test-Path -Path "$checkout/$folder" | Should -Be $true;
+  }
+
+  It "Should commit & push to a branch" {
+    # Arrange
+    [string]$folder = "ops-git-test-repo-2";
+    [string]$checkout = "$env:HOME/tmp";
+
+    Get-Folder -Path $checkout -Create;
+
+    if (Test-Path -Path "$checkout/$folder" -PathType Container) {
+      Remove-Item -Path "$checkout/$folder" -Recurse -Force;
+    }
+
+    if ($null -eq $env:GITHUB_ACTION) {
+      Get-GitRepository `
+        -Repository "git@github.com:cloud-tek/automation.git" `
+        -Branch "main" `
+        -Checkout $checkout `
+        -Name $folder;
+    }
+    else {
+      Get-GitRepository `
+        -Repository "git@github-test-cloudtek:cloud-tek/ops-git-test-repo.git" `
+        -Branch "main" `
+        -Checkout $checkout `
+        -Name $folder;
+    }
+
+    # Act
 
     # Assert
     Test-Path -Path "$checkout/$folder" | Should -Be $true;

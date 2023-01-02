@@ -25,7 +25,6 @@ function Initialize-Git() {
 
 function Get-GitRepository() {
   [CmdLetBinding()]
-  [OutputType([string[]])]
   param(
     [Parameter(Mandatory = $true)][string]$Repository,
     [Parameter(Mandatory = $true)][string]$Branch,
@@ -63,4 +62,39 @@ function Get-GitRepository() {
   } -Location "$Checkout/$Name";
 }
 
+function Invoke-GitCommit() {
+  [CmdLetBinding()]
+  param(
+    [Parameter(Mandatory = $true)][string]$Branch,
+    [Parameter(Mandatory = $true)][string]$Checkout,
+    [Parameter(Mandatory = $true)][string]$Name,
+    [Parameter(Mandatory = $true)][string]$Message,
+    [Parameter(Mandatory = $true)][scriptblock]$ScriptBlock,
+    [Parameter(Mandatory = $false)][switch]$Push
+  )
+
+  Set-StrictMode -Version Latest;
+  $ErrorActionPreference = "Stop";
+
+  try {
+    Push-Location -Path "$Checkout/$Name";
+
+    & git checkout $Branch
+    & git pull origin $Branch
+
+    $ScriptBlock.Invoke();
+
+    & git add .
+    & git commit -m $Message
+
+    if($Push.IsPresent -and ($true -eq $Push)) {
+      & git push origin $Branch
+    }
+  }
+  finally {
+    Pop-Location;
+  }
+}
+
 Export-ModuleMember -Function Get-GitRepository;
+Export-ModuleMember -Function Invoke-GitCommit;
