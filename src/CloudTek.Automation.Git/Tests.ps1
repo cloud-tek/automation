@@ -62,7 +62,7 @@ Describe -Name "git operations tests" {
     }
     else {
       Get-GitRepository `
-        -Repository "git@github-test-cloudtek:git@github-test-cloudtek:cloud-tek/ops-git-test-repo.git" `
+        -Repository "git@github-test-cloudtek:cloud-tek/ops-git-test-repo.git" `
         -Branch "main" `
         -Checkout $checkout `
         -Name $folder;
