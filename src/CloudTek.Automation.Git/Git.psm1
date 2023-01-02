@@ -31,7 +31,7 @@ function Get-GitRepository() {
     [Parameter(Mandatory = $true)][string]$Branch,
     [Parameter(Mandatory = $true)][string]$Checkout,
     [Parameter(Mandatory = $true)][string]$Name,
-    [Parameter(Mandatory = $true)][string]$Token
+    [Parameter(Mandatory = $false)][string]$Token
   )
   Set-StrictMode -Version Latest;
   $ErrorActionPreference = "Stop";
