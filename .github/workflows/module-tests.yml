@@ -54,28 +54,23 @@ jobs:
         shell: bash
         run: |
           CONFIG=~/.ssh/config
+          KEY=~/.ssh/id_cloudtek_key
           mkdir -p ~/.ssh >/dev/null 2>&1
-          touch $CONFIG
-          chmod 600 $CONFIG
 
-          cat << EOF > ~/.ssh/id_cloudtek_key
+          cat << EOF > $KEY
           ${{ secrets.key }}
           EOF
+          chmod 600 $KEY
 
-          cat ~/.ssh/id_cloudtek_key
-
-          chmod 600 ~/.ssh/id_cloudtek_key
-
-
+          touch $CONFIG
           cat << EOF > ~/.ssh/config
           Host github-test-cloudtek
             HostName github.com
             AddKeysToAgent yes
             PreferredAuthentications publickey
-            IdentityFile ~/.ssh/id_cloudtek_key
+            IdentityFile ${KEY}
           EOF
-
-          cat ~/.ssh/config
+          chmod 600 $CONFIG
 
       - name: Find ${{ matrix.module.id }}/Tests.ps1
         shell: pwsh

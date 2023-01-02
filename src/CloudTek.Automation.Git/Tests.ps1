@@ -99,7 +99,7 @@ Describe -Name "git operations tests" {
         -Name $folder;
     }
 
-    # Act
+    # Act & Assert
     {
      [string]$now = $((get-date).ToLocalTime().ToString("yyyy-MM-dd HHmmss"));
      Invoke-GitCommit `
@@ -112,7 +112,5 @@ Describe -Name "git operations tests" {
         "Test run" | Out-File -FilePath "$now.txt";
      }
     } | Should -Not -Throw;
-    # Assert
-    #Test-Path -Path "$checkout/$folder" | Should -Be $true;
   }
 }
