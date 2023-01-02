@@ -23,15 +23,15 @@ function Initialize-Git() {
   & git config user.email "<>"
 }
 
-function Get-GitRepository() {
+function Get-GitHubRepository() {
   [CmdLetBinding()]
   [OutputType([string[]])]
   param(
     [Parameter(Mandatory = $true)][string]$Repository,
     [Parameter(Mandatory = $true)][string]$Branch,
     [Parameter(Mandatory = $true)][string]$Checkout,
-    [Parameter(Mandatory = $true)][string]$Name
-
+    [Parameter(Mandatory = $true)][string]$Name,
+    [Parameter(Mandatory = $true)][string]$Token
   )
   Set-StrictMode -Version Latest;
   $ErrorActionPreference = "Stop";
@@ -40,7 +40,15 @@ function Get-GitRepository() {
   Get-Folder -Path $Checkout -Create;
 
   Invoke-CommandAt -ScriptBlock {
-    & git clone $repository $Name
+    if([string]::IsNullOrEmpty()) {
+      & git clone $repository $Name
+    } else {
+      if($repository.StartsWith("git")) {
+        throw "SSH authentication is not supported when using an OAuth2 token";
+      }
+
+      & git clone "https://$token@$($repository.Replace("https://", [string]::Empty))" $Name
+    }
     Write-Host "$repository cloned ==> $Checkout/$Name" -ForegroundColor Green;
   } -Location "$Checkout";
 

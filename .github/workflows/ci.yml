@@ -46,6 +46,8 @@ jobs:
   module-tests:
     uses: ./.github/workflows/module-tests.yml
     name: module-tests
+    secrets:
+      pat: ${{ secrets.REPOSITORY_PAT }}
     with:
       modules: |
         [

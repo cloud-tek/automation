@@ -2,6 +2,10 @@ name: "module-tests"
 
 on:
   workflow_call:
+    secrets:
+      pat:
+        description: personal access token
+        required: true
     inputs:
       modules:
         description: "Powershell modules to publish (json, array of objects)"
@@ -66,6 +70,8 @@ jobs:
         if: ${{ env.ExecuteTests }} == 'true'
         shell: pwsh
         working-directory: ${{ github.workspace }}/src/${{ matrix.module.id }}
+        env:
+          CloudTek_PAT: ${{ secrets.PAT }}
         run: |
           Import-Module "Pester";
 

@@ -11,6 +11,7 @@ Import-Module $PSScriptRoot/Git.psm1 -Force;
         # Arrange
         [string]$folder = "repo";
         [string]$checkout = "$env:HOME/tmp";
+        [string]$token = $env:CloudTek_GitToken;
 
         Get-Folder -Path $checkout -Create;
 
@@ -19,11 +20,22 @@ Import-Module $PSScriptRoot/Git.psm1 -Force;
         }
 
         # Act
-        Get-GitRepository `
-          -Repository "git@github.com:cloud-tek/automation.git" `
+        if ($null -eq $env:GITHUB_ACTION) {
+          Get-GitRepository `
+            -Repository "git@github.com:cloud-tek/automation.git" `
+            -Branch "main" `
+            -Checkout $checkout `
+            -Name $folder;
+        } elseif ($null -ne $env:CloudTek_PAT) {
+          Get-GitRepository `
+          -Repository "https://github.com/cloud-tek/automation.git" `
+          -Token "$env:CloudTek_PAT" `
           -Branch "main" `
           -Checkout $checkout `
-          -Name $folder
+          -Name $folder;
+        } else {
+          throw "Unable to authenticate Get-GitRepository";
+        }
 
         # Assert
         Test-Path -Path "$checkout/$folder" | Should -Be $true;
