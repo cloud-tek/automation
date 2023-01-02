@@ -101,14 +101,15 @@ Describe -Name "git operations tests" {
 
     # Act
     {
+     [string]$now = $((get-date).ToLocalTime().ToString("yyyy-MM-dd HHmmss"));
      Invoke-GitCommit `
       -Checkout $checkout `
       -Name $folder `
       -Branch $branch `
-      -Message "" `
+      -Message "Test run $now" `
       -Push `
       -ScriptBlock {
-        "Test run" | Out-File -FilePath "$((get-date).ToLocalTime().ToString("yyyy-MM-dd HHmmss")).txt";
+        "Test run" | Out-File -FilePath "$now.txt";
      }
     } | Should -Not -Throw;
     # Assert
