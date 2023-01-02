@@ -62,6 +62,8 @@ jobs:
           ${key}
           EOF
 
+          chmod 600 ~/.ssh/id_cloudtek_key
+
           cat << EOF > ~/.ssh/config
           Host github-test-cloudtek
             HostName github.com
