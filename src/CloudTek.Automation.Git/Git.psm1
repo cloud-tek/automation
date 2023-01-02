@@ -40,7 +40,7 @@ function Get-GitRepository() {
   Get-Folder -Path $Checkout -Create;
 
   Invoke-CommandAt -ScriptBlock {
-    if([string]::IsNullOrEmpty()) {
+    if([string]::IsNullOrEmpty($Token)) {
       & git clone $repository $Name
     } else {
       if($repository.StartsWith("git")) {
