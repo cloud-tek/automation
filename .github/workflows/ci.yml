@@ -76,6 +76,12 @@ jobs:
       modules: |
         [
           {
+            "id": "CloudTek.Automation.Utilities"
+          },
+          {
+            "id": "CloudTek.Automation.Git"
+          },
+          {
             "id": "CloudTek.Automation.Shell"
           },
           {
@@ -92,6 +98,12 @@ jobs:
       NuGetApiUrl:  'https://api.nuget.org/v3/index.json'
       modules: |
         [
+          {
+            "id": "CloudTek.Automation.Utilities"
+          },
+          {
+            "id": "CloudTek.Automation.Git"
+          },
           {
             "id": "CloudTek.Automation.Shell"
           },
