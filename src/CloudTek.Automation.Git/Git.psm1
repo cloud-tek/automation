@@ -1,3 +1,4 @@
+# Invokes git commands at specified location on the file system
 function Invoke-CommandAt {
   [CmdLetBinding()]
   param(
