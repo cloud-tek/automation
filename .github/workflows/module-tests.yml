@@ -1,0 +1,129 @@
+name: "module-tests"
+
+on:
+  workflow_call:
+    secrets:
+      pat:
+        description: personal access token
+        required: true
+      key:
+        description: repository deployment key
+        required: true
+    inputs:
+      modules:
+        description: "Powershell modules to publish (json, array of objects)"
+        type: string
+        required: true
+
+jobs:
+  pester:
+    strategy:
+      fail-fast: false
+      matrix:
+        module: ${{ fromJson(inputs.modules) }}
+    name: pester
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: "0"
+      - name: nuget.config (pwsh)
+        shell: pwsh
+        run: |
+          $nuget = @"
+          <?xml version="1.0" encoding="utf-8"?>
+          <configuration>
+            <packageSources>
+              <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
+            </packageSources>
+            <packageRestore>
+              <add key="enabled" value="True" />
+              <add key="automatic" value="True" />
+            </packageRestore>
+            <bindingRedirects>
+              <add key="skip" value="False" />
+            </bindingRedirects>
+            <packageManagement>
+              <add key="format" value="0" />
+              <add key="disabled" value="False" />
+            </packageManagement>
+          </configuration>
+          "@
+          $nuget | Out-File -FilePath ${{ github.workspace }}/nuget.config
+      - name: cat ~/.ssh/config
+        shell: bash
+        run: |
+          CONFIG=~/.ssh/config
+          KEY=~/.ssh/id_cloudtek_key
+          mkdir -p ~/.ssh >/dev/null 2>&1
+
+          cat << EOF > $KEY
+          ${{ secrets.key }}
+          EOF
+          chmod 600 $KEY
+
+          touch $CONFIG
+          cat << EOF > ~/.ssh/config
+          Host github-test-cloudtek
+            HostName github.com
+            AddKeysToAgent yes
+            PreferredAuthentications publickey
+            IdentityFile ${KEY}
+          EOF
+          chmod 600 $CONFIG
+
+      - name: Find ${{ matrix.module.id }}/Tests.ps1
+        shell: pwsh
+        working-directory: ${{ github.workspace }}/src/${{ matrix.module.id }}
+        run: |
+          [string]$result = "false";
+          if(Test-Path -Path "${{ github.workspace }}/src/${{ matrix.module.id }}/Tests.ps1" -PathType Leaf) {
+            $result = "true";
+          }
+
+          Write-Host "Tests found: $result";
+
+          "ExecuteTests=$result" | Out-Host
+          "ExecuteTests=$result" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append;
+      - name: Tests.ps1
+        if: ${{ env.ExecuteTests }} == 'true'
+        shell: pwsh
+        working-directory: ${{ github.workspace }}/src/${{ matrix.module.id }}
+        env:
+          CloudTek_PAT: ${{ secrets.PAT }}
+        run: |
+          Import-Module "Pester";
+
+          $configuration = [PesterConfiguration]@{
+            Run = @{
+              Path = "${{ github.workspace }}/src/${{ matrix.module.id }}/Tests.ps1"
+            }
+            Debug = @{
+              ShowFullErrors = $true
+              WriteDebugMessages = $true
+              WriteDebugMessagesFrom = "Mock"
+            }
+            Output = @{
+              Verbosity = "Normal"
+            }
+            CodeCoverage = @{
+              Enabled = $false
+              # OutputFormat = "Cobertura"
+              # OutputPath = "${{ github.workspace }}/tests/${{ matrix.module.id }}.coverage.xml"
+            }
+            TestResult = @{
+              Enabled = $true
+              OutputFormat = "JUnitXml"
+              OutputPath = "${{ github.workspace }}/tests/${{ matrix.module.id }}.results.xml"
+            }
+          };
+
+          Invoke-Pester -Configuration $configuration;
+      - name: Test Report
+        uses: dorny/test-reporter@v1
+        if: ${{ env.ExecuteTests }} == 'true' && (success() || failure())
+        with:
+          name: "${{ matrix.module.id }} Test Results"
+          path: ${{ github.workspace }}/tests/*.results.xml
+          reporter: java-junit
+

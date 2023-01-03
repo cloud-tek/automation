@@ -43,9 +43,32 @@ jobs:
   publishing-tests:
     uses: ./.github/workflows/publishing-tests.yml
     name: publishing-tests
+  module-tests:
+    uses: ./.github/workflows/module-tests.yml
+    name: module-tests
+    secrets:
+      pat: ${{ secrets.REPOSITORY_PAT }}
+      key: ${{ secrets.OPS_GIT_TEST_REPO_KEY }}
+    with:
+      modules: |
+        [
+          {
+            "id": "CloudTek.Automation.Utilities"
+          },
+          {
+            "id": "CloudTek.Automation.Git"
+          },
+          {
+            "id": "CloudTek.Automation.Shell"
+          },
+          {
+            "id": "CloudTek.Automation.K8S"
+          }
+        ]
   prepublish:
     needs:
     - publishing-tests
+    - module-tests
     uses: ./.github/workflows/prepublish.yml
     if: github.ref == 'refs/heads/main'
     name: prepublish
