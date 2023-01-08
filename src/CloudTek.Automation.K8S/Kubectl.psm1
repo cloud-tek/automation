@@ -1,5 +1,18 @@
-Using module ".\ShellExecutor.psm1"
+Set-StrictMode -Version Latest;
+$ErrorActionPreference = "Stop";
 
+[hashtable]$modules = @{
+  "CloudTek.Automation.Shell" = "Shell.psm1"
+  "CloudTek.Automation.Utilities" = "Utilities.psm1"
+};
+
+$modules.Keys | % {
+  if(Test-Path $PSScriptRoot/../$_/$modules[$_]) {
+    Import-Module $PSScriptRoot/../$_/$modules[$_] -Force;
+  } else {
+    Import-Module $_;
+  }
+}
 function Kubectl-Apply()
 {
   [CmdLetBinding()]
@@ -12,6 +25,8 @@ function Kubectl-Apply()
   )
   Set-StrictMode -Version Latest;
   $ErrorActionPreference = "Stop";
+
+  Get-Command -Cmd "kubectl";
 
   Write-Host ("Validating file: {0} with kubeval" -f $fileName);
 

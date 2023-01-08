@@ -1,4 +1,18 @@
-Using module ".\ShellExecutor.psm1"
+Set-StrictMode -Version Latest;
+$ErrorActionPreference = "Stop";
+
+[hashtable]$modules = @{
+  "CloudTek.Automation.Shell" = "Shell.psm1"
+  "CloudTek.Automation.Utilities" = "Utilities.psm1"
+};
+
+$modules.Keys | % {
+  if(Test-Path $PSScriptRoot/../$_/$modules[$_]) {
+    Import-Module $PSScriptRoot/../$_/$modules[$_] -Force;
+  } else {
+    Import-Module $_;
+  }
+}
 
 function Deploy-HelmTemplate() {
     [CmdLetBinding()]
@@ -18,8 +32,7 @@ function Deploy-HelmTemplate() {
         [Parameter(Mandatory = $false)][switch]$force,
         [Parameter(Mandatory = $false)][switch]$dryRun
     )
-    Set-StrictMode -Version Latest;
-    $ErrorActionPreference = "Stop";
+    Get-Command -Cmd "helm";
 
     Write-Host "Rendering template...";
     if (($null -eq $values) -or ($values.Length -eq 0)) {
@@ -125,6 +138,9 @@ function Deploy-HelmTemplate() {
     Write-Host ("Executing: helm {0}" -f $sb.ToString()) -ForegroundColor Yellow;
     Write-Host;
 
+    [int]$exitCode = Invoke-ShellCommand `
+      -Command `
+      -Arguments;
     [ShellExecutor] $shellExecutor = New-Object ShellExecutor -ArgumentList 'helm', $arguments;
 
     $proc = $shellExecutor.Execute();

@@ -55,6 +55,10 @@
     @{
       ModuleName = "CloudTek.Automation.Shell";
       ModuleVersion = "0.0.0"
+    },
+    @{
+      ModuleName = "CloudTek.Automation.Utilities";
+      ModuleVersion = "0.0.0"
     }
   )
 

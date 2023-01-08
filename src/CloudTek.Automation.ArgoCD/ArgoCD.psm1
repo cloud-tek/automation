@@ -1,4 +1,8 @@
 using module "CloudTek.Automation.Shell";
+
+Set-StrictMode -Version Latest;
+$ErrorActionPreference = "Stop";
+
 function Get-ArgoCDApplications()
 {
   [CmdLetBinding()]
@@ -8,8 +12,6 @@ function Get-ArgoCDApplications()
     [Parameter(Mandatory = $false)][string]$context,
     [Parameter(Mandatory = $true)][string]$namespace
   )
-  Set-StrictMode -Version Latest;
-  $ErrorActionPreference = "Stop";
 
   [System.Collections.Generic.List[string]]$arguments = New-Object System.Collections.Generic.List[string];
 
