@@ -63,6 +63,9 @@ jobs:
           },
           {
             "id": "CloudTek.Automation.K8S"
+          },
+          {
+            "id": "CloudTek.Automation.ArgoCD"
           }
         ]
   prepublish:
