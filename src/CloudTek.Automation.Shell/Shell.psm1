@@ -9,33 +9,42 @@ function Invoke-ShellCommand {
   )
 
   . {
-    [System.Diagnostics.ProcessStartInfo]$pInfo = New-Object System.Diagnostics.ProcessStartInfo;
-    $pInfo.FileName = $Command;
-    $pInfo.RedirectStandardError = $true;
-    $pInfo.RedirectStandardOutput = $true;
-    $pInfo.UseShellExecute = $false;
-    $pInfo.Arguments = $Arguments;
+    try {
+      [System.Diagnostics.ProcessStartInfo]$pInfo = New-Object System.Diagnostics.ProcessStartInfo;
+      $pInfo.FileName = $Command;
+      $pInfo.RedirectStandardError = $true;
+      $pInfo.RedirectStandardOutput = $true;
+      $pInfo.UseShellExecute = $false;
+      $pInfo.Arguments = $Arguments;
 
-    [System.Diagnostics.Process]$process = New-Object System.Diagnostics.Process
-    $process.StartInfo = $pInfo;
-    $process.Start();
+      [System.Diagnostics.Process]$process = New-Object System.Diagnostics.Process
+      $process.StartInfo = $pInfo;
+      $process.Start();
 
-    $stdout = $process.StandardOutput.ReadToEnd();
-    $stderr = $process.StandardError.ReadToEnd();
+      $stdout = $process.StandardOutput.ReadToEnd();
+      $stderr = $process.StandardError.ReadToEnd();
 
-    $process.WaitForExit();
+      $process.WaitForExit();
+    }
+    catch [System.Management.Automation.MethodInvocationException] {
+      return 1;
+    }
+    catch {
+      throw "Unhandled exception";
+    }
+    finally {
+      if ((0 -eq $process.ExitCode) -and ($null -ne $StandardOut)) {
+        $StandardOut.Invoke($stdout) | Out-Null;
+      }
 
-    if ((0 -eq $process.ExitCode) -and ($null -ne $StandardOut)) {
-      $StandardOut.Invoke($stdout) | Out-Null;
+      if ((0 -ne $process.ExitCode) -and ($null -ne $StandardErr)) {
+        $StandardErr.Invoke($stderr) | Out-Null;
+      }
     }
 
-    if ((0 -ne $process.ExitCode) -and ($null -ne $StandardErr)) {
-      $StandardErr.Invoke($stderr) | Out-Null;
-    }
-
-    if (0 -ne $process.ExitCode) {
-      throw "Process exited with $($process.ExitCode)";
-    }
+    # if (0 -ne $process.ExitCode) {
+    #   throw "Process exited with $($process.ExitCode)";
+    # }
   } | Out-Null;
 
   return $process.ExitCode;
