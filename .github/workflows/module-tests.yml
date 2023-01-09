@@ -83,7 +83,8 @@ jobs:
         run: |
           wget https://github.com/instrumenta/kubeval/releases/download/${{ matrix.module.kubeval }}/kubeval-linux-amd64.tar.gz \
           && tar -xvzf kubeval-linux-amd64.tar.gz \
-          && mv ./kubeval-linux-amd64 /usr/local/bin
+          ls -l
+          #&& mv ./kubeval-linux-amd64 /usr/local/bin
       - name: install helm
         if: ${{ matrix.module.helm != 'false' }}
         shell: bash
