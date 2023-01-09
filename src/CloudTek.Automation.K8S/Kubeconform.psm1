@@ -17,6 +17,11 @@ function Invoke-Kubeconform {
 
     Get-Command -Cmd $cmd -Throw;
 
+    if(-not(Test-Path -Path $Path -PathType Leaf)) {
+      [string]$err = "Required file: $Path does not exist"
+      throw $err;
+    }
+
     [System.Collections.Generic.List[string]]$arguments = New-Object System.Collections.Generic.List[string];
 
     if($Strict.IsPresent -and ($true -eq $Strict)) {
