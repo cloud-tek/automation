@@ -14,7 +14,7 @@ Describe -Name "CloudTek.Automation.K8S Kubectl Tests" {
   It "Should execute kubectl apply in dry-run mode" {
     {
       Invoke-KubectlApply `
-        -Path "$PSScriptRoot/tests/data/namespace.yaml" `
+        -Path "$PSScriptRoot/tests/data/valid/namespace.yaml" `
         -DryRun;
     } | Should -Not -Throw;
   }
@@ -22,7 +22,7 @@ Describe -Name "CloudTek.Automation.K8S Kubectl Tests" {
   It "Should execute kubectl apply in recursive dry-run mode" {
     {
       Invoke-KubectlApply `
-        -Path "$PSScriptRoot/tests/data" `
+        -Path "$PSScriptRoot/tests/data/valid" `
         -Recursive `
         -DryRun;
     } | Should -Not -Throw;
@@ -37,7 +37,7 @@ Describe -Name "CloudTek.Automation.K8S Kubeconform Tests" {
   It "Should validate a valid deployment manifest" {
    {
       Invoke-Kubeconform `
-        -Path "$PSScriptRoot/tests/data/deployment.valid.yaml" `
+        -Path "$PSScriptRoot/tests/data/valid/deployment.yaml" `
         -Summary;
    } | Should -Not -Throw;
   }
@@ -45,7 +45,7 @@ Describe -Name "CloudTek.Automation.K8S Kubeconform Tests" {
   It "Should validate a valid deployment manifest in strict mode" {
     {
        Invoke-Kubeconform `
-         -Path "$PSScriptRoot/tests/data/deployment.valid.yaml" `
+         -Path "$PSScriptRoot/tests/data/valid/deployment.yaml" `
          -Strict `
          -Summary;
     } | Should -Not -Throw;
@@ -54,7 +54,7 @@ Describe -Name "CloudTek.Automation.K8S Kubeconform Tests" {
   It "Should not validate an invalid deployment manifest" {
     {
       Invoke-Kubeconform `
-        -Path "$PSScriptRoot/tests/data/deployment.invalid.yaml" `
+        -Path "$PSScriptRoot/tests/data/invalid/deployment.yaml" `
         -Summary;
     } | Should -Throw;
   }
@@ -62,7 +62,7 @@ Describe -Name "CloudTek.Automation.K8S Kubeconform Tests" {
   It "Should not validate an invalid deployment manifest in strict mode" {
     {
       Invoke-Kubeconform `
-        -Path "$PSScriptRoot/tests/data/deployment.invalid.yaml" `
+        -Path "$PSScriptRoot/tests/data/invalid/deployment.yaml" `
         -Strict `
         -Summary;
     } | Should -Throw;
