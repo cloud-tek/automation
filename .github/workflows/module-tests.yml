@@ -72,6 +72,25 @@ jobs:
           EOF
           chmod 600 $CONFIG
 
+      - name: install kubectl
+        if: ${{ matrix.module.kubectl }} != "false"
+        shell: bash
+        run: |
+          echo "Test"
+      - name: install kubeval
+        if: ${{ matrix.module.kubectl }} != "false"
+        shell: bash
+        run: |
+          wget https://github.com/instrumenta/kubeval/releases/download/${{ matrix.module.kubeval }}/kubeval-linux-amd64.tar.gz \
+          && tar -xvzf kubeval-linux-amd64.tar.gz \
+          && mv ./linux-amd64/helm /usr/local/bin
+      - name: install helm
+        if: ${{ matrix.module.helm }} != "false"
+        shell: bash
+        run: |
+          wget https://get.helm.sh/helm-${{ matrix.module.helm }}-linux-amd64.tar.gz \
+          && tar -xvzf helm-${{ matrix.module.helm }}-linux-amd64.tar.gz \
+          && mv ./linux-amd64/helm /usr/local/bin
       - name: Find ${{ matrix.module.id }}/Tests.ps1
         shell: pwsh
         working-directory: ${{ github.workspace }}/src/${{ matrix.module.id }}

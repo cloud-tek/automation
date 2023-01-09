@@ -53,19 +53,34 @@ jobs:
       modules: |
         [
           {
-            "id": "CloudTek.Automation.Utilities"
+            "id": "CloudTek.Automation.Utilities",
+            "kubectl": "false",
+            "kubeval": "false"
+            "helm": "false"
           },
           {
-            "id": "CloudTek.Automation.Git"
+            "id": "CloudTek.Automation.Git",
+            "kubectl": "false",
+            "kubeval": "false"
+            "helm": "false"
           },
           {
-            "id": "CloudTek.Automation.Shell"
+            "id": "CloudTek.Automation.Shell",
+            "kubectl": "false",
+            "kubeval": "false"
+            "helm": "false"
           },
           {
-            "id": "CloudTek.Automation.K8S"
+            "id": "CloudTek.Automation.K8S",
+            "kubectl": "v1.24.0",
+            "kubeval": "v0.16.1"
+            "helm": "v3.10.3"
           },
           {
-            "id": "CloudTek.Automation.ArgoCD"
+            "id": "CloudTek.Automation.ArgoCD",
+            "kubectl": "false",
+            "kubeval": "false"
+            "helm": "false"
           }
         ]
   prepublish:
