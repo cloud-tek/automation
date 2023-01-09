@@ -30,17 +30,17 @@ Describe -Name "CloudTek.Automation.K8S Kubectl Tests" {
 }
 
 Describe -Name "CloudTek.Automation.K8S Kubeconform Tests" {
-  # It "Command should be available" {
-  #   Get-Command -Cmd "kubeconform" | Should -BeTrue;
-  # }
+  It "Command should be available" {
+    Get-Command -Cmd "kubeconform" | Should -BeTrue;
+  }
 
-  # It "Should validate a valid deployment manifest" {
-  #  {
-  #     Invoke-Kubeconform `
-  #       -Path "$PSScriptRoot/tests/data/deployment.valid.yaml" `
-  #       -Summary;
-  #  } | Should -Not -Throw;
-  # }
+  It "Should validate a valid deployment manifest" {
+   {
+      Invoke-Kubeconform `
+        -Path "$PSScriptRoot/tests/data/deployment.valid.yaml" `
+        -Summary;
+   } | Should -Not -Throw;
+  }
 
   It "Should validate a valid deployment manifest in strict mode" {
     {
