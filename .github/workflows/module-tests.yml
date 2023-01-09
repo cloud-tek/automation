@@ -82,14 +82,14 @@ jobs:
         shell: bash
         run: |
           wget https://github.com/instrumenta/kubeval/releases/download/${{ matrix.module.kubeval }}/kubeval-linux-amd64.tar.gz \
-          && tar -xvzf kubeval-linux-amd64.tar.gz ./kubeval-linux-amd64 \
+          && tar -xvzf kubeval-linux-amd64.tar.gz -C ./kubeval-linux-amd64 \
           && mv ./kubeval-linux-amd64 /usr/local/bin
       - name: install helm
         if: ${{ matrix.module.helm != 'false' }}
         shell: bash
         run: |
           wget https://get.helm.sh/helm-${{ matrix.module.helm }}-linux-amd64.tar.gz \
-          && tar -xvzf helm-${{ matrix.module.helm }}-linux-amd64.tar.gz ./helm-linux-amd64 \
+          && tar -xvzf helm-${{ matrix.module.helm }}-linux-amd64.tar.gz -C ./helm-linux-amd64 \
           && mv ./helm-linux-amd64/helm /usr/local/bin
       - name: Find ${{ matrix.module.id }}/Tests.ps1
         shell: pwsh
