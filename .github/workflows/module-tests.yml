@@ -92,7 +92,7 @@ jobs:
           mkdir /tmp/helm
           wget https://get.helm.sh/helm-${{ matrix.module.helm }}-linux-amd64.tar.gz \
           && tar -xvzf helm-${{ matrix.module.helm }}-linux-amd64.tar.gz -C /tmp/helm \
-          && mv /tmp/helm/helm /usr/local/bin
+          && mv /tmp/helm/linux-amd64/helm /usr/local/bin
       - name: Find ${{ matrix.module.id }}/Tests.ps1
         shell: pwsh
         working-directory: ${{ github.workspace }}/src/${{ matrix.module.id }}
