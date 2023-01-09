@@ -55,14 +55,6 @@ function Invoke-KubectlApply {
     $arguments.Add("--dry-run=client");
   }
 
-  [System.Text.StringBuilder]$sb = New-Object System.Text.StringBuilder;
-  $arguments | % {
-    $sb.Append("$_ ");
-  }
-
-  Write-Host ("Executing: kubectl {0}" -f $sb.ToString()) -ForegroundColor Gray;
-  Write-Host;
-
   [int]$exitCode = Invoke-ShellCommand `
     -Command "kubectl" `
     -Arguments $arguments.ToArray();

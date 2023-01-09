@@ -10,6 +10,19 @@ function Invoke-ShellCommand {
 
   . {
     try {
+      if($null -ne $Arguments) {
+        [System.Text.StringBuilder]$sb = New-Object System.Text.StringBuilder;
+        $Arguments | % {
+          $sb.Append("$_ ");
+        }
+
+        Write-Host ("Executing: $Command {0}" -f $sb.ToString()) -ForegroundColor Gray;
+      } else {
+        Write-Host ("Executing: $Command") -ForegroundColor Gray;
+      }
+
+      Write-Host;
+
       [System.Diagnostics.ProcessStartInfo]$pInfo = New-Object System.Diagnostics.ProcessStartInfo;
       $pInfo.FileName = $Command;
       $pInfo.RedirectStandardError = $true;
@@ -41,10 +54,6 @@ function Invoke-ShellCommand {
         $StandardErr.Invoke($stderr) | Out-Null;
       }
     }
-
-    # if (0 -ne $process.ExitCode) {
-    #   throw "Process exited with $($process.ExitCode)";
-    # }
   } | Out-Null;
 
   return $process.ExitCode;

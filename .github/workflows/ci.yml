@@ -55,35 +55,35 @@ jobs:
           {
             "id": "CloudTek.Automation.Utilities",
             "kubectl": "false",
-            "kubeval": "false",
+            "kubeconform": "false",
             "helm": "false",
             "microk8s": "false"
           },
           {
             "id": "CloudTek.Automation.Git",
             "kubectl": "false",
-            "kubeval": "false",
+            "kubeconform": "false",
             "helm": "false",
             "microk8s": "false"
           },
           {
             "id": "CloudTek.Automation.Shell",
             "kubectl": "false",
-            "kubeval": "false",
+            "kubeconform": "false",
             "helm": "false",
             "microk8s": "false"
           },
           {
             "id": "CloudTek.Automation.K8S",
             "kubectl": "v1.24.0",
-            "kubeval": "v0.16.1",
+            "kubeconform": "v0.5.0",
             "helm": "v3.10.3",
             "microk8s": "1.25/stable"
           },
           {
             "id": "CloudTek.Automation.ArgoCD",
             "kubectl": "false",
-            "kubeval": "false",
+            "kubeconform": "false",
             "helm": "false",
             "microk8s": "false"
           }

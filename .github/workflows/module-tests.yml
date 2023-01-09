@@ -82,14 +82,14 @@ jobs:
         shell: bash
         run: |
           echo "Test"
-      - name: install kubeval
-        if: ${{ matrix.module.kubeval != 'false' }}
+      - name: install kubeconform
+        if: ${{ matrix.module.kubeconform != 'false' }}
         shell: bash
         run: |
-          mkdir /tmp/kubeval
-          wget https://github.com/instrumenta/kubeval/releases/download/${{ matrix.module.kubeval }}/kubeval-linux-amd64.tar.gz \
-          && tar -xvzf kubeval-linux-amd64.tar.gz -C /tmp/kubeval \
-          && mv /tmp/kubeval/kubeval /usr/local/bin
+          mkdir /tmp/kubeconform
+          wget https://github.com/yannh/kubeconform/releases/download/${{ matrix.module.kubeconform }}/kubeconform-linux-amd64.tar.gz \
+          && tar -xvzf kubeconform-linux-amd64.tar.gz -C /tmp/kubeconform \
+          && mv /tmp/kubeconform/kubeconform /usr/local/bin
       - name: install helm
         if: ${{ matrix.module.helm != 'false' }}
         shell: bash
