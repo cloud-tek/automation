@@ -72,6 +72,11 @@ jobs:
           EOF
           chmod 600 $CONFIG
 
+      - uses: balchua/microk8s-actions@v0.3.0
+        if: ${{ matrix.module.microk8s != 'false' }}
+        with:
+          channel: ${{ matrix.module.microk8s }}
+          addons: '["dns", "rbac", "hostpath-storage", "registry", "metrics-server"]'
       - name: install kubectl
         if: ${{ matrix.module.kubectl != 'false' }}
         shell: bash
