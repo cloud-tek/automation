@@ -140,7 +140,7 @@ jobs:
           Invoke-Pester -Configuration $configuration;
       - name: Test Report
         uses: dorny/test-reporter@v1
-        if: ${{ env.ExecuteTests }} == 'true' && (success() || failure())
+        if: ${{ env.ExecuteTests == 'true' }} && (success() || failure())
         with:
           name: "${{ matrix.module.id }} Test Results"
           path: ${{ github.workspace }}/tests/*.results.xml
