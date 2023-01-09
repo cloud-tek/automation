@@ -47,7 +47,9 @@ function Invoke-Kubeconform {
       };
 
     if ($exitCode -ne 0) {
-      throw ("Error: $cmd exited with code: {0}" -f $exitCode);
+      [string]$msg = "Error: $cmd exited with code: {0}" -f $exitCode;
+      Write-Error $msg;
+      throw $msg;
     }
   } | Out-Null
 }
