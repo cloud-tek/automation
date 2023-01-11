@@ -55,6 +55,10 @@
     @{
       ModuleName = "CloudTek.Automation.Shell";
       ModuleVersion = "0.0.0"
+    },
+    @{
+      ModuleName = "CloudTek.Automation.Utilities";
+      ModuleVersion = "0.0.0"
     }
   )
 
@@ -71,10 +75,18 @@
   # FormatsToProcess = @()
 
   # Modules to import as nested modules of the module specified in RootModule/ModuleToProcess
-  NestedModules = @("./HELM.psm1", "./Kubectl.psm1")
+  NestedModules = @(
+  "./Kubectl.psm1",
+  "./Kubeconform.psm1",
+  "./HELM.psm1"
+  )
 
   # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-  FunctionsToExport = @("Deploy-HelmTemplate", "Kubectl-Apply")
+  FunctionsToExport = @(
+    "Invoke-KubectlApply",
+    "Invoke-Kubeconform",
+    "Deploy-HelmTemplate"
+  )
 
   # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
   CmdletsToExport = @()

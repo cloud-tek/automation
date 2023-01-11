@@ -1,66 +1,67 @@
-Using module ".\ShellExecutor.psm1"
+Set-StrictMode -Version Latest;
+$ErrorActionPreference = "Stop";
 
-function Kubectl-Apply()
-{
+# [hashtable]$modules = @{
+#   "CloudTek.Automation.Shell" = "Shell.psm1"
+#   "CloudTek.Automation.Utilities" = "Utilities.psm1"
+# };
+
+# $modules.Keys | % {
+#   if(Test-Path $PSScriptRoot/../$_/$modules[$_]) {
+#     Import-Module $PSScriptRoot/../$_/$modules[$_] -Force;
+#   } else {
+#     Import-Module $_;
+#   }
+# }
+
+function Invoke-KubectlApply {
   [CmdLetBinding()]
   param(
-    [Parameter(Mandatory = $true)][string]$kubeConfig,
-    [Parameter(Mandatory = $true)][string]$fileName,
-    [Parameter(Mandatory = $false)][string]$namespace,
-    [Parameter(Mandatory = $false)][switch]$recursive,
-    [Parameter(Mandatory = $false)][string[]]$additionalArguments
+    [Parameter(Mandatory = $true)][string]$Path,
+    [Parameter(Mandatory = $false)][string]$Namespace,
+    [Parameter(Mandatory = $false)][switch]$Recursive,
+    [Parameter(Mandatory = $false)][string]$KubeConfig,
+    [Parameter(Mandatory = $false)][string]$Context,
+    [Parameter(Mandatory = $false)][switch]$DryRun
   )
+
   Set-StrictMode -Version Latest;
   $ErrorActionPreference = "Stop";
 
-  Write-Host ("Validating file: {0} with kubeval" -f $fileName);
-
-  [System.Collections.Generic.List[string]]$kubeValArguments = New-Object System.Collections.Generic.List[string];
-  $kubeValArguments.Add($fileName);
-
-  [ShellExecutor]$shellExecutor = New-Object ShellExecutor -ArgumentList 'kubeval', $kubeValArguments;
-
-  $proc = $shellExecutor.Execute();
-
-  if ($proc.exitCode -ne 0) {
-    Write-Error ("Provided manifest is not valid. kubeval exited with code: {0}" -f $exitCode);
-    return $exitCode;
-  }
+  Get-Command -Cmd "kubectl" -Throw;
 
   [System.Collections.Generic.List[string]]$arguments = New-Object System.Collections.Generic.List[string];
 
-  $arguments.Add("apply");
-  $arguments.Add("--kubeconfig $kubeconfig");
-  $arguments.Add("-f $fileName");
-
-  if (-not([string]::IsNullOrEmpty($namespace))) {
-    $arguments.Add("-n $namespace");
+  if (-not([string]::IsNullOrEmpty($KubeConfig))) {
+    $arguments.Add("--kubeconfig $KubeConfig");
   }
 
-  if ($recursive.IsPresent -and ($recursive -eq $true)) {
+  if (-not([string]::IsNullOrEmpty($Context))) {
+    $arguments.Add("--context $Context");
+  }
+
+  if (-not([string]::IsNullOrEmpty($Namespace))) {
+    $arguments.Add("-n $Namespace");
+  }
+
+  $arguments.Add("apply");
+  $arguments.Add("-f $Path");
+
+  if ($Recursive.IsPresent -and ($Recursive -eq $true)) {
     $arguments.Add("-R");
   }
 
-  $arguments = $arguments + $additionalArguments;
-
-  [System.Text.StringBuilder]$sb = New-Object System.Text.StringBuilder;
-  $arguments | % {
-    $sb.Append("$_ ");
+  if ($DryRun.IsPresent -and ($true -eq $DryRun)) {
+    $arguments.Add("--dry-run=client");
   }
 
-  Write-Host ("Executing: kubectl apply {0}" -f $sb.ToString()) -ForegroundColor Yellow;
-  Write-Host;
+  [int]$exitCode = Invoke-ShellCommand `
+    -Command "kubectl" `
+    -Arguments $arguments.ToArray();
 
-  [ShellExecutor]$shellExecutor = New-Object ShellExecutor -ArgumentList 'kubectl', $arguments;
-
-  $proc = $shellExecutor.Execute();
-
-  if ($proc.exitCode -ne 0)
-  {
-    Write-Error ("Error: kubectl apply exited with code: {0}" -f $exitCode);
+  if ($exitCode -ne 0) {
+    throw ("Error: kubectl apply exited with code: {0}" -f $exitCode);
   }
-
-  return $exitCode;
 }
 
-Export-ModuleMember -Function Kubectl-Apply;
+Export-ModuleMember -Function Invoke-KubectlApply;

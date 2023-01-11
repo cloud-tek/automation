@@ -72,6 +72,32 @@ jobs:
           EOF
           chmod 600 $CONFIG
 
+      - uses: balchua/microk8s-actions@v0.3.0
+        if: ${{ matrix.module.microk8s != 'false' }}
+        with:
+          channel: ${{ matrix.module.microk8s }}
+          addons: '["dns", "rbac", "hostpath-storage", "registry", "metrics-server"]'
+      - name: install kubectl
+        if: ${{ matrix.module.kubectl != 'false' }}
+        shell: bash
+        run: |
+          echo "Test"
+      - name: install kubeconform
+        if: ${{ matrix.module.kubeconform != 'false' }}
+        shell: bash
+        run: |
+          mkdir /tmp/kubeconform
+          wget https://github.com/yannh/kubeconform/releases/download/${{ matrix.module.kubeconform }}/kubeconform-linux-amd64.tar.gz \
+          && tar -xvzf kubeconform-linux-amd64.tar.gz -C /tmp/kubeconform \
+          && mv /tmp/kubeconform/kubeconform /usr/local/bin
+      - name: install helm
+        if: ${{ matrix.module.helm != 'false' }}
+        shell: bash
+        run: |
+          mkdir /tmp/helm
+          wget https://get.helm.sh/helm-${{ matrix.module.helm }}-linux-amd64.tar.gz \
+          && tar -xvzf helm-${{ matrix.module.helm }}-linux-amd64.tar.gz -C /tmp/helm \
+          && mv /tmp/helm/linux-amd64/helm /usr/local/bin
       - name: Find ${{ matrix.module.id }}/Tests.ps1
         shell: pwsh
         working-directory: ${{ github.workspace }}/src/${{ matrix.module.id }}
@@ -121,7 +147,7 @@ jobs:
           Invoke-Pester -Configuration $configuration;
       - name: Test Report
         uses: dorny/test-reporter@v1
-        if: ${{ env.ExecuteTests }} == 'true' && (success() || failure())
+        if: ${{ (env.ExecuteTests == 'true') && (success() || failure()) }}
         with:
           name: "${{ matrix.module.id }} Test Results"
           path: ${{ github.workspace }}/tests/*.results.xml
