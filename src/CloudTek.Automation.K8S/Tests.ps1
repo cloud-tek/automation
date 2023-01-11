@@ -1,5 +1,5 @@
-Install-Module Pester -Force;
-Import-Module Pester;
+# Install-Module Pester -Force;
+# Import-Module Pester;
 
 Import-Module $PSScriptRoot/../CloudTek.Automation.Shell/Shell.psm1 -Force;
 Import-Module $PSScriptRoot/../CloudTek.Automation.Utilities/Utilities.psm1 -Force;
