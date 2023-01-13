@@ -118,6 +118,7 @@ jobs:
         env:
           CloudTek_PAT: ${{ secrets.PAT }}
         run: |
+          Install-Module Pester -Force;
           Import-Module "Pester";
 
           $configuration = [PesterConfiguration]@{
