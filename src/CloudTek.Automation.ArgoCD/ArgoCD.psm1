@@ -1,10 +1,7 @@
-using module "CloudTek.Automation.Shell";
-
 Set-StrictMode -Version Latest;
 $ErrorActionPreference = "Stop";
 
-function Get-ArgoCDApplications()
-{
+function Get-ArgoCDApplications {
   [CmdLetBinding()]
   [OutputType([string[]])]
   param(
@@ -13,28 +10,43 @@ function Get-ArgoCDApplications()
     [Parameter(Mandatory = $true)][string]$namespace
   )
 
-  [System.Collections.Generic.List[string]]$arguments = New-Object System.Collections.Generic.List[string];
+  . {
+    [System.Collections.Generic.List[string]]$arguments = New-Object System.Collections.Generic.List[string];
 
-  $arguments.Add("--namespace $namespace");
-  $arguments.Add("get applications");
+    $arguments.Add("--namespace $namespace");
+    $arguments.Add("get applications");
 
-  if (-not([string]::IsNullOrEmpty($kubeconfig))) {
-    $arguments.Add("--kubeconfig $kubeconfig");
-  }
-  if (-not([string]::IsNullOrEmpty($context))) {
-    $arguments.Add("--context $context");
-  }
+    if (-not([string]::IsNullOrEmpty($kubeconfig))) {
+      $arguments.Add("--kubeconfig $kubeconfig");
+    }
+    if (-not([string]::IsNullOrEmpty($context))) {
+      $arguments.Add("--context $context");
+    }
 
-  [ShellExecutor]$shellExecutor = New-Object ShellExecutor -ArgumentList 'kubectl', $arguments;
+    $arguments.Add("-o go-template='{{ range .items}}{{.metadata.name}}{{""\n""}}{{end}}'");
 
-  $proc = $shellExecutor.Execute();
+    [System.Collections.Generic.List[string]]$result = New-Object System.Collections.Generic.List[string];
+    [int] $exitCode = Invoke-ShellCommand `
+      -Command "kubectl" `
+      -Arguments $arguments.ToArray() `
+      -StandardOut {
+        param($stdout)
+        Write-Host($stdout);
+      } `
+      -StandardErr {
+        param($stderr)
+        Write-Host $stderr;
+      };
 
-  if ($proc.exitCode -ne 0)
-  {
-    Write-Error ("Error: kubectl apply exited with code: {0}" -f $exitCode);
-    Exit $proc.exitCode;
-  }
 
+    if ($exitCode -ne 0) {
+      [string]$msg = "Error: kubectl exited with code: {0}" -f $exitCode;
+      Write-Error $msg;
+      throw $msg;
+    }
+  } | Out-Null
+
+  return $result.ToArray();
 }
 
 Export-ModuleMember -Function Get-ArgoCDApplications;
