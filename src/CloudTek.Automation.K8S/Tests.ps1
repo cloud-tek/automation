@@ -1,12 +1,15 @@
-# Install-Module Pester -Force;
-# Import-Module Pester;
+Install-Module Pester -Force;
+Install-Module powershell-yaml -Force;
+
+Import-Module Pester;
+
 
 Import-Module $PSScriptRoot/../CloudTek.Automation.Shell/Shell.psm1 -Force;
 Import-Module $PSScriptRoot/../CloudTek.Automation.Utilities/Utilities.psm1 -Force;
 Import-Module $PSScriptRoot/Kubectl.psm1 -Force;
 Import-Module $PSScriptRoot/Kubeconform.psm1 -Force;
 Import-Module $PSScriptRoot/HELM.psm1 -Force;
-
+Import-Module $PSScriptRoot/K8SApi.psm1 -Force;
 Describe -Name "CloudTek.Automation.K8S Kubectl Tests" {
   It "Command should be available" {
     Get-Command -Cmd "kubectl" | Should -BeTrue;
@@ -90,5 +93,58 @@ Describe -Name "CloudTek.Automation.K8S HELM Tests" {
       -Version "$Version" `
       -Repositories $repositories `
       -DryRun;
+  }
+}
+
+Describe -Name "CloudTek.Automation.K8S K8SApi Tests" {
+  It "Should obtain cluster from kubeconfig" {
+    [hashtable]$cluster = Get-Cluster;
+    $cluster | Should -Not -Be $null;
+  }
+
+  It "Should obtain user from kubeconfig" {
+    [hashtable]$user = Get-ClusterUser;
+    $user | Should -Not -Be $null;
+  }
+
+  It "Should obtain user's token from kubeconfig" {
+    [string]$token = Get-ClusterUserToken;
+    $token | Should -Not -BeNullOrEmpty;
+  }
+
+  It "Should obtain a base64 certificate from a cluster from kubeconfig" {
+    [string]$certificate = Get-ClusterCertificateAuthority;
+    $certificate | Should -Not -BeNullOrEmpty;
+  }
+
+  It "Should obtain a base64 certificate from a cluster" {
+    [hashtable]$cluster = Get-Cluster;
+    [string]$certificate = Get-ClusterCertificateAuthority -cluster $cluster;
+    $certificate | Should -Not -BeNullOrEmpty;
+  }
+
+  It "Should obtain a api server from a cluster from kubeconfig" {
+    [string]$server = Get-ClusterApiServer;
+    $server | Should -Not -BeNullOrEmpty;
+  }
+
+  It "Should obtain a api server from a cluster" {
+    [hashtable]$cluster = Get-Cluster;
+    [string]$server = Get-ClusterApiServer -cluster $cluster;
+    $server | Should -Not -BeNullOrEmpty;
+  }
+
+  It "Should invoke a k8s api request and obtain a list of namespaces and verify that it contains the default namespace" {
+    [hashtable]$cluster = Get-Cluster;
+    [string]$token = Get-ClusterUserToken;
+    [string]$server = Get-ClusterApiServer -cluster $cluster;
+
+    [pscustomobject]$result = Invoke-K8SApiRequest `
+      -ApiServer $server `
+      -Token $token `
+      -Path "api/v1/namespaces";
+
+    $result | Should -Not -Be $null;
+    $result.items | Where-Object { $_.metadata.name -eq "default" } | Should -Not -Be $null;
   }
 }

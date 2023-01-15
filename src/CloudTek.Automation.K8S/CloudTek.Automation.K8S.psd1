@@ -78,14 +78,21 @@
   NestedModules = @(
   "./Kubectl.psm1",
   "./Kubeconform.psm1",
-  "./HELM.psm1"
+  "./HELM.psm1",
+  "./K8SApi.psm1"
   )
 
   # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
   FunctionsToExport = @(
     "Invoke-KubectlApply",
     "Invoke-Kubeconform",
-    "Deploy-HelmTemplate"
+    "Deploy-HelmTemplate",
+    "Get-Cluster",
+    "Get-ClusterUser",
+    "Get-ClusterUserToken",
+    "Get-ClusterApiServer",
+    "Get-ClusterCertificateAuthority",
+    "Invoke-K8SApiRequest"
   )
 
   # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
