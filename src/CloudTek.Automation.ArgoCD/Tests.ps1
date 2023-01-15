@@ -7,6 +7,21 @@ Import-Module $PSScriptRoot/../CloudTek.Automation.K8S/K8SApi.psm1 -Force;
 Import-Module $PSScriptRoot/ArgoCD.psm1 -Force;
 
 Describe -Name "CloudTek.Automation.ArgoCD Tests" {
+  BeforeAll {
+    Invoke-KubectlApply `
+        -Path "$PSScriptRoot/tests/argocd/namespace.yaml" `
+
+    [hashtable]$repositories = @{
+      "argo" = "https://argoproj.github.io/argo-helm"
+    };
+
+    Invoke-HelmUpgrade `
+      -Chart "argo/argo-cd" `
+      -Release "argo" `
+      -Version "5.13.0" `
+      -Repositories $repositories;
+  }
+
   It "Command should be available" {
     Get-Command -Cmd "kubectl" | Should -BeTrue;
   }
