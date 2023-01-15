@@ -67,7 +67,7 @@ Describe -Name "CloudTek.Automation.ArgoCD Tests" {
   }
 
   It "It should find existing application" {
-    [string]$name = if($null -ne $env:GITHUB_ACTION) { "guestbook" } else { "consul" }
+    [string]$name = ($null -ne $env:GITHUB_ACTION) ? "guestbook" : "consul";
     [bool]$result = Find-ArgoCDApplication -Name $name;
 
     $result | Should -Be $true;
