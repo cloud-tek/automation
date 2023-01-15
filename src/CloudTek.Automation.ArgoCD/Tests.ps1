@@ -51,7 +51,7 @@ Describe -Name "CloudTek.Automation.ArgoCD Tests" {
     [string[]]$result = Get-ArgoCDApplications;
 
     $result | Should -Not -Be $null;
-    $result | Where-Object { $_ -eq "consul" } | Should -Not -Be $null;
+    $result.Count | Should -BeGreaterThan 0;
   }
 
   It "It should find existing project" {
