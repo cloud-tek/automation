@@ -1,4 +1,6 @@
 Install-Module Pester;
+Install-Module powershell-yaml -Force;
+
 Import-Module Pester;
 
 Import-Module $PSScriptRoot/../CloudTek.Automation.Shell/Shell.psm1 -Force;
