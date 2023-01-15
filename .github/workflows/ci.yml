@@ -109,6 +109,9 @@ jobs:
           },
           {
             "id": "CloudTek.Automation.K8S"
+          },
+          {
+            "id": "CloudTek.Automation.ArgoCD"
           }
         ]
   publish:
@@ -132,6 +135,9 @@ jobs:
           },
           {
             "id": "CloudTek.Automation.K8S"
+          },
+          {
+            "id": "CloudTek.Automation.ArgoCD"
           }
         ]
     secrets:
