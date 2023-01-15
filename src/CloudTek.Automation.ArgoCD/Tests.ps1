@@ -3,6 +3,8 @@ Import-Module Pester;
 
 Import-Module $PSScriptRoot/../CloudTek.Automation.Shell/Shell.psm1 -Force;
 Import-Module $PSScriptRoot/../CloudTek.Automation.Utilities/Utilities.psm1 -Force;
+Import-Module $PSScriptRoot/../CloudTek.Automation.K8S/Kubectl.psm1 -Force;
+Import-Module $PSScriptRoot/../CloudTek.Automation.K8S/HELM.psm1 -Force;
 Import-Module $PSScriptRoot/../CloudTek.Automation.K8S/K8SApi.psm1 -Force;
 Import-Module $PSScriptRoot/ArgoCD.psm1 -Force;
 
