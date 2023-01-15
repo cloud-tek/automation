@@ -54,8 +54,7 @@ function Invoke-KubectlRolloutStatus {
     [Parameter(Mandatory = $true)][string]$name,
     [Parameter(Mandatory = $false)][string]$namespace,
     [Parameter(Mandatory = $false)][string]$kubeconfig,
-    [Parameter(Mandatory = $false)][string]$context,
-    [Parameter(Mandatory = $false)][timespan]$timeout
+    [Parameter(Mandatory = $false)][string]$context
   )
 
   Get-Command -Cmd "kubectl" -Throw;
