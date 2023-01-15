@@ -1,5 +1,7 @@
 # CloudTek.Automation.ArgoCD
 
+## Prerequisites
+
 > **Warning**
 >
 > Ensure argocd CLI is installed
@@ -11,3 +13,47 @@
 >   && install -m 555 argocd-linux-amd64 /usr/local/bin/argocd \
 >   && rm argocd-linux-amd64
 > ```
+
+## Description
+
+Module used for low-level interaction with [ArgoCD](https://argoproj.github.io/cd/).
+
+## Cmdlets
+
+### Get-ArgoCDProjects
+
+```pwsh
+[string[]]$result = Get-ArgoCDProjects `
+  -kubeconfig $kubeconfig `
+  -context $context `
+  -namespace "<default:argocd>";
+```
+
+### Get-ArgoCDApplications
+
+```pwsh
+[string[]]$result = Get-ArgoCDApplications `
+  -kubeconfig $kubeconfig `
+  -context $context `
+  -namespace "<default:argocd>";
+```
+
+### Find-ArgoCDProject
+
+```pwsh
+[bool]$result = Find-ArgoCDProject `
+  -name "<required>"
+  -kubeconfig $kubeconfig `
+  -context $context `
+  -namespace "<default:argocd>";
+```
+
+### Find-ArgoCDApplication
+
+```pwsh
+[bool]$result = Find-ArgoCDApplication `
+  -name "<required>"
+  -kubeconfig $kubeconfig `
+  -context $context `
+  -namespace "<default:argocd>";
+```
