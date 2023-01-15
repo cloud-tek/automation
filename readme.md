@@ -11,4 +11,5 @@ This repository contains core powershell automation.
 - CloudTek.Automation.Shell
 - CloudTek.Automation.Utilities
 - CloudTek.Automation.K8S
+- [CloudTek.Automation.Git](./src/CloudTek.Automation.Git/readme.md)
 - [CloudTek.Automation.ArgoCD](./src/CloudTek.Automation.ArgoCD/readme.md) 
