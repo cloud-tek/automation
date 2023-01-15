@@ -18,6 +18,10 @@
 
 Module used for low-level interaction with [ArgoCD](https://argoproj.github.io/cd/).
 
+> **Note**
+>
+> All Cmdlets exported by this module are using k8s REST API
+
 ## Cmdlets
 
 ### Get-ArgoCDProjects
