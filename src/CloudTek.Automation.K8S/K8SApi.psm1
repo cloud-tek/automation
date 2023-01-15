@@ -95,6 +95,7 @@ function Get-ClusterApiServer {
     }
 
     [string]$result = $cluster.cluster.server;
+    $result.GetType();
   } | Out-Null;
 
   return $result;
@@ -115,6 +116,7 @@ function Get-ClusterCertificateAuthority {
     }
 
     [string]$result = $cluster.cluster["certificate-authority-data"];
+    $result.GetType();
   } | Out-Null;
 
   return $result;
@@ -129,10 +131,10 @@ function Get-ClusterUserToken {
   )
 
   . {
-      [hashtable]$user = Get-ClusterUser -kubeConfig $kubeConfig -context $context;
-
+    [hashtable]$user = Get-ClusterUser -kubeConfig $kubeConfig -context $context;
 
     [string]$result = $user.user.token;
+    $result.GetType();
   } | Out-Null;
 
   return $result;
@@ -150,7 +152,7 @@ function Invoke-K8SApiRequest {
   . {
 
     [hashtable]$headers = @{
-      "ContentType" = "application/json"
+      "ContentType"   = "application/json"
       "Authorization" = "Bearer $Token"
     }
 
@@ -159,6 +161,7 @@ function Invoke-K8SApiRequest {
       -Uri "$ApiServer/$Path"`
       -Headers $headers `
       -SkipCertificateCheck;
+    $result.GetType();
   } | Out-Null;
 
   return $result;

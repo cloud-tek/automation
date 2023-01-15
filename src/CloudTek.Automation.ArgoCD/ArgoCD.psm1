@@ -1,52 +1,104 @@
 Set-StrictMode -Version Latest;
 $ErrorActionPreference = "Stop";
 
+function Get-ArgoCDProjects {
+  [CmdLetBinding()]
+  [OutputType([string[]])]
+  param(
+    [Parameter(Mandatory = $false)][string]$kubeConfig,
+    [Parameter(Mandatory = $false)][string]$context,
+    [Parameter(Mandatory = $false)][string]$namespace = "argocd"
+  )
+
+  . {
+    [hashtable]$cluster = Get-Cluster -kubeconfig $kubeconfig -context $context;
+    [string]$token = Get-ClusterUserToken -kubeconfig $kubeconfig -context $context;
+    [string]$server = Get-ClusterApiServer -cluster $cluster;
+
+    [pscustomobject]$apiResult = Invoke-K8SApiRequest `
+      -ApiServer $server `
+      -Token $token `
+      -Path "apis/argoproj.io/v1alpha1/namespaces/$namespace/appprojects";
+
+    [string[]]$result = $apiResult.items.metadata.name
+    $result.GetType();
+  } | Out-Null;
+
+  return $result;
+}
+
 function Get-ArgoCDApplications {
   [CmdLetBinding()]
   [OutputType([string[]])]
   param(
     [Parameter(Mandatory = $false)][string]$kubeConfig,
     [Parameter(Mandatory = $false)][string]$context,
-    [Parameter(Mandatory = $true)][string]$namespace
+    [Parameter(Mandatory = $false)][string]$namespace = "argocd"
   )
 
   . {
-    [System.Collections.Generic.List[string]]$arguments = New-Object System.Collections.Generic.List[string];
+    [hashtable]$cluster = Get-Cluster -kubeconfig $kubeconfig -context $context;
+    [string]$token = Get-ClusterUserToken -kubeconfig $kubeconfig -context $context;
+    [string]$server = Get-ClusterApiServer -cluster $cluster;
 
-    $arguments.Add("--namespace $namespace");
-    $arguments.Add("get applications");
+    [pscustomobject]$apiResult = Invoke-K8SApiRequest `
+      -ApiServer $server `
+      -Token $token `
+      -Path "apis/argoproj.io/v1alpha1/namespaces/$namespace/applications";
 
-    if (-not([string]::IsNullOrEmpty($kubeconfig))) {
-      $arguments.Add("--kubeconfig $kubeconfig");
-    }
-    if (-not([string]::IsNullOrEmpty($context))) {
-      $arguments.Add("--context $context");
-    }
+    [string[]]$result = $apiResult.items.metadata.name
+    $result.GetType();
+  } | Out-Null;
 
-    $arguments.Add("-o go-template='{{ range .items}}{{.metadata.name}}{{""\n""}}{{end}}'");
-
-    [System.Collections.Generic.List[string]]$result = New-Object System.Collections.Generic.List[string];
-    [int] $exitCode = Invoke-ShellCommand `
-      -Command "kubectl" `
-      -Arguments $arguments.ToArray() `
-      -StandardOut {
-        param($stdout)
-        Write-Host($stdout);
-      } `
-      -StandardErr {
-        param($stderr)
-        Write-Host $stderr;
-      };
-
-
-    if ($exitCode -ne 0) {
-      [string]$msg = "Error: kubectl exited with code: {0}" -f $exitCode;
-      Write-Error $msg;
-      throw $msg;
-    }
-  } | Out-Null
-
-  return $result.ToArray();
+  return $result;
 }
 
+function Find-ArgoCDProject {
+  [CmdLetBinding()]
+  [OutputType([bool])]
+  param(
+    [Parameter(Mandatory = $true)][string]$name,
+    [Parameter(Mandatory = $false)][string]$kubeConfig,
+    [Parameter(Mandatory = $false)][string]$context,
+    [Parameter(Mandatory = $false)][string]$namespace = "argocd"
+  )
+
+  . {
+    [string[]]$projects = Get-ArgoCDProjects `
+      -kubeconfig $kubeconfig `
+      -context $context `
+      -namespace $namespace;
+
+    [bool]$result = $projects.Contains($name);
+    $result.GetType();
+  } | Out-Null;
+
+  return $result;
+}
+function Find-ArgoCDApplication {
+  [CmdLetBinding()]
+  [OutputType([bool])]
+  param(
+    [Parameter(Mandatory = $true)][string]$name,
+    [Parameter(Mandatory = $false)][string]$kubeConfig,
+    [Parameter(Mandatory = $false)][string]$context,
+    [Parameter(Mandatory = $false)][string]$namespace = "argocd"
+  )
+
+  . {
+    [string[]]$applications = Get-ArgoCDApplications `
+      -kubeconfig $kubeconfig `
+      -context $context `
+      -namespace $namespace;
+
+    [bool]$result = $applications.Contains($name);
+    $result.GetType();
+  } | Out-Null;
+
+  return $result
+}
+
+Export-ModuleMember -Function Get-ArgoCDProjects;
 Export-ModuleMember -Function Get-ArgoCDApplications;
+Export-ModuleMember -Function Find-ArgoCDProject;
+Export-ModuleMember -Function Find-ArgoCDApplication;
