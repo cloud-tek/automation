@@ -30,6 +30,9 @@ Describe -Name "CloudTek.Automation.ArgoCD Tests" {
       Invoke-KubectlRolloutStatus `
         -Namespace "argocd" `
         -Name "deployment/argo-argocd-server";
+
+      Invoke-KubectlApply `
+        -Path "$PSScriptRoot/tests/argocd/application.yaml" `
     }
   }
 
@@ -64,7 +67,8 @@ Describe -Name "CloudTek.Automation.ArgoCD Tests" {
   }
 
   It "It should find existing application" {
-    [bool]$result = Find-ArgoCDApplication -Name "consul";
+    [string]$name = if($null -ne $env:GITHUB_ACTION) { "guestbook" } else { "consul" }
+    [bool]$result = Find-ArgoCDApplication -Name $name;
 
     $result | Should -Be $true;
   }
