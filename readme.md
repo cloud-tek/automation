@@ -8,7 +8,7 @@ This repository contains core powershell automation.
 
 ## Modules
 
-- CloudTek.Automation.Shell
+- [CloudTek.Automation.Shell](./src/CloudTek.Automation.Shell/readme.md)
 - [CloudTek.Automation.Utilities](./src/CloudTek.Automation.Utilities/readme.md)
 - [CloudTek.Automation.K8S](./src/CloudTek.Automation.K8S/readme.md)
 - [CloudTek.Automation.Git](./src/CloudTek.Automation.Git/readme.md)
