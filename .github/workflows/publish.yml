@@ -28,7 +28,7 @@ jobs:
         with:
           fetch-depth: "0"
       - id: auto-tag
-        uses: cloud-tek/actions/auto-tag@v0.10
+        uses: cloud-tek/actions/auto-tag@v0.11
         name: auto-tag
         with:
           branch: main
