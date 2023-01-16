@@ -35,20 +35,22 @@ try {
     $data.RequiredModules | % {
       & $PSScriptRoot/Publish-Local.ps1 -module $_.ModuleName -version $_.ModuleVersion -prerelease $prerelease;
 
-      [string]$computedVersion = if([string]::IsNullOrEmpty($prerelease)) { $_.Version; } else { "$($_.Version)-$($prerelease.Replace(".", [string]::Empty))" }
+      [string]$computedVersion = if ([string]::IsNullOrEmpty($prerelease)) { $_.Version; } else { "$($_.Version)-$($prerelease.Replace(".", [string]::Empty))" }
 
       Install-Module -Repository "local" -Name $_.ModuleName -RequiredVersion $version -Verbose -Force;
     }
   }
 
-  [hashtable] $publishArgs = @{
-    Repository  = "local"
-    Path        = "$PSScriptRoot/../tmp/$module"
-    Force       = $true
-  };
+  if (-not(Test-Path -Path "$PSScriptRoot/../packages/$module.$version.nupkg")) {
+    [hashtable] $publishArgs = @{
+      Repository = "local"
+      Path       = "$PSScriptRoot/../tmp/$module"
+      Force      = $true
+    };
 
-  Get-Location | Out-String | Write-Host;
-  Publish-Module @publishArgs;
+    Get-Location | Out-String | Write-Host;
+    Publish-Module @publishArgs;
+  }
 }
 catch {
   Write-Error "Failed to publish module locally, $module : `n`t$_";
