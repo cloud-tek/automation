@@ -94,6 +94,23 @@ Describe -Name "CloudTek.Automation.K8S HELM Tests" {
       -Repositories $repositories `
       -DryRun;
   }
+
+  It "Should template from a public chart in dry-run mode"  -ForEach @(
+    @{ "Repository" = "jaegertracing";  "Address" = "https://jaegertracing.github.io/helm-charts";  "Chart" = "jaeger"; "Version" = "0.39.0"; "Release" = "jg";  }
+    @{ "Repository" = "dex";            "Address" = "https://charts.dexidp.io";                     "Chart" = "dex";    "Version" = "0.12.1"; "Release" = "dex"; }
+    @{ "Repository" = "kubereboot";     "Address" = "https://kubereboot.github.io/charts";          "Chart" = "kured";  "Version" = "4.2.0";  "Release" = "kured";  }
+  ) {
+    [hashtable]$repositories = @{
+      "$Repository" = "$Address"
+    };
+
+    Invoke-HelmTemplate `
+      -Chart "$Repository/$Chart" `
+      -Release "$Release" `
+      -Version "$Version" `
+      -Repositories $repositories `
+      -OutputDir "$PSScriptRoot/tmp";
+  }
 }
 
 Describe -Name "CloudTek.Automation.K8S K8SApi Tests" {

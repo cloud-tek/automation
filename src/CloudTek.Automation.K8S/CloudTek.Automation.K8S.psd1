@@ -88,6 +88,7 @@
     "Invoke-KubectlRolloutStatus",
     "Invoke-Kubeconform",
     "Invoke-HelmUpgrade",
+    "Invoke-HelmTemplate",
     "Get-Cluster",
     "Get-ClusterUser",
     "Get-ClusterUserToken",
