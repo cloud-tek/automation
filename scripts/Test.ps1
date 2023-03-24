@@ -1,5 +1,5 @@
 Import-Module -Name "$PSScriptRoot/Utils.psm1" -Force;
-Import-PowerShellGet -Version "3.0.18";
+Import-PowerShellGet -Version "3.0.19";
 
 Register-LocalPSResourceRepository -name "local" -path "$PSScriptRoot/../packages";
 
