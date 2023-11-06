@@ -16,9 +16,9 @@ function Invoke-ShellCommand {
           $sb.Append("$_ ");
         }
 
-        Write-Host ("Executing: $Command {0}" -f $sb.ToString()) -ForegroundColor Gray;
+        Write-Host ("Executing: '$Command {0}' in $pwd" -f $sb.ToString().TrimEnd()) -ForegroundColor Blue;
       } else {
-        Write-Host ("Executing: $Command") -ForegroundColor Gray;
+        Write-Host ("Executing: '$Command' in $pwd") -ForegroundColor Blue;
       }
 
       Write-Host;
@@ -29,6 +29,7 @@ function Invoke-ShellCommand {
       $pInfo.RedirectStandardOutput = $true;
       $pInfo.UseShellExecute = $false;
       $pInfo.Arguments = $Arguments;
+      $pInfo.WorkingDirectory = $pwd;
 
       [System.Diagnostics.Process]$process = New-Object System.Diagnostics.Process
       $process.StartInfo = $pInfo;
@@ -46,11 +47,11 @@ function Invoke-ShellCommand {
       throw "Unhandled exception";
     }
     finally {
-      if ((0 -eq $process.ExitCode) -and ($null -ne $StandardOut)) {
+      if (($null -ne $StandardOut) -and (-not([string]::IsNullOrEmpty($stdout)))) {
         $StandardOut.Invoke($stdout) | Out-Null;
       }
 
-      if ((0 -ne $process.ExitCode) -and ($null -ne $StandardErr)) {
+      if (($null -ne $StandardErr) -and (-not([string]::IsNullOrEmpty($stderr)))) {
         $StandardErr.Invoke($stderr) | Out-Null;
       }
     }

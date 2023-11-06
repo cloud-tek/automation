@@ -14,7 +14,7 @@ Param(
 [string]$local = "local";
 
 Import-Module -Name "$PSScriptRoot/Utils.psm1" -Force;
-Import-PowerShellGet -Version "3.0.19";
+Import-PowerShellGet -Version "3.0.23";
 
 Register-PSGallery;
 Register-PSResourceRepositories -url $url;
